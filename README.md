@@ -1,2 +1,2 @@
-# main
-This is main repository. Please create other repository when you do some work.
+# Welcome to our GitHub page.
+This is main repository. Please create another repository when you do some work.
