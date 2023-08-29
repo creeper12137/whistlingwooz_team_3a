@@ -1,7 +1,12 @@
 # Welcome to our GitHub page 😉😆💓
 > This is main repository. Please create another repository when you do some work.
 
-## Team name: 
+## Team name: Ctrl+V (Creative Team Resources Lab + Variety)
+```
+Meaning:
+1. Ctrl+V means we are all in control and heading in the direction we want to go.
+2. We don't have any limit for creating value for our customers.
+```
 
 ## Team values and behaviors:
 ```
