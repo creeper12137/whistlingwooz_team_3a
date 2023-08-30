@@ -1,5 +1,5 @@
 # Welcome to our GitHub page 😉😆💓
-> This is main repository. Please create another repository when you do some work.
+> This is the main branch. Please create another feature branch when you do some work. 
 
 ## Team name: Ctrl+V (Creative Team Resources Lab + Variety)
 ```
