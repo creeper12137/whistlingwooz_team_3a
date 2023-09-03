@@ -31,15 +31,15 @@ Meaning:
 2. Project Manager - Adam(Jira & Confluence, Project plan control, Documentation)
 3. Supporter - Brandon(Open the meeting, Notetaker for meeting, UI helper, Jira & Confluence helper)
 4. Designer - Simone(PPT and UX/UI design)
-5. Data Analyst - Gavin
+5. Data Analyst - Gavin, Damian
 ```
 ***
 - Part B (Not decided yet: Anticipation)
 ```
 1. Programming - Simone, Jin, Brandon
-2. Data Analytics & Visualisation - Gavin
+2. Data Analytics & Visualisation - Gavin, Damian
 3. Network - Adam
-4. Database - Gavin
+4. Database - Gavin, Damian
 5. Design - Simone, Brandon
 6. Cloud - Simone, Jin, Brandon
 ```
