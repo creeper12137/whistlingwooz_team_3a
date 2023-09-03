@@ -19,7 +19,7 @@ Meaning:
 
 ## Team meeting schedule:
 ```
-- Mon and Wed at 7pm: Jin, Adam, Brandon, and Gavin(only Mon)
+- Mon and Wed at 7pm: Jin, Adam, Brandon, Damian and Gavin(only Mon)
 - Tue and Fri at 11:00am: Jin, Simone, and Gavin     
 - Sunday at 7pm: Everyone
 ```
@@ -27,19 +27,20 @@ Meaning:
 ## Role & Responsibility:
 - Part A
 ```
-1. Team Leader - Jin(Communication manager, Project control)
+1. Team Leader - Jin(Communication management, Project control)
 2. Project Manager - Adam(Jira & Confluence, Project plan control, Documentation)
 3. Supporter - Brandon(Open the meeting, Notetaker for meeting, UI helper, Jira & Confluence helper)
 4. Designer - Simone(PPT and UX/UI design)
 5. Data Analyst - Gavin, Damian
 ```
 ***
-- Part B (Not decided yet: Anticipation)
+- Part B
 ```
-1. Programming - Simone, Jin, Brandon
-2. Data Analytics & Visualisation - Gavin, Damian
-3. Network - Adam
-4. Database - Gavin, Damian
-5. Design - Simone, Brandon
-6. Cloud - Simone, Jin, Brandon
+1. Documentation - Adam
+2. Programming - Simone, Jin, Brandon
+3. Data Analytics & Visualisation - Gavin, Damian
+4. Network - Adam
+5. Database - Gavin, Damian
+6. Design - Simone, Brandon
+7. Cloud - Simone, Jin, Brandon
 ```
