@@ -19,8 +19,9 @@ Meaning:
 
 ## Team meeting schedule:
 ```
-- Mon and Wed at 7pm: Jin, Adam, Brandon, Damian and Gavin(only Mon)
-- Tue and Fri at 11:00am: Jin, Simone, and Gavin     
+- Mon and Wed at 7pm: Jin, Adam, Brandon, and Gavin(only Mon)
+- Tue and Fri at 11:00am: Jin, Simone, and Gavin
+- Tue and Thu: Damian (Detailed progress notes)
 - Sunday at 7pm: Everyone
 ```
 
