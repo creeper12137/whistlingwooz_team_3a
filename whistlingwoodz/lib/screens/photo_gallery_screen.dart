@@ -5,36 +5,15 @@ import 'package:whistlingwoodz/screens/corporate_events_screen.dart';
 import 'package:whistlingwoodz/screens/parties_screen.dart';
 import 'package:whistlingwoodz/screens/services_screen.dart';
 import 'package:whistlingwoodz/screens/match_making_screen.dart';
-import 'package:whistlingwoodz/screens/photo_gallery_screen.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Galleries extends StatefulWidget {
+  const Galleries({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Whistlingwoodz',
-      theme: ThemeData(
-        primarySwatch: themeColor,
-      ),
-      home: const MyHomePage(),
-    );
-  }
+  State<Galleries> createState() => _GalleriesState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage>
+class _GalleriesState extends State<Galleries>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _selectedIndex = 0;
@@ -82,18 +61,28 @@ class _MyHomePageState extends State<MyHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: const Icon(Icons.menu),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         actions: [
           IconButton(
             icon: const Icon(
-              Icons.home,
+              Icons.notifications,
               color: appBackGroundColor,
             ),
             onPressed: () {},
           ),
           IconButton(
             icon: const Icon(
-              Icons.login,
+              Icons.star,
+              color: appBackGroundColor,
+            ),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.logout_outlined,
               color: appBackGroundColor,
             ),
             onPressed: () {},
@@ -104,8 +93,8 @@ class _MyHomePageState extends State<MyHomePage>
         decoration: const BoxDecoration(
           gradient: RadialGradient(
             colors: [
-              centerColor,
-              appBackGroundColor,
+              Color.fromARGB(255, 139, 46, 43),
+              Color(0xff510400),
             ],
           ),
         ),
@@ -120,23 +109,12 @@ class _MyHomePageState extends State<MyHomePage>
                   width: 300,
                 ),
                 const Text(
-                  'WEDDINGS, CORPORATE EVENTS, AND LIVE CONCERTS.',
+                  'This is the Gallery view',
                   style: TextStyle(
-                    color: textColor,
+                    color: Color(0xffFFD700),
                     fontSize: 15,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'WHISTLINGWOODZ',
-                  style: TextStyle(
-                    color: textColor,
-                    fontSize: 40,
-                    fontFamily: 'Bailleul',
                   ),
                 ),
                 const SizedBox(
@@ -203,23 +181,6 @@ class _MyHomePageState extends State<MyHomePage>
             ),
           ],
           onTap: navigationTapped,
-        ),
-      ),
-    );
-  }
-
-  Widget tabContainer(BuildContext con, Color tabColor, String tabText) {
-    return Container(
-      width: MediaQuery.of(con).size.width,
-      height: MediaQuery.of(con).size.height,
-      color: tabColor,
-      child: Center(
-        child: Text(
-          tabText,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-          ),
         ),
       ),
     );
