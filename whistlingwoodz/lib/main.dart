@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/colors.dart';
-import 'package:whistlingwoodz/screens/wedding_celebrations_screen.dart';
-import 'package:whistlingwoodz/screens/corporate_events_screen.dart';
-import 'package:whistlingwoodz/screens/parties_screen.dart';
-import 'package:whistlingwoodz/screens/services_screen.dart';
-import 'package:whistlingwoodz/screens/match_making_screen.dart';
-import 'package:whistlingwoodz/screens/photo_gallery_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Whistlingwoodz',
       theme: ThemeData(
-        primarySwatch: themeColor,
+        primarySwatch: Colors.amber,
       ),
       home: const MyHomePage(),
     );
@@ -38,28 +32,6 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _selectedIndex = 0;
-
-  void navigationTapped(int _selectedIndex) {
-    if (_selectedIndex == 0) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Wedding()));
-    } else if (_selectedIndex == 1) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Corporate()));
-    } else if (_selectedIndex == 2) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Party()));
-    } else if (_selectedIndex == 3) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Services()));
-    } else if (_selectedIndex == 4) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const MatchMaking()));
-    } else {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Galleries()));
-    }
-  }
 
   @override
   void initState() {
@@ -82,18 +54,25 @@ class _MyHomePageState extends State<MyHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: const Icon(Icons.menu),
+        leading: const Icon(Icons.menu),
         actions: [
           IconButton(
             icon: const Icon(
-              Icons.home,
+              Icons.notifications,
               color: appBackGroundColor,
             ),
             onPressed: () {},
           ),
           IconButton(
             icon: const Icon(
-              Icons.login,
+              Icons.search,
+              color: appBackGroundColor,
+            ),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.app_registration,
               color: appBackGroundColor,
             ),
             onPressed: () {},
@@ -104,8 +83,8 @@ class _MyHomePageState extends State<MyHomePage>
         decoration: const BoxDecoration(
           gradient: RadialGradient(
             colors: [
-              centerColor,
-              appBackGroundColor,
+              Color.fromARGB(255, 139, 46, 43),
+              Color(0xff510400),
             ],
           ),
         ),
@@ -122,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage>
                 const Text(
                   'WEDDINGS, CORPORATE EVENTS, AND LIVE CONCERTS.',
                   style: TextStyle(
-                    color: textColor,
+                    color: Color(0xffFFD700),
                     fontSize: 15,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w500,
@@ -134,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage>
                 const Text(
                   'WHISTLINGWOODZ',
                   style: TextStyle(
-                    color: textColor,
+                    color: Color(0xffFFD700),
                     fontSize: 40,
                     fontFamily: 'Bailleul',
                   ),
@@ -152,10 +131,10 @@ class _MyHomePageState extends State<MyHomePage>
         ),
       ),
       bottomNavigationBar: SizedBox(
-        height: 80,
+        height: 90,
         child: TabBar(
           controller: _tabController,
-          labelColor: bottomNavigationColor,
+          labelColor: Colors.black,
           tabs: [
             Tab(
               icon: Icon(
@@ -173,7 +152,9 @@ class _MyHomePageState extends State<MyHomePage>
             ),
             Tab(
               icon: Icon(
-                _selectedIndex == 2 ? Icons.wine_bar : Icons.wine_bar_outlined,
+                _selectedIndex == 2
+                    ? Icons.party_mode
+                    : Icons.party_mode_outlined,
               ),
               text: "P",
             ),
@@ -202,7 +183,6 @@ class _MyHomePageState extends State<MyHomePage>
               text: "G",
             ),
           ],
-          onTap: navigationTapped,
         ),
       ),
     );
