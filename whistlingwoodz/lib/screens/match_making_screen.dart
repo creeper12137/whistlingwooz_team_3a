@@ -1,190 +1,153 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
-
 import 'package:flutter/material.dart';
-import 'package:whistlingwoodz/utils/colors.dart';
-import 'package:whistlingwoodz/screens/wedding_celebrations_screen.dart';
-import 'package:whistlingwoodz/screens/corporate_events_screen.dart';
-import 'package:whistlingwoodz/screens/parties_screen.dart';
-import 'package:whistlingwoodz/screens/services_screen.dart';
-import 'package:whistlingwoodz/screens/photo_gallery_screen.dart';
 
-class MatchMaking extends StatefulWidget {
-  const MatchMaking({super.key});
-
-  @override
-  State<MatchMaking> createState() => _MatchMakingState();
-}
-
-class _MatchMakingState extends State<MatchMaking>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  int _selectedIndex = 0;
-
-  void navigationTapped(int _selectedIndex) {
-    if (_selectedIndex == 0) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Wedding()));
-    } else if (_selectedIndex == 1) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Corporate()));
-    } else if (_selectedIndex == 2) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Party()));
-    } else if (_selectedIndex == 3) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Services()));
-    } else if (_selectedIndex == 4) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const MatchMaking()));
-    } else {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Galleries()));
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(
-      length: 6,
-      vsync: this,
-    );
-    _tabController.addListener(
-        () => setState(() => _selectedIndex = _tabController.index));
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+class MatchMakingScreen extends StatelessWidget {
+  const MatchMakingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.notifications,
-              color: appBackGroundColor,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.star,
-              color: appBackGroundColor,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.logout_outlined,
-              color: appBackGroundColor,
-            ),
-            onPressed: () {},
-          ),
-        ],
+        title: const Text('Indian Matchmaking Form'),
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            colors: [
-              Color.fromARGB(255, 139, 46, 43),
-              Color(0xff510400),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildSectionTitle('Personal Information:'),
+              _buildFullNameField('Bride'),
+              _buildFullNameField('Groom'),
+              _buildGenderField('Bride'),
+              _buildGenderField('Groom'),
+              _buildDateOfBirthField('Bride'),
+              _buildDateOfBirthField('Groom'),
+              _buildPlaceOfBirthField('Bride'),
+              _buildPlaceOfBirthField('Groom'),
+              _buildTextField('Caste', 'Specify the caste of the bride and groom.'),
+              _buildTextField('Religion', 'Specify the religion of the bride and groom.'),
+              _buildTextField('Sub-Caste (if applicable)', 'Specify the sub-caste details.'),
+
+              _buildSectionTitle('Contact Information:'),
+              _buildTextField('Email Address - Bride', 'Enter bride\'s email address.'),
+              _buildTextField('Email Address - Groom', 'Enter groom\'s email address.'),
+              _buildTextField('Phone Number - Bride', 'Enter bride\'s phone number.'),
+              _buildTextField('Phone Number - Groom', 'Enter groom\'s phone number.'),
+
+              _buildSectionTitle('Educational Background:'),
+              _buildTextField('Education Level - Bride', 'Enter bride\'s highest education level.'),
+              _buildTextField('Education Level - Groom', 'Enter groom\'s highest education level.'),
+              _buildTextField('Occupation - Bride', 'Enter bride\'s occupation.'),
+              _buildTextField('Occupation - Groom', 'Enter groom\'s occupation.'),
+
+              _buildSectionTitle('Family Details:'),
+              _buildTextField('Family Background - Bride', 'Briefly describe bride\'s family background.'),
+              _buildTextField('Family Background - Groom', 'Briefly describe groom\'s family background.'),
+              _buildTextField('Siblings', 'Number of siblings and their details (if applicable).'),
+
+              _buildSectionTitle('Preferences:'),
+              _buildTextField('Partner Preferences', 'Specify the qualities and characteristics preferred in a life partner.'),
+              _buildTextField('Cultural Preferences', 'Specify any cultural or religious preferences.'),
+
+              _buildSectionTitle('Photographs:'),
+              _buildTextField('Recent Photographs', 'Attach recent photographs of the bride and groom.'),
+
+              _buildSectionTitle('Additional Information:'),
+              _buildTextField('Specific Considerations', 'Include any additional information that may be relevant.'),
             ],
           ),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/images/mandalaTop.png',
-                  width: 300,
-                ),
-                const Text(
-                  'This is the MatchMaking view',
-                  style: TextStyle(
-                    color: Color(0xffFFD700),
-                    fontSize: 15,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Image.asset(
-                  'assets/images/mandala.png',
-                  width: 700,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: SizedBox(
-        height: 80,
-        child: TabBar(
-          controller: _tabController,
-          labelColor: bottomNavigationColor,
-          tabs: [
-            Tab(
-              icon: Icon(
-                _selectedIndex == 0 ? Icons.people : Icons.people_outlined,
-              ),
-              text: "W",
-            ),
-            Tab(
-              icon: Icon(
-                _selectedIndex == 1
-                    ? Icons.add_business
-                    : Icons.add_business_outlined,
-              ),
-              text: "C",
-            ),
-            Tab(
-              icon: Icon(
-                _selectedIndex == 2 ? Icons.wine_bar : Icons.wine_bar_outlined,
-              ),
-              text: "P",
-            ),
-            Tab(
-              icon: Icon(
-                _selectedIndex == 3
-                    ? Icons.room_service
-                    : Icons.room_service_outlined,
-              ),
-              text: "S",
-            ),
-            Tab(
-              icon: Icon(
-                _selectedIndex == 4
-                    ? Icons.account_circle
-                    : Icons.account_circle_outlined,
-              ),
-              text: "M",
-            ),
-            Tab(
-              icon: Icon(
-                _selectedIndex == 5
-                    ? Icons.party_mode
-                    : Icons.party_mode_outlined,
-              ),
-              text: "G",
-            ),
-          ],
-          onTap: navigationTapped,
         ),
       ),
     );
   }
+
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(
+        title,
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Widget _buildFullNameField(String label) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('$label\'s Full Name:'),
+        TextField(
+          decoration: InputDecoration(
+            hintText: 'Enter $label\'s full name',
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGenderField(String label) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('$label\'s Gender:'),
+        Row(
+          children: [
+            Radio(value: 'Female', groupValue: null, onChanged: (value) {}),
+            Text('Female'),
+            Radio(value: 'Male', groupValue: null, onChanged: (value) {}),
+            Text('Male'),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDateOfBirthField(String label) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('$label\'s Date of Birth:'),
+        TextField(
+          decoration: InputDecoration(
+            hintText: 'Enter $label\'s date of birth',
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPlaceOfBirthField(String label) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('$label\'s Place of Birth:'),
+        TextField(
+          decoration: InputDecoration(
+            hintText: 'Enter $label\'s place of birth',
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTextField(String label, String hint) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label + ':'),
+        TextField(
+          decoration: InputDecoration(
+            hintText: hint,
+          ),
+        ),
+      ],
+    );
+  }
 }
+
+void main() {
+  runApp(MaterialApp(
+    home: const Wedding(),
+  ));
+}
+
