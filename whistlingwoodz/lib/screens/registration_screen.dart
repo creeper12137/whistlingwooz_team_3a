@@ -201,7 +201,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             setState(() {
                               genderSelected = val.toString();
                             });
-                            print(genderSelected);
+                            // print(genderSelected);
                           },
                         ),
                       ),
@@ -226,7 +226,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             setState(() {
                               genderSelected = val.toString();
                             });
-                            print(genderSelected);
+                            // print(genderSelected);
                           },
                         ),
                       ),
@@ -243,7 +243,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               text: "Sign Up",
               onPressed: () {
                 if (isValidate()) {
-                  print("Data validated");
+                  // print("Data validated");
                   // Navigate to landing screen after sign up firebase code still to be implemented.
                 }
               },

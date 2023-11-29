@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 
-class Wedding extends StatefulWidget {
-  const Wedding({super.key});
+class SurveyForm extends StatefulWidget {
+  const SurveyForm({super.key});
 
   @override
-  State<Wedding> createState() => _WeddingState();
+  State<SurveyForm> createState() => _SurveyFormState();
 }
 
-class _WeddingState extends State<Wedding> {
+class _SurveyFormState extends State<SurveyForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +34,7 @@ class _WeddingState extends State<Wedding> {
                   width: 300,
                 ),
                 const Text(
-                  'This is the wedding view',
+                  'This is for the Survery form view',
                   style: TextStyle(
                     color: Color(0xffFFD700),
                     fontSize: 15,

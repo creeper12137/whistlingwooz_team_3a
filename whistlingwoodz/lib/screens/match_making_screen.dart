@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
+import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 
-class MatchMakingScreen extends StatelessWidget {
-  const MatchMakingScreen({Key? key}) : super(key: key);
+class MatchMaking extends StatefulWidget {
+  const MatchMaking({super.key});
 
+  @override
+  State<MatchMaking> createState() => _MatchMakingState();
+}
+
+class _MatchMakingState extends State<MatchMaking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Indian Matchmaking Form'),
-      ),
+      appBar: const AppBarPage(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -24,40 +29,53 @@ class MatchMakingScreen extends StatelessWidget {
               _buildDateOfBirthField('Groom'),
               _buildPlaceOfBirthField('Bride'),
               _buildPlaceOfBirthField('Groom'),
-              _buildTextField('Caste', 'Specify the caste of the bride and groom.'),
-              _buildTextField('Religion', 'Specify the religion of the bride and groom.'),
-              _buildTextField('Sub-Caste (if applicable)', 'Specify the sub-caste details.'),
-
+              _buildTextField(
+                  'Caste', 'Specify the caste of the bride and groom.'),
+              _buildTextField(
+                  'Religion', 'Specify the religion of the bride and groom.'),
+              _buildTextField('Sub-Caste (if applicable)',
+                  'Specify the sub-caste details.'),
               _buildSectionTitle('Contact Information:'),
-              _buildTextField('Email Address - Bride', 'Enter bride\'s email address.'),
-              _buildTextField('Email Address - Groom', 'Enter groom\'s email address.'),
-              _buildTextField('Phone Number - Bride', 'Enter bride\'s phone number.'),
-              _buildTextField('Phone Number - Groom', 'Enter groom\'s phone number.'),
-
+              _buildTextField(
+                  'Email Address - Bride', 'Enter bride\'s email address.'),
+              _buildTextField(
+                  'Email Address - Groom', 'Enter groom\'s email address.'),
+              _buildTextField(
+                  'Phone Number - Bride', 'Enter bride\'s phone number.'),
+              _buildTextField(
+                  'Phone Number - Groom', 'Enter groom\'s phone number.'),
               _buildSectionTitle('Educational Background:'),
-              _buildTextField('Education Level - Bride', 'Enter bride\'s highest education level.'),
-              _buildTextField('Education Level - Groom', 'Enter groom\'s highest education level.'),
-              _buildTextField('Occupation - Bride', 'Enter bride\'s occupation.'),
-              _buildTextField('Occupation - Groom', 'Enter groom\'s occupation.'),
-
+              _buildTextField('Education Level - Bride',
+                  'Enter bride\'s highest education level.'),
+              _buildTextField('Education Level - Groom',
+                  'Enter groom\'s highest education level.'),
+              _buildTextField(
+                  'Occupation - Bride', 'Enter bride\'s occupation.'),
+              _buildTextField(
+                  'Occupation - Groom', 'Enter groom\'s occupation.'),
               _buildSectionTitle('Family Details:'),
-              _buildTextField('Family Background - Bride', 'Briefly describe bride\'s family background.'),
-              _buildTextField('Family Background - Groom', 'Briefly describe groom\'s family background.'),
-              _buildTextField('Siblings', 'Number of siblings and their details (if applicable).'),
-
+              _buildTextField('Family Background - Bride',
+                  'Briefly describe bride\'s family background.'),
+              _buildTextField('Family Background - Groom',
+                  'Briefly describe groom\'s family background.'),
+              _buildTextField('Siblings',
+                  'Number of siblings and their details (if applicable).'),
               _buildSectionTitle('Preferences:'),
-              _buildTextField('Partner Preferences', 'Specify the qualities and characteristics preferred in a life partner.'),
-              _buildTextField('Cultural Preferences', 'Specify any cultural or religious preferences.'),
-
+              _buildTextField('Partner Preferences',
+                  'Specify the qualities and characteristics preferred in a life partner.'),
+              _buildTextField('Cultural Preferences',
+                  'Specify any cultural or religious preferences.'),
               _buildSectionTitle('Photographs:'),
-              _buildTextField('Recent Photographs', 'Attach recent photographs of the bride and groom.'),
-
+              _buildTextField('Recent Photographs',
+                  'Attach recent photographs of the bride and groom.'),
               _buildSectionTitle('Additional Information:'),
-              _buildTextField('Specific Considerations', 'Include any additional information that may be relevant.'),
+              _buildTextField('Specific Considerations',
+                  'Include any additional information that may be relevant.'),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: const BottomBar(),
     );
   }
 
@@ -66,7 +84,10 @@ class MatchMakingScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
         title,
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -93,9 +114,9 @@ class MatchMakingScreen extends StatelessWidget {
         Row(
           children: [
             Radio(value: 'Female', groupValue: null, onChanged: (value) {}),
-            Text('Female'),
+            const Text('Female'),
             Radio(value: 'Male', groupValue: null, onChanged: (value) {}),
-            Text('Male'),
+            const Text('Male'),
           ],
         ),
       ],
@@ -144,10 +165,3 @@ class MatchMakingScreen extends StatelessWidget {
     );
   }
 }
-
-void main() {
-  runApp(MaterialApp(
-    home: const Wedding(),
-  ));
-}
-
