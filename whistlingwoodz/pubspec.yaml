@@ -81,6 +81,8 @@ flutter:
     - assets/images/mandalaTop.png
     - assets/images/background.png
     - assets/images/weddingPage.png
+    - assets/images/corporatePage.png
+    - assets/images/partyPage.png
     - assets/images/simage1.png
     - assets/images/vimage2.png
     - assets/images/evimage4.png

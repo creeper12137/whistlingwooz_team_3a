@@ -77,7 +77,7 @@ class _WeddingState extends State<Wedding> {
                           height: 30,
                         ),
                         const Text(
-                          'WEDDINGS',
+                          'WEDDING',
                           style: TextStyle(
                             // color: Colors.black,
                             // color: Color(0xffFFD700),
