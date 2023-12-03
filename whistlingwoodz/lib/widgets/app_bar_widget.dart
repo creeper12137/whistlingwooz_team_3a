@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:whistlingwoodz/screens/landing_page_screen.dart';
+import 'package:whistlingwoodz/screens/login_screen.dart';
 // import 'package:whistlingwoodz/screens/registration_screen.dart';
 
 // This class for the appbar widget
@@ -73,7 +73,7 @@ class _AppBarPageState extends State<AppBarPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LandingPage()),
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
             );
           },
         ),
