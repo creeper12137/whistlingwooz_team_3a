@@ -81,7 +81,13 @@ flutter:
     - assets/images/mandalaTop.png
     - assets/images/background.png
     - assets/images/weddingPage.png
-
+    - assets/simage1.png
+    - assets/vimage2.png
+    - assets/evimage4.png
+    - assets/perimage5.png
+    - assets/ccimage6.png
+    - assets/venimage7.png
+    - assets/ccimage8 .png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
