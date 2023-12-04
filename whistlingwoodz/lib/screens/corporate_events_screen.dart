@@ -340,7 +340,7 @@ class _CorporateState extends State<Corporate> {
   // phone text form field
   Widget _buildPhone() => TextFormField(
         autofocus: false,
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.phone,
         decoration: const InputDecoration(
           labelText: "Phone*",
           prefixIcon: Icon(
@@ -360,9 +360,9 @@ class _CorporateState extends State<Corporate> {
         width: double.infinity,
         child: OutlinedButton(
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 30),
-            foregroundColor: Colors.deepOrangeAccent,
-            backgroundColor: Colors.yellow.shade100,
+            padding: const EdgeInsets.symmetric(vertical: 26),
+            foregroundColor: Colors.yellowAccent,
+            backgroundColor: Colors.yellow[900],
             elevation: 15,
             shadowColor: Colors.grey,
             shape: const StadiumBorder(),
@@ -385,7 +385,7 @@ class _CorporateState extends State<Corporate> {
               fontSize: 14,
               fontWeight: FontWeight.bold,
               letterSpacing: 2,
-              color: Colors.deepOrangeAccent,
+              color: Colors.white,
             ),
           ),
         ),
