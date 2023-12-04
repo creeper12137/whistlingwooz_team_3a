@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
+import 'package:whistlingwoodz/screens/inquiry_form_screen.dart';
 
 class Services extends StatefulWidget {
   const Services({super.key});
@@ -78,6 +79,7 @@ class _ServicesState extends State<Services> {
           );
         },
       ),
+      floatingActionButton: buildNavigationButton(),
       bottomNavigationBar: const BottomBar(),
     );
   }
@@ -90,6 +92,24 @@ class _ServicesState extends State<Services> {
       throw 'Could not launch $url';
     }
   }
+
+  // Floating Action Button for navigation to the inquiry form
+  Widget buildNavigationButton() => FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const InquiryForm(),
+            ),
+          );
+        },
+        backgroundColor: Colors.yellow[900],
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.mode_edit,
+          color: Colors.white,
+        ),
+      );
 }
 
 class ServiceModel {
