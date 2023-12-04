@@ -3,6 +3,7 @@ import 'package:whistlingwoodz/screens/registration_screen.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:whistlingwoodz/widgets/input_field_widget.dart';
 import 'package:whistlingwoodz/widgets/primary_button_signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
