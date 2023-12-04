@@ -39,6 +39,8 @@ class _AppBarPageState extends State<AppBarPage> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.amberAccent, //withOpacity(0.50), // optional
+      elevation: 0,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         // When it has clicked, it goes previous screen.

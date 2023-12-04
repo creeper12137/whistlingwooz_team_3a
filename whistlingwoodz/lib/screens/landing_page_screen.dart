@@ -38,7 +38,7 @@ class _LandingPageState extends State<LandingPage> {
       // appBar: const AppBarPage(),
       appBar: AppBar(
         // backgroundColor: Colors.transparent, // if this code is used, the appbar will be transparent as white.
-        // backgroundColor: Colors.amberAccent.withOpacity(0.25), // optional
+        backgroundColor: Colors.amberAccent, //withOpacity(0.50), // optional
         elevation: 0,
         // leading: const Icon(Icons.menu),
         actions: [
