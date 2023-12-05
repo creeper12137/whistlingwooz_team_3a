@@ -1,4 +1,4 @@
-// lib/services/AuthService.dart
+// services/AuthService.dart
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -23,4 +23,5 @@ class AuthService {
     await _auth.signOut();
   }
 }
+
 
