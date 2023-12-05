@@ -1,12 +1,15 @@
+// screens/LoginScreen.dart
+
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/screens/registration_screen.dart';
+import 'package:whistlingwoodz/services/AuthService.dart'; // Import AuthService
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:whistlingwoodz/widgets/input_field_widget.dart';
 import 'package:whistlingwoodz/widgets/primary_button_signup.dart';
 import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -15,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  AuthService _authService = AuthService(); // Initialize AuthService
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           margin: const EdgeInsets.only(left: 30.0, right: 30.0),
           child: Padding(
-            // padding around all edges of screen
+            // padding around all edges of the screen
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Column(
               children: [
@@ -102,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 25.0,
                     ),
-                    // Please enter you details below text
+                    // Please enter your details below text
                     const Text(
                       "Please enter your details below",
                       style: TextStyle(
@@ -139,9 +143,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Sign In button.
                     PrimaryButtonSignUp(
                       text: "Sign In",
-                      onPressed: () {
+                      onPressed: () async {
                         // validation Method
-                        if (isValidate()) {}
+                        if (isValidate()) {
+                          // Call signIn method from AuthService
+                          User? user = await _authService.signIn(
+                            emailController.text,
+                            passwordController.text,
+                          );
+
+                          if (user != null) {
+                            // Successfully signed in, navigate to the next screen or perform actions
+                          } else {
+                            // Handle login failure
+                          }
+                        }
                       },
                     ),
                     // Space between Sign In button and Don't have an account
@@ -163,10 +179,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RegistrationScreen()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const RegistrationScreen(),
+                              ),
+                            );
                           },
                           child: const Text(
                             "Sign Up",
@@ -202,3 +219,4 @@ class _LoginScreenState extends State<LoginScreen> {
     return true;
   }
 }
+
