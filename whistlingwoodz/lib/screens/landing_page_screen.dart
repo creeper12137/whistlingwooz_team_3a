@@ -1,8 +1,12 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whistlingwoodz/screens/login_screen.dart';
 import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -34,6 +38,9 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+    String userEmail = user.email!;
+
     return Scaffold(
       // appBar: const AppBarPage(),
       appBar: AppBar(
@@ -77,7 +84,8 @@ class _LandingPageState extends State<LandingPage> {
             fit: BoxFit.cover,
           ),
         ),
-        child: const Center(
+       
+        child:  Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -86,7 +94,45 @@ class _LandingPageState extends State<LandingPage> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 165,
+                      height: 10,
+                    ),
+                    Text(
+                      'Signed In as',
+                      style: TextStyle(
+                        color: Colors.white,
+                        // color: Color(0xffFFD700),
+                        fontSize: 15,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      userEmail,
+                      style: TextStyle(
+                        color: Colors.white,
+                        // color: Color(0xffFFD700),
+                        fontSize: 15,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size.fromHeight(10),
+                      ),
+                      icon: Icon(Icons.arrow_back, size: 16),
+                      label:Text(
+                        'Sign Out',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      onPressed:() => FirebaseAuth.instance.signOut()
+                    ), 
+                    SizedBox(
+                      height: 80,
                     ),
                     Text(
                       'WEDDINGS',
