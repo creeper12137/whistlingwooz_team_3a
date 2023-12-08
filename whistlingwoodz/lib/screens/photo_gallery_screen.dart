@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 
@@ -10,51 +11,86 @@ class Galleries extends StatefulWidget {
 }
 
 class _GalleriesState extends State<Galleries> {
+  final List<ServiceModel> photos = [
+    ServiceModel(
+      imageUrl: "assets/images/weddingPage.png",
+    ),
+    ServiceModel(
+      imageUrl: "assets/images/corporatePage.png",
+    ),
+    ServiceModel(
+      imageUrl: "assets/images/partyPage.png",
+    ),
+    ServiceModel(
+      imageUrl: "assets/images/twohearts.png",
+    ),
+    ServiceModel(
+      imageUrl: "assets/images/photoGallery_place1.png",
+    ),
+    ServiceModel(
+      imageUrl: "assets/images/photoGallery_place2.png",
+    ),
+    ServiceModel(
+      imageUrl: "assets/images/photoGallery_place3.png",
+    ),
+    ServiceModel(
+      imageUrl: "assets/images/photoGallery_place4.png",
+    ),
+    ServiceModel(
+      imageUrl: "assets/images/photoGallery_place5.png",
+    ),
+    ServiceModel(
+      imageUrl: "assets/images/photoGallery_place6.png",
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarPage(),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            colors: [
-              Color.fromARGB(255, 139, 46, 43),
-              Color(0xff510400),
-            ],
-          ),
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 8.0,
+          mainAxisSpacing: 8.0,
         ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/images/mandalaTop.png',
-                  width: 300,
-                ),
-                const Text(
-                  'This is the Gallery view',
-                  style: TextStyle(
-                    color: Color(0xffFFD700),
-                    fontSize: 15,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w500,
+        itemCount: photos.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              _launchURL();
+            },
+            child: Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    child: Image.asset(
+                      photos[index].imageUrl,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Image.asset(
-                  'assets/images/mandala.png',
-                  width: 700,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
       bottomNavigationBar: const BottomBar(),
     );
   }
+
+  _launchURL() async {
+    final Uri url = Uri.parse('https://whistlingwoodz.com.au/photo-gallery');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+}
+
+class ServiceModel {
+  final String imageUrl;
+  ServiceModel({required this.imageUrl});
 }

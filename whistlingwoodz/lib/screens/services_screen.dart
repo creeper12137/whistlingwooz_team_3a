@@ -1,42 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
+import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
+import 'package:whistlingwoodz/screens/inquiry_form_screen.dart';
 
-class ServicesScreen extends StatelessWidget {
+class Services extends StatefulWidget {
+  const Services({super.key});
+
+  @override
+  State<Services> createState() => _ServicesState();
+}
+
+class _ServicesState extends State<Services> {
   final List<ServiceModel> services = [
     ServiceModel(
       title: "Understanding the Event Genre",
-      imageUrl:"assets/simage1.png",
+      imageUrl: "assets/images/simage1.png",
     ),
     ServiceModel(
       title: "Venue Design and Production",
-      imageUrl:"assets/vimage2.png",
+      imageUrl: "assets/images/vimage2.png",
     ),
     ServiceModel(
       title: "Event Planning",
-      imageUrl:"assets/evimage4.png",
+      imageUrl: "assets/images/evimage4.png",
     ),
     ServiceModel(
       title: "Entertainment & Performances",
-      imageUrl:"assets/perimage5.png",
+      imageUrl: "assets/images/perimage5.png",
     ),
     ServiceModel(
       title: "Commute & Cabs",
-      imageUrl:"assets/ccimage6.png",
+      imageUrl: "assets/images/ccimage6.png",
     ),
     ServiceModel(
       title: "Vendors Range",
-      imageUrl:"assets/venimage7.png",
+      imageUrl: "assets/images/venimage7.png",
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Services'),
-      ),
+      appBar: const AppBarPage(),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 8.0,
           mainAxisSpacing: 8.0,
@@ -71,17 +79,37 @@ class ServicesScreen extends StatelessWidget {
           );
         },
       ),
+      floatingActionButton: buildNavigationButton(),
+      bottomNavigationBar: const BottomBar(),
     );
   }
 
   _launchURL() async {
-    const url = 'https://whistlingwoodz.com.au/contact-us';
-    if (await canLaunch(url)) {
-      await launch(url);
+    final Uri url = Uri.parse('https://whistlingwoodz.com.au/contact-us');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
     } else {
       throw 'Could not launch $url';
     }
   }
+
+  // Floating Action Button for navigation to the inquiry form
+  Widget buildNavigationButton() => FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const InquiryForm(),
+            ),
+          );
+        },
+        backgroundColor: Colors.yellow[900],
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.mode_edit,
+          color: Colors.white,
+        ),
+      );
 }
 
 class ServiceModel {

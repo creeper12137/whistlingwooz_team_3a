@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 
 class MatchMaking extends StatefulWidget {
-  const MatchMaking({super.key});
+  const MatchMaking({Key? key}) : super(key: key);
 
   @override
   State<MatchMaking> createState() => _MatchMakingState();
@@ -75,7 +76,9 @@ class _MatchMakingState extends State<MatchMaking> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: BottomBar(
+        onSubmit: _launchWebsite,
+      ),
     );
   }
 
@@ -162,6 +165,50 @@ class _MatchMakingState extends State<MatchMaking> {
           ),
         ),
       ],
+    );
+  }
+
+  // Callback function to launch the website
+  void _launchWebsite() async {
+    const url = 'https://whistlingwoodz.com.au/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+}
+
+class BottomBar extends StatelessWidget {
+  final VoidCallback onSubmit;
+
+  const BottomBar({Key? key, required this.onSubmit}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.search),
+          label: 'Search',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.send),
+          label: 'Submit',
+        ),
+      ],
+      onTap: (index) {
+        if (index == 2) {
+          // The index of your submit button, call the onSubmit callback
+          onSubmit();
+        } else {
+          // Handle other taps if needed
+        }
+      },
     );
   }
 }

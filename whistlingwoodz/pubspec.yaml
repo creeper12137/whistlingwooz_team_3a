@@ -37,21 +37,9 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  flutter_native_splash: ^2.3.6
-
-flutter_native_splash:
-  color: "#ffffff"
-  color_dark: "#111B21"
-  image: assets/images/whistlingWoods_logo.png
-  image_dark: assets/images/whistlingWoods_logo_dark.png
-  android_12:
-    color: "#ffffff"
-    color_dark: "#111B21"
-    image: assets/images/whistlingWoods_logo.png
-    image_dark: assets/images/whistlingWoods_logo_dark.png
-    icon_background_color: "#ffffff"
-    icon_background_color_dark: "#111B21"
-
+  firebase_auth: ^4.15.0
+  firebase_core: ^2.24.0
+  # firebase_auth: ^4.15.0
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +69,14 @@ flutter:
     - assets/images/mandalaTop.png
     - assets/images/background.png
     - assets/images/weddingPage.png
+    - assets/images/corporatePage.png
+    - assets/images/partyPage.png
+    - assets/images/simage1.png
+    - assets/images/vimage2.png
+    - assets/images/evimage4.png
+    - assets/images/perimage5.png
+    - assets/images/ccimage6.png
+    - assets/images/venimage7.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

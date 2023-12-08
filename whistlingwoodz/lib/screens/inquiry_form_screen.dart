@@ -1,45 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
-import 'package:whistlingwoodz/screens/survey_form_screen.dart';
+import 'package:whistlingwoodz/screens/services_screen.dart';
 
-class Party extends StatefulWidget {
-  const Party({super.key});
+class InquiryForm extends StatefulWidget {
+  const InquiryForm({super.key});
 
   @override
-  State<Party> createState() => _PartyState();
+  State<InquiryForm> createState() => _InquiryFormState();
 }
 
-class _PartyState extends State<Party> {
-  // list variables for drop down menus
-  final _themeList = ["Traditional", "Modern", "Custom"];
-  final _functionList = [
-    "Birthday Celebration",
-    "Anniversary Celebration",
-    "Graduation Ceremony",
-    "Personal"
-  ];
-  final _venueList = [
-    "Hyatt Place Melbounre",
-    "Hyatt Place Carribean Park",
-    "Grand Hyatt Melbourne",
-    "Park Hyatt Melbourne",
-    "Hyatt Centric Melbourne",
-    "The Langham Melbourne",
-    "Other"
-  ];
-  final _budgetList = [
-    r"$20,000 - $29,999",
-    r"$30,000 - $39,999",
-    r"$40,000 - $60,000",
-    "Other"
+class _InquiryFormState extends State<InquiryForm> {
+  // variable for the type drop down menus
+  final _typeList = [
+    "Wedding",
+    "Corporate",
+    "Parties",
+    "Others",
   ];
 
   // initial values for drop down menus
-  String? _selectedTheme = "Traditional";
-  String? _selectedFunction = "Birthday Celebration";
-  String? _selectedVenue = "Hyatt Place Melbounre";
-  String? _selectedBudget = r"$20,000 - $29,999";
+  String? _selectedType = "Wedding";
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +32,7 @@ class _PartyState extends State<Party> {
         // backgound photo for landing page
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/partyPage.png"),
+            image: AssetImage("assets/images/twohearts.png"),
             opacity: 0.6,
             fit: BoxFit.cover,
           ),
@@ -77,7 +58,7 @@ class _PartyState extends State<Party> {
                           height: 30,
                         ),
                         const Text(
-                          'PARTIES',
+                          'INQUIRY FORM',
                           style: TextStyle(
                             // color: Colors.black,
                             // color: Color(0xffFFD700),
@@ -93,27 +74,8 @@ class _PartyState extends State<Party> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Theme drop down menu
-                                  _buildTheme(),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  // Functions drop down menu
-                                  _buildFunction(),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  // Venue drop down menu
-                                  _buildVenue(),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  _buildGuest(),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  // Budget drop down menu
-                                  _buildBudget(),
+                                  // name text form field
+                                  _buildName(),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -125,7 +87,17 @@ class _PartyState extends State<Party> {
                                   // phone text form field
                                   _buildPhone(),
                                   const SizedBox(
-                                    height: 30,
+                                    height: 20,
+                                  ),
+                                  // type text form field
+                                  _buildType(),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  // inquiry text form field
+                                  _buildInquiry(),
+                                  const SizedBox(
+                                    height: 20,
                                   ),
                                   // submit button
                                   _buildSubmit(),
@@ -147,164 +119,16 @@ class _PartyState extends State<Party> {
     );
   }
 
-  // Theme drop down menu
-  Widget _buildTheme() => DropdownButtonFormField(
-        value: _selectedTheme,
-        items: _themeList
-            .map(
-              (e) => DropdownMenuItem(
-                value: e,
-                child: Text(e),
-              ),
-            )
-            .toList(),
-        onChanged: (value) {
-          setState(() {
-            _selectedTheme = value as String;
-          });
-        },
-        icon: const Icon(
-          Icons.arrow_drop_down_circle,
-          size: 20,
-          color: Colors.deepOrangeAccent,
-        ),
-        dropdownColor: Colors.yellow.shade50,
-        decoration: const InputDecoration(
-          labelText: "Select Theme*",
-          prefixIcon: Icon(
-            Icons.subject,
-            color: Colors.deepOrangeAccent,
-          ),
-          // Todo: check UnderlineInputBorder() option
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-        ),
-      );
-
-  // Functions drop down menu
-  Widget _buildFunction() => DropdownButtonFormField(
-        value: _selectedFunction,
-        items: _functionList
-            .map(
-              (e) => DropdownMenuItem(
-                value: e,
-                child: Text(e),
-              ),
-            )
-            .toList(),
-        onChanged: (value) {
-          setState(() {
-            _selectedFunction = value as String;
-          });
-        },
-        icon: const Icon(
-          Icons.arrow_drop_down_circle,
-          size: 20,
-          color: Colors.deepOrangeAccent,
-        ),
-        dropdownColor: Colors.yellow.shade50,
-        decoration: const InputDecoration(
-          labelText: "Select Functions*",
-          prefixIcon: Icon(
-            Icons.book_online,
-            color: Colors.deepOrangeAccent,
-          ),
-          // Todo: check UnderlineInputBorder() option
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-        ),
-      );
-
-  // Venue drop down menu
-  Widget _buildVenue() => DropdownButtonFormField(
-        value: _selectedVenue,
-        items: _venueList
-            .map(
-              (e) => DropdownMenuItem(
-                value: e,
-                child: Text(e),
-              ),
-            )
-            .toList(),
-        onChanged: (value) {
-          setState(() {
-            _selectedVenue = value as String;
-          });
-        },
-        icon: const Icon(
-          Icons.arrow_drop_down_circle,
-          size: 20,
-          color: Colors.deepOrangeAccent,
-        ),
-        dropdownColor: Colors.yellow.shade50,
-        decoration: const InputDecoration(
-          labelText: "Select Venue*",
-          prefixIcon: Icon(
-            Icons.place,
-            color: Colors.deepOrangeAccent,
-          ),
-          // Todo: check UnderlineInputBorder() option
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-        ),
-      );
-
-  // guest text form field
-  Widget _buildGuest() => TextFormField(
+  // full name text form field
+  Widget _buildName() => TextFormField(
         autofocus: false,
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.name,
         decoration: const InputDecoration(
-          labelText: "Number of Guests*",
+          labelText: "Full Name*",
           prefixIcon: Icon(
-            Icons.group,
+            Icons.person,
             color: Colors.deepOrangeAccent,
           ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-        ),
-      );
-
-  // Budget drop down menu
-  Widget _buildBudget() => DropdownButtonFormField(
-        value: _selectedBudget,
-        items: _budgetList
-            .map(
-              (e) => DropdownMenuItem(
-                value: e,
-                child: Text(e),
-              ),
-            )
-            .toList(),
-        onChanged: (value) {
-          setState(() {
-            _selectedBudget = value as String;
-          });
-        },
-        icon: const Icon(
-          Icons.arrow_drop_down_circle,
-          size: 20,
-          color: Colors.deepOrangeAccent,
-        ),
-        dropdownColor: Colors.yellow.shade50,
-        decoration: const InputDecoration(
-          labelText: "Select Budget*",
-          prefixIcon: Icon(
-            Icons.attach_money,
-            color: Colors.deepOrangeAccent,
-          ),
-          // Todo: check UnderlineInputBorder() option
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -349,6 +173,59 @@ class _PartyState extends State<Party> {
         ),
       );
 
+  // type drop down menu
+  Widget _buildType() => DropdownButtonFormField(
+        value: _selectedType,
+        items: _typeList
+            .map(
+              (e) => DropdownMenuItem(
+                value: e,
+                child: Text(e),
+              ),
+            )
+            .toList(),
+        onChanged: (value) {
+          setState(() {
+            _selectedType = value as String;
+          });
+        },
+        icon: const Icon(
+          Icons.arrow_drop_down_circle,
+          size: 20,
+          color: Colors.deepOrangeAccent,
+        ),
+        dropdownColor: Colors.yellow.shade50,
+        decoration: const InputDecoration(
+          labelText: "Select Type*",
+          prefixIcon: Icon(
+            Icons.subject,
+            color: Colors.deepOrangeAccent,
+          ),
+          // Todo: check UnderlineInputBorder() option
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+        ),
+      );
+
+  // inquiry text form field
+  Widget _buildInquiry() => TextFormField(
+        autofocus: false,
+        maxLines: 10,
+        keyboardType: TextInputType.multiline,
+        decoration: const InputDecoration(
+          labelText: "Enter your message here*",
+          alignLabelWithHint: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+        ),
+      );
+
   // submit button
   Widget _buildSubmit() => SizedBox(
         width: double.infinity,
@@ -360,16 +237,27 @@ class _PartyState extends State<Party> {
             elevation: 15,
             shadowColor: Colors.grey,
             shape: const StadiumBorder(),
-            // shape: RoundedRectangleBorder(
-            //   borderRadius:
-            //       BorderRadius.circular(10),
-            // ),
           ),
+          // when the button is pressed, a dialog box will pop up.
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SurveyForm(),
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Form Submitted"),
+                content: const Text("Thank you for your inquiry!"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Services(),
+                        ),
+                      );
+                    },
+                    child: const Text("Close"),
+                  ),
+                ],
               ),
             );
           },
