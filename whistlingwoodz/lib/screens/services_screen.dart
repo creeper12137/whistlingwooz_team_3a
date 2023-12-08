@@ -70,7 +70,7 @@ class _ServicesState extends State<Services> {
                     child: Text(
                       services[index].title,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 16.0),
+                      style: TextStyle(fontSize: 16.0),
                     ),
                   ),
                 ],
