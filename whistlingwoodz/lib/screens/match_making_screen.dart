@@ -14,7 +14,7 @@ class _MatchMakingState extends State<MatchMaking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(),
+      appBar: const AppBarPage(data: false),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

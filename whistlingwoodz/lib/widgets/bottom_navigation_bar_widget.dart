@@ -28,7 +28,7 @@ class _BottomBarState extends State<BottomBar>
     });
     if (_selectedIndex == 0) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Wedding()));
+          context, MaterialPageRoute(builder: (context) => const Wedding(data: false)));
       // ScaffoldMessenger.of(context)
       //   ..removeCurrentSnackBar()
       //   ..showSnackBar(SnackBar(content: Text('$result')));

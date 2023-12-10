@@ -42,7 +42,7 @@ class _ServicesState extends State<Services> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(),
+      appBar: const AppBarPage(data: false),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,

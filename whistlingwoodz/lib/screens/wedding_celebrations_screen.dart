@@ -4,13 +4,15 @@ import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 import 'package:whistlingwoodz/screens/survey_form_screen.dart';
 
 class Wedding extends StatefulWidget {
-  const Wedding({super.key});
+  const Wedding({super.key, required this.data});
+  final bool data;
 
   @override
   State<Wedding> createState() => _WeddingState();
 }
 
 class _WeddingState extends State<Wedding> {
+  
   // list variables for drop down menus
   final _themeList = ["Classic", "Contemporary", "Customized"];
   final _functionList = [
@@ -40,11 +42,13 @@ class _WeddingState extends State<Wedding> {
   String? _selectedFunction = "Haldi - Mehndi";
   String? _selectedVenue = "Hyatt Place Melbounre";
   String? _selectedBudget = r"$20,000 - $29,999";
+  
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-      appBar: const AppBarPage(),
+      appBar: AppBarPage(data: widget.data),
       body: Container(
         width: double.infinity,
         height: double.infinity,

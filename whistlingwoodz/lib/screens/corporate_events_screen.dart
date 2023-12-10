@@ -50,7 +50,7 @@ class _CorporateState extends State<Corporate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(),
+      appBar: const AppBarPage(data:false),
       body: Container(
         width: double.infinity,
         height: double.infinity,
