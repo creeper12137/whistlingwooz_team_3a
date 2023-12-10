@@ -13,7 +13,7 @@ class _UniqueCodeFormState extends State<UniqueCodeForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(),
+      appBar: const AppBarPage(data: false),
       body: Container(
         decoration: const BoxDecoration(
           gradient: RadialGradient(

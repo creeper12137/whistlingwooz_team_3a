@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whistlingwoodz/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 // import 'package:whistlingwoodz/screens/registration_screen.dart';
 
 // This class for the appbar widget
 class AppBarPage extends StatefulWidget implements PreferredSizeWidget {
-  const AppBarPage({super.key});
+  const AppBarPage({super.key, required this.data});
+  final bool data;
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
@@ -16,7 +19,10 @@ class AppBarPage extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _AppBarPageState extends State<AppBarPage> {
+  var loginStatus = FirebaseAuth.instance.authStateChanges();
+  
   // Function for the icon button to connect with whistlingwoodz homepage
+ 
   Future<void> _launchURL() async {
     final Uri url = Uri.parse('https://whistlingwoodz.com.au');
     if (await canLaunchUrl(url)) {
@@ -67,17 +73,27 @@ class _AppBarPageState extends State<AppBarPage> {
           },
         ),
         // Logout button: It goes to the WhistlingWoodz Landing page
-        IconButton(
-          icon: const Icon(
-            Icons.logout_outlined,
-            color: appBackGroundColor,
-          ),
-          onPressed: () {
+        Visibility(
+          visible: widget.data,
+          replacement: IconButton(
+            icon: const Icon(
+              Icons.logout_outlined,
+              color: appBackGroundColor,
+            ),
+            onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              MaterialPageRoute(builder: (context) => const LoginScreen(data:false)),
             );
-          },
+            },
+          ), 
+          child:IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: appBackGroundColor,
+            ),
+           onPressed: () => FirebaseAuth.instance.signOut()
+        ),
         ),
       ],
     );

@@ -6,16 +6,18 @@ import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whistlingwoodz/screens/login_screen.dart';
 import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({super.key});
+  
+  const LandingPage({super.key, required bool data});
 
   @override
   State<LandingPage> createState() => _LandingPageState();
 }
 
 class _LandingPageState extends State<LandingPage> {
+  
   // Function for the icon button to connect with whistlingwoodz homepage
   Future<void> _launchURL() async {
     final Uri url = Uri.parse('https://whistlingwoodz.com.au');
@@ -27,20 +29,19 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   // Function to connect with registration page
-  void _registration() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
-  }
+  // void _registration() {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => const LoginScreen(),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
-    String userEmail = user.email!;
-
+    // final user = FirebaseAuth.instance.currentUser!;
+    // String userEmail = user.email!;
     return Scaffold(
       // appBar: const AppBarPage(),
       appBar: AppBar(
@@ -68,7 +69,7 @@ class _LandingPageState extends State<LandingPage> {
             ),
             // link to the registration page
             onPressed: () {
-              _registration();
+              // _registration();
             },
           ),
         ],
@@ -106,19 +107,19 @@ class _LandingPageState extends State<LandingPage> {
                         fontWeight: FontWeight.w800,
                       ),
                     ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      userEmail,
-                      style: TextStyle(
-                        color: Colors.white,
-                        // color: Color(0xffFFD700),
-                        fontSize: 15,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+                    // SizedBox(
+                    //   height: 8,
+                    // ),
+                    // Text(
+                    //   userEmail,
+                    //   style: TextStyle(
+                    //     color: Colors.white,
+                    //     // color: Color(0xffFFD700),
+                    //     fontSize: 15,
+                    //     fontStyle: FontStyle.italic,
+                    //     fontWeight: FontWeight.w800,
+                    //   ),
+                    // ),
                     SizedBox(height: 10),
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
@@ -199,22 +200,8 @@ class _LandingPageState extends State<LandingPage> {
       ),
       bottomNavigationBar: const BottomBar(),
     );
+    
   }
 
-  // Widget tabContainer(BuildContext con, Color tabColor, String tabText) {
-  //   return Container(
-  //     width: MediaQuery.of(con).size.width,
-  //     height: MediaQuery.of(con).size.height,
-  //     color: tabColor,
-  //     child: Center(
-  //       child: Text(
-  //         tabText,
-  //         style: const TextStyle(
-  //           color: Colors.white,
-  //           fontSize: 24,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+ 
 }

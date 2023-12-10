@@ -1,5 +1,7 @@
 // screens/LoginScreen.dart
 
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/screens/registration_screen.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
@@ -7,10 +9,13 @@ import 'package:whistlingwoodz/widgets/input_field_widget.dart';
 import 'package:whistlingwoodz/widgets/primary_button_signup.dart';
 import 'package:whistlingwoodz/screens/landing_page_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:whistlingwoodz/screens/wedding_celebrations_screen.dart';
+import 'package:whistlingwoodz/main.dart';
 
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({super.key, required this.data});
+  final bool data;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -19,7 +24,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
+  bool newData = false;
   
  
   @override
@@ -31,16 +36,37 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   
   Future signIn() async{
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text.trim(), 
-      password: passwordController.text.trim()
-      );
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      // ignore: prefer_const_constructors
+      builder: (context) => Center(child: CircularProgressIndicator())
+    );
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(), 
+        password: passwordController.text.trim(),
+        
+        );
+       
+        // Navigator.push(
+        //               context,
+        //               MaterialPageRoute(builder: (context) => const MyApp()),
+        // )
+        
+    } on FirebaseAuthException catch (e){
+      print(e);
+    }
+    
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    
+    
   }
   @override
   Widget build(BuildContext context) {
      
 
-  return Scaffold(
+   return Scaffold(
       // Fix for pixel exceeding screen.
       resizeToAvoidBottomInset: false,
       backgroundColor: colorPrimary,
@@ -82,7 +108,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     // ignore: prefer_const_constructors
                     style: TextStyle(fontSize: 24),
                   ),
-                  onPressed:signIn, 
+                  onPressed: 
+                    signIn
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const MyApp()),
+                    // )
+                    // if(widget.data){
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => Wedding(data:widget.data)),
+                    //   );
+                    // }
+                    // else{
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => LoginScreen(data:widget.data)),
+                    //   );
+                    // }
+                  
                 )
               ]
              
@@ -97,11 +141,11 @@ class _LoginScreenState extends State<LoginScreen> {
     //   builder: (context, snapshot){
     //     if(snapshot.hasData){
     //       debugPrint('successful login');
-    //       return const LandingPage();
+    //       return Wedding(data: widget.data);
     //     }
     //     else{
     //       debugPrint('failed to login');
-    //       return const LoginScreen();
+    //       return const MyApp();
     //     }
     //   },
     // );

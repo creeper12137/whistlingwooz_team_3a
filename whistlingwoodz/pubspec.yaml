@@ -77,7 +77,15 @@ flutter:
     - assets/images/perimage5.png
     - assets/images/ccimage6.png
     - assets/images/venimage7.png
-
+    - assets/images/twohearts.png
+    - assets/images/surveyForm.jpg
+    - assets/images/photoGallery_place1.png
+    - assets/images/photoGallery_place2.png
+    - assets/images/photoGallery_place3.png
+    - assets/images/photoGallery_place4.png
+    - assets/images/photoGallery_place5.png
+    - assets/images/photoGallery_place6.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

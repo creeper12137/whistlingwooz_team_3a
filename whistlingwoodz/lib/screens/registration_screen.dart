@@ -24,7 +24,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(),
+      appBar: const AppBarPage(data: false),
       // Fix for pixel exceeding screen.
       resizeToAvoidBottomInset: false,
       //! Main background colour
@@ -272,7 +272,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));
+                            builder: (context) => const LoginScreen(data: false)));
                   },
                   child: const Text(
                     "Sign In",
