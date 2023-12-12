@@ -4,7 +4,7 @@ import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 
 class MatchMaking extends StatefulWidget {
-  const MatchMaking({Key? key}) : super(key: key);
+  const MatchMaking({super.key});
 
   @override
   State<MatchMaking> createState() => _MatchMakingState();
@@ -72,13 +72,13 @@ class _MatchMakingState extends State<MatchMaking> {
               _buildSectionTitle('Additional Information:'),
               _buildTextField('Specific Considerations',
                   'Include any additional information that may be relevant.'),
+              const SizedBox(height: 20),
+              _buildSubmit(),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomBar(
-        onSubmit: _launchWebsite,
-      ),
+      bottomNavigationBar: const BottomBar(),
     );
   }
 
@@ -158,7 +158,7 @@ class _MatchMakingState extends State<MatchMaking> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label + ':'),
+        Text('$label:'),
         TextField(
           decoration: InputDecoration(
             hintText: hint,
@@ -168,47 +168,43 @@ class _MatchMakingState extends State<MatchMaking> {
     );
   }
 
-  // Callback function to launch the website
-  void _launchWebsite() async {
-    const url = 'https://whistlingwoodz.com.au/';
-    if (await canLaunch(url)) {
-      await launch(url);
+  // submit button
+  Widget _buildSubmit() => SizedBox(
+        width: double.infinity,
+        child: OutlinedButton(
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            foregroundColor: Colors.yellowAccent,
+            backgroundColor: Colors.yellow[900],
+            elevation: 5,
+            shadowColor: Colors.grey,
+            shape: const StadiumBorder(),
+            // shape: RoundedRectangleBorder(
+            //   borderRadius:
+            //       BorderRadius.circular(10),
+            // ),
+          ),
+          onPressed: () {
+            _launchURL();
+          },
+          child: Text(
+            "Submit Form".toUpperCase(),
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
+
+  void _launchURL() async {
+    final Uri url = Uri.parse('https://whistlingwoodz.com.au/contact-us');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
     } else {
       throw 'Could not launch $url';
     }
-  }
-}
-
-class BottomBar extends StatelessWidget {
-  final VoidCallback onSubmit;
-
-  const BottomBar({Key? key, required this.onSubmit}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Search',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.send),
-          label: 'Submit',
-        ),
-      ],
-      onTap: (index) {
-        if (index == 2) {
-          // The index of your submit button, call the onSubmit callback
-          onSubmit();
-        } else {
-          // Handle other taps if needed
-        }
-      },
-    );
   }
 }
