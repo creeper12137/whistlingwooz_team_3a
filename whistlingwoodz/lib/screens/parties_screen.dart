@@ -45,6 +45,7 @@ class _PartyState extends State<Party> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarPage(data: false),
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -89,7 +90,7 @@ class _PartyState extends State<Party> {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+                              padding: const EdgeInsets.fromLTRB(25, 30, 25, 0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -104,7 +105,24 @@ class _PartyState extends State<Party> {
                                     height: 20,
                                   ),
                                   // Venue drop down menu
-                                  _buildVenue(),
+                                  if (_selectedVenue != _venueList[6])
+                                    _buildVenue(),
+                                  if (_selectedVenue == _venueList[6])
+                                    TextFormField(
+                                      autofocus: false,
+                                      decoration: const InputDecoration(
+                                        labelText: "Other Venue*",
+                                        prefixIcon: Icon(
+                                          Icons.place,
+                                          color: Colors.deepOrangeAccent,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -113,7 +131,25 @@ class _PartyState extends State<Party> {
                                     height: 20,
                                   ),
                                   // Budget drop down menu
-                                  _buildBudget(),
+                                  if (_selectedBudget != _budgetList[3])
+                                    _buildBudget(),
+                                  if (_selectedBudget == _budgetList[3])
+                                    TextFormField(
+                                      autofocus: false,
+                                      keyboardType: TextInputType.number,
+                                      decoration: const InputDecoration(
+                                        labelText: "Other*",
+                                        prefixIcon: Icon(
+                                          Icons.attach_money,
+                                          color: Colors.deepOrangeAccent,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -354,7 +390,7 @@ class _PartyState extends State<Party> {
         width: double.infinity,
         child: OutlinedButton(
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 26),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             foregroundColor: Colors.yellowAccent,
             backgroundColor: Colors.yellow[900],
             elevation: 15,
