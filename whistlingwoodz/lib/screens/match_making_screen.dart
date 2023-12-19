@@ -112,7 +112,7 @@ class _MatchMakingState extends State<MatchMaking> {
         backgroundColor: Colors.yellow[900],
         shape: const CircleBorder(),
         child: const Icon(
-          Icons.mode_edit,
+          Icons.search,
           color: Colors.white,
         ),
       );
