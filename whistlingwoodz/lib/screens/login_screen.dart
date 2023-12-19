@@ -1,11 +1,10 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/main.dart';
-import 'package:whistlingwoodz/screens/registration_screen.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:whistlingwoodz/widgets/input_field_widget.dart';
+import 'package:whistlingwoodz/screens/registration_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.data});
@@ -25,19 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
     super.dispose();
   }
-
-  // homeFunction() {
-  //   runApp(MaterialApp(
-  //     navigatorKey: navigatorKey,
-  //     debugShowCheckedModeBanner: false,
-  //     title: 'Whistlingwoodz',
-  //     theme: ThemeData(
-  //       primarySwatch: Colors.amber,
-  //     ),
-  //     // ignore: prefer_const_constructors
-  //     home: MyApp(selectedIndex: 7),
-  //   ));
-  // }
 
   Future back() async {
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
@@ -204,19 +190,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     // Sign In button.
                     ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          // ignore: prefer_const_constructors
-                          minimumSize: Size.fromHeight(50),
-                        ),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size.fromHeight(50),
+                      ),
+                      // ignore: prefer_const_constructors
+                      icon: Icon(Icons.lock, size: 32),
+                      // ignore: prefer_const_constructors
+                      label: Text(
+                        'Sign In',
                         // ignore: prefer_const_constructors
-                        icon: Icon(Icons.lock, size: 32),
-                        // ignore: prefer_const_constructors
-                        label: Text(
-                          'Sign In',
-                          // ignore: prefer_const_constructors
-                          style: TextStyle(fontSize: 24),
-                        ),
-                        onPressed: signIn),
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      onPressed: signIn,
+                    ),
                     // Space between Sign In button and Don't have an account
                     SizedBox(
                       height: 25.0,
@@ -236,10 +222,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RegistrationScreen()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const RegistrationScreen(data: false),
+                              ),
+                            );
                           },
                           child: const Text(
                             "Sign Up",

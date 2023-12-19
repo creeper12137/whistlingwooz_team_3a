@@ -4,10 +4,11 @@ import 'package:whistlingwoodz/screens/login_screen.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:whistlingwoodz/widgets/input_field_widget.dart';
 import 'package:whistlingwoodz/widgets/primary_button_signup.dart';
-import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
+// import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({super.key});
+  const RegistrationScreen({super.key, required this.data});
+  final bool data;
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
@@ -24,7 +25,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(data: false),
+      // appBar: const AppBarPage(data: false),
       // Fix for pixel exceeding screen.
       resizeToAvoidBottomInset: false,
       //! Main background colour
@@ -272,7 +273,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginScreen(data: false)));
+                            builder: (context) =>
+                                const LoginScreen(data: false)));
                   },
                   child: const Text(
                     "Sign In",
