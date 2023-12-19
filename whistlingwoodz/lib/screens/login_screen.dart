@@ -18,28 +18,29 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-
     super.dispose();
   }
-   homeFunction(){
-     runApp(MaterialApp(
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      title: 'Whistlingwoodz',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
-      // ignore: prefer_const_constructors
-      home:  MyApp(selectedIndex: 7),
-     ));
-  }
 
-  Future back() async{
-     navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  // homeFunction() {
+  //   runApp(MaterialApp(
+  //     navigatorKey: navigatorKey,
+  //     debugShowCheckedModeBanner: false,
+  //     title: 'Whistlingwoodz',
+  //     theme: ThemeData(
+  //       primarySwatch: Colors.amber,
+  //     ),
+  //     // ignore: prefer_const_constructors
+  //     home: MyApp(selectedIndex: 7),
+  //   ));
+  // }
+
+  Future back() async {
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
   Future signIn() async {
@@ -56,7 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
     } on FirebaseAuthException catch (e) {
       print(e);
     }
-
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
@@ -67,14 +67,37 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: colorPrimary,
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-          child: Padding(
-            // padding around all edges of screen
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Column(
+        child: Column(
+          children: [
+            Row(
               children: [
-                Column(
+                TextButton.icon(
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(colorWhite),
+                  ),
+                  onPressed: () {
+                    back();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    size: 20.0,
+                  ),
+                  label: const Text(
+                    'Back',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ), // <-- Text
+                ),
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 30.0, right: 30.0),
+              child: Padding(
+                // padding around all edges of screen
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
@@ -180,7 +203,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 70.0,
                     ),
                     // Sign In button.
-
                     ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           // ignore: prefer_const_constructors
@@ -194,8 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           // ignore: prefer_const_constructors
                           style: TextStyle(fontSize: 24),
                         ),
-                        onPressed: signIn
-                        ),
+                        onPressed: signIn),
                     // Space between Sign In button and Don't have an account
                     SizedBox(
                       height: 25.0,
@@ -234,9 +255,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
