@@ -43,8 +43,8 @@ class _AppBarPageState extends State<AppBarPage> {
   //     ),
   //   );
   // }
-  homeFunction(){
-     runApp(MaterialApp(
+  homeFunction() {
+    runApp(MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Whistlingwoodz',
@@ -52,8 +52,8 @@ class _AppBarPageState extends State<AppBarPage> {
         primarySwatch: Colors.amber,
       ),
       // ignore: prefer_const_constructors
-      home:  MyApp(selectedIndex: 7),
-     ));
+      home: MyApp(selectedIndex: 7),
+    ));
   }
 
   @override
@@ -92,7 +92,7 @@ class _AppBarPageState extends State<AppBarPage> {
           visible: widget.data,
           replacement: IconButton(
             icon: const Icon(
-              Icons.logout_outlined,
+              Icons.login_outlined,
               color: appBackGroundColor,
             ),
             onPressed: () {
@@ -105,7 +105,7 @@ class _AppBarPageState extends State<AppBarPage> {
           ),
           child: IconButton(
               icon: const Icon(
-                Icons.arrow_back,
+                Icons.logout_outlined,
                 color: appBackGroundColor,
               ),
               onPressed: () => FirebaseAuth.instance.signOut()),
