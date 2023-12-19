@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:whistlingwoodz/screens/wedding_celebrations_screen.dart';
 import 'package:whistlingwoodz/screens/main_screen.dart';
 
 void main() async {
@@ -15,7 +14,7 @@ void main() async {
     theme: ThemeData(
       primarySwatch: Colors.amber,
     ),
-    home: const MyApp(selectedIndex: 1),
+    home: const MyApp(selectedIndex: 7),
   ));
 }
 
