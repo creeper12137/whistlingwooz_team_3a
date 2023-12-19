@@ -35,7 +35,7 @@ class _ServicesState extends State<Services> {
       imageUrl: "assets/images/vimage2.png",
     ),
     ServiceModel(
-      title: "Event Planning",
+      title: "Event \nPlanning",
       imageUrl: "assets/images/evimage4.png",
     ),
     ServiceModel(
@@ -43,11 +43,11 @@ class _ServicesState extends State<Services> {
       imageUrl: "assets/images/perimage5.png",
     ),
     ServiceModel(
-      title: "Commute & Cabs",
+      title: "Commute & \nCabs",
       imageUrl: "assets/images/ccimage6.png",
     ),
     ServiceModel(
-      title: "Vendors Range",
+      title: "Vendors \nRange",
       imageUrl: "assets/images/venimage7.png",
     ),
   ];
