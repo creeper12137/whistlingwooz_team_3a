@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
-import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
+import 'package:whistlingwoodz/main.dart';
 import 'package:whistlingwoodz/screens/services_screen.dart';
 
 class InquiryForm extends StatefulWidget {
-  const InquiryForm({super.key});
+  const InquiryForm({super.key, required this.data});
+  final bool data;
 
   @override
   State<InquiryForm> createState() => _InquiryFormState();
 }
 
 class _InquiryFormState extends State<InquiryForm> {
+  homeFunction() {
+    runApp(MaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Whistlingwoodz',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      // ignore: prefer_const_constructors
+      home: MyApp(selectedIndex: 7),
+    ));
+  }
+
   // variable for the type drop down menus
   final _typeList = [
     "Wedding",
@@ -25,7 +38,6 @@ class _InquiryFormState extends State<InquiryForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(data: false),
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
@@ -134,7 +146,6 @@ class _InquiryFormState extends State<InquiryForm> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
     );
   }
 
@@ -267,12 +278,8 @@ class _InquiryFormState extends State<InquiryForm> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Services(),
-                        ),
-                      );
+                      homeFunction();
+                      Navigator.pop(context);
                     },
                     child: const Text("Close"),
                   ),

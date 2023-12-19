@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:whistlingwoodz/screens/landing_page_screen.dart';
-import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
-import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
+import 'package:whistlingwoodz/main.dart';
 
 class SurveyForm extends StatefulWidget {
-  const SurveyForm({super.key});
+  const SurveyForm({super.key, required this.data});
+  final bool data;
 
   @override
   State<SurveyForm> createState() => _SurveyFormState();
 }
 
 class _SurveyFormState extends State<SurveyForm> {
+  homeFunction() {
+    runApp(MaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Whistlingwoodz',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      // ignore: prefer_const_constructors
+      home: MyApp(selectedIndex: 7),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +96,6 @@ class _SurveyFormState extends State<SurveyForm> {
           ),
         ),
       ),
-      
     );
   }
 
@@ -128,12 +139,8 @@ class _SurveyFormState extends State<SurveyForm> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LandingPage(),
-                        ),
-                      );
+                      homeFunction();
+                      Navigator.pop(context);
                     },
                     child: const Text("Close"),
                   ),
