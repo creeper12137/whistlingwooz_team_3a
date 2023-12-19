@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 import 'package:whistlingwoodz/screens/survey_form_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Corporate extends StatefulWidget {
   const Corporate({super.key});
@@ -12,20 +13,20 @@ class Corporate extends StatefulWidget {
 
 class _CorporateState extends State<Corporate> {
   // list variables for drop down menus
-  final _themeList = [
+  final List<String> _themeList = [
     "Business",
     "Product Context",
     "Symposium Sense",
     "Alliance Affair"
   ];
-  final _functionList = [
+  final List<String> _functionList = [
     "Product Launch",
     "Trade Show",
     "Gala Dinner",
     "X-Mas Party",
     "EOY Celebrations"
   ];
-  final _venueList = [
+  final List<String> _venueList = [
     "Hyatt Place Melbounre",
     "Hyatt Place Carribean Park",
     "Grand Hyatt Melbourne",
@@ -34,7 +35,7 @@ class _CorporateState extends State<Corporate> {
     "The Langham Melbourne",
     "Other"
   ];
-  final _budgetList = [
+  final List<String> _budgetList = [
     r"$20,000 - $29,999",
     r"$30,000 - $39,999",
     r"$40,000 - $60,000",
@@ -49,8 +50,23 @@ class _CorporateState extends State<Corporate> {
 
   @override
   Widget build(BuildContext context) {
+    //bool isLogin = false;
+
+    StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        initialData: FirebaseAuth.instance.currentUser,
+        builder: (context, snapshot) {
+          final isSignedIn = snapshot.data != null;
+          if (isSignedIn) {
+            //isLogin = isSignedIn;
+            return const AppBarPage(data: true);
+          } else {
+            return const AppBarPage(data: false);
+          }
+        });
+
     return Scaffold(
-      appBar: const AppBarPage(data: false),
+      //appBar: AppBarPage(data:isLogin),
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
@@ -185,7 +201,7 @@ class _CorporateState extends State<Corporate> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
+      // bottomNavigationBar: const BottomBar(),
     );
   }
 
@@ -396,16 +412,12 @@ class _CorporateState extends State<Corporate> {
         width: double.infinity,
         child: OutlinedButton(
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 26),
             foregroundColor: Colors.yellowAccent,
             backgroundColor: Colors.yellow[900],
             elevation: 15,
             shadowColor: Colors.grey,
             shape: const StadiumBorder(),
-            // shape: RoundedRectangleBorder(
-            //   borderRadius:
-            //       BorderRadius.circular(10),
-            // ),
           ),
           onPressed: () {
             Navigator.push(

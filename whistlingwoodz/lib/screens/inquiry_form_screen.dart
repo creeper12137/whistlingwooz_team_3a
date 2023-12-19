@@ -116,7 +116,7 @@ class _InquiryFormState extends State<InquiryForm> {
                                   // inquiry text form field
                                   _buildInquiry(),
                                   const SizedBox(
-                                    height: 30,
+                                    height: 20,
                                   ),
                                   // submit button
                                   _buildSubmit(),
@@ -232,7 +232,7 @@ class _InquiryFormState extends State<InquiryForm> {
   // inquiry text form field
   Widget _buildInquiry() => TextFormField(
         autofocus: false,
-        maxLines: 8,
+        maxLines: 10,
         keyboardType: TextInputType.multiline,
         decoration: const InputDecoration(
           labelText: "Enter your message here*",
@@ -250,7 +250,7 @@ class _InquiryFormState extends State<InquiryForm> {
         width: double.infinity,
         child: OutlinedButton(
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 26),
             foregroundColor: Colors.yellowAccent,
             backgroundColor: Colors.yellow[900],
             elevation: 15,

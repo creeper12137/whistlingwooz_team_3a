@@ -4,8 +4,9 @@ import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 import 'package:whistlingwoodz/screens/survey_form_screen.dart';
 
 class Wedding extends StatefulWidget {
-  const Wedding({super.key, required this.data});
-  final bool data;
+  const Wedding({
+    super.key,
+  });
 
   @override
   State<Wedding> createState() => _WeddingState();
@@ -13,14 +14,14 @@ class Wedding extends StatefulWidget {
 
 class _WeddingState extends State<Wedding> {
   // list variables for drop down menus
-  final _themeList = ["Classic", "Contemporary", "Customized"];
-  final _functionList = [
+  final List<String> _themeList = ["Classic", "Contemporary", "Customized"];
+  final List<String> _functionList = [
     "Haldi - Mehndi",
     "Shagun - Engagement",
     "Wedding",
     "Reception"
   ];
-  final _venueList = [
+  final List<String> _venueList = [
     "Hyatt Place Melbounre",
     "Hyatt Place Carribean Park",
     "Grand Hyatt Melbourne",
@@ -29,7 +30,7 @@ class _WeddingState extends State<Wedding> {
     "The Langham Melbourne",
     "Other"
   ];
-  final _budgetList = [
+  final List<String> _budgetList = [
     r"$20,000 - $29,999",
     r"$30,000 - $39,999",
     r"$40,000 - $60,000",
@@ -45,7 +46,7 @@ class _WeddingState extends State<Wedding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarPage(data: widget.data),
+      // appBar: const AppBarPage(data: widget.data),
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
@@ -391,16 +392,12 @@ class _WeddingState extends State<Wedding> {
         width: double.infinity,
         child: OutlinedButton(
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 26),
             foregroundColor: Colors.yellowAccent,
             backgroundColor: Colors.yellow[900],
             elevation: 15,
             shadowColor: Colors.grey,
             shape: const StadiumBorder(),
-            // shape: RoundedRectangleBorder(
-            //   borderRadius:
-            //       BorderRadius.circular(10),
-            // ),
           ),
           onPressed: () {
             Navigator.push(

@@ -12,14 +12,14 @@ class Party extends StatefulWidget {
 
 class _PartyState extends State<Party> {
   // list variables for drop down menus
-  final _themeList = ["Traditional", "Modern", "Custom"];
-  final _functionList = [
+  final List<String> _themeList = ["Traditional", "Modern", "Custom"];
+  final List<String> _functionList = [
     "Birthday Celebration",
     "Anniversary Celebration",
     "Graduation Ceremony",
     "Personal"
   ];
-  final _venueList = [
+  final List<String> _venueList = [
     "Hyatt Place Melbounre",
     "Hyatt Place Carribean Park",
     "Grand Hyatt Melbourne",
@@ -28,7 +28,7 @@ class _PartyState extends State<Party> {
     "The Langham Melbourne",
     "Other"
   ];
-  final _budgetList = [
+  final List<String> _budgetList = [
     r"$20,000 - $29,999",
     r"$30,000 - $39,999",
     r"$40,000 - $60,000",
@@ -80,8 +80,6 @@ class _PartyState extends State<Party> {
                         const Text(
                           'PARTIES',
                           style: TextStyle(
-                            // color: Colors.black,
-                            // color: Color(0xffFFD700),
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 2,
@@ -390,16 +388,12 @@ class _PartyState extends State<Party> {
         width: double.infinity,
         child: OutlinedButton(
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 26),
             foregroundColor: Colors.yellowAccent,
             backgroundColor: Colors.yellow[900],
             elevation: 15,
             shadowColor: Colors.grey,
             shape: const StadiumBorder(),
-            // shape: RoundedRectangleBorder(
-            //   borderRadius:
-            //       BorderRadius.circular(10),
-            // ),
           ),
           onPressed: () {
             Navigator.push(

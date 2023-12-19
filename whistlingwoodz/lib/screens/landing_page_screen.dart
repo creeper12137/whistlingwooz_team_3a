@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whistlingwoodz/screens/login_screen.dart';
+import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 
-
 class LandingPage extends StatefulWidget {
-  
   const LandingPage({super.key, required bool data});
 
   @override
@@ -17,7 +16,6 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  
   // Function for the icon button to connect with whistlingwoodz homepage
   Future<void> _launchURL() async {
     final Uri url = Uri.parse('https://whistlingwoodz.com.au');
@@ -43,37 +41,37 @@ class _LandingPageState extends State<LandingPage> {
     // final user = FirebaseAuth.instance.currentUser!;
     // String userEmail = user.email!;
     return Scaffold(
-      // appBar: const AppBarPage(),
-      appBar: AppBar(
-        // backgroundColor: Colors.transparent, // if this code is used, the appbar will be transparent as white.
-        backgroundColor: Colors.amberAccent, //withOpacity(0.50), // optional
-        elevation: 0,
-        // leading: const Icon(Icons.menu),
-        actions: [
-          // Open whistlingwoodz homepage
-          IconButton(
-            icon: const Icon(
-              Icons.home,
-            ),
-            color: appBackGroundColor,
-            // link to the whistlingwoodz homepage
-            onPressed: () {
-              _launchURL();
-            },
-          ),
-          // Open registration page
-          IconButton(
-            icon: const Icon(
-              Icons.login,
-              color: appBackGroundColor,
-            ),
-            // link to the registration page
-            onPressed: () {
-              // _registration();
-            },
-          ),
-        ],
-      ),
+      appBar: const AppBarPage(data: false),
+      // appBar: AppBar(
+      //   // backgroundColor: Colors.transparent, // if this code is used, the appbar will be transparent as white.
+      //   backgroundColor: Colors.amberAccent, //withOpacity(0.50), // optional
+      //   elevation: 0,
+      //   // leading: const Icon(Icons.menu),
+      //   actions: [
+      //     // Open whistlingwoodz homepage
+      //     IconButton(
+      //       icon: const Icon(
+      //         Icons.home,
+      //       ),
+      //       color: appBackGroundColor,
+      //       // link to the whistlingwoodz homepage
+      //       onPressed: () {
+      //         _launchURL();
+      //       },
+      //     ),
+      //     // Open registration page
+      //     IconButton(
+      //       icon: const Icon(
+      //         Icons.login,
+      //         color: appBackGroundColor,
+      //       ),
+      //       // link to the registration page
+      //       onPressed: () {
+      //         // _registration();
+      //       },
+      //     ),
+      //   ],
+      // ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -85,8 +83,8 @@ class _LandingPageState extends State<LandingPage> {
             fit: BoxFit.cover,
           ),
         ),
-       
-        child:  Center(
+
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -122,16 +120,15 @@ class _LandingPageState extends State<LandingPage> {
                     // ),
                     SizedBox(height: 10),
                     ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size.fromHeight(10),
-                      ),
-                      icon: Icon(Icons.arrow_back, size: 16),
-                      label:Text(
-                        'Sign Out',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      onPressed:() => FirebaseAuth.instance.signOut()
-                    ), 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size.fromHeight(10),
+                        ),
+                        icon: Icon(Icons.arrow_back, size: 16),
+                        label: Text(
+                          'Sign Out',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        onPressed: () => FirebaseAuth.instance.signOut()),
                     SizedBox(
                       height: 80,
                     ),
@@ -200,8 +197,5 @@ class _LandingPageState extends State<LandingPage> {
       ),
       bottomNavigationBar: const BottomBar(),
     );
-    
   }
-
- 
 }
