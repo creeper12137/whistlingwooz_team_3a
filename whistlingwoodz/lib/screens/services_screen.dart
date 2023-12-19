@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:whistlingwoodz/main.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
-import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
-import 'package:whistlingwoodz/screens/inquiry_form_screen.dart';
+// import 'package:whistlingwoodz/screens/inquiry_form_screen.dart';
 
 class Services extends StatefulWidget {
-  const Services({super.key});
- 
+  const Services({super.key, required this.data});
+  final bool data;
+
   @override
   State<Services> createState() => _ServicesState();
 }
 
 class _ServicesState extends State<Services> {
+  inquiryFunction() {
+    runApp(MaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Whistlingwoodz',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      // ignore: prefer_const_constructors
+      home: MyApp(selectedIndex: 8),
+    ));
+  }
+
   final List<ServiceModel> services = [
     ServiceModel(
       title: "Understanding the Event Genre",
@@ -69,7 +82,7 @@ class _ServicesState extends State<Services> {
                     child: Text(
                       services[index].title,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16.0),
+                      style: const TextStyle(fontSize: 16.0),
                     ),
                   ),
                 ],
@@ -94,12 +107,7 @@ class _ServicesState extends State<Services> {
   // Floating Action Button for navigation to the inquiry form
   Widget buildNavigationButton() => FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const InquiryForm(),
-            ),
-          );
+          inquiryFunction();
         },
         backgroundColor: Colors.yellow[900],
         shape: const CircleBorder(),

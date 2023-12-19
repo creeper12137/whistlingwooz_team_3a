@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
-import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 
 class MatchMaking extends StatefulWidget {
   const MatchMaking({Key? key}) : super(key: key);
@@ -14,73 +12,110 @@ class _MatchMakingState extends State<MatchMaking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildSectionTitle('Personal Information:'),
-              _buildFullNameField('Bride'),
-              _buildFullNameField('Groom'),
-              _buildGenderField('Bride'),
-              _buildGenderField('Groom'),
-              _buildDateOfBirthField('Bride'),
-              _buildDateOfBirthField('Groom'),
-              _buildPlaceOfBirthField('Bride'),
-              _buildPlaceOfBirthField('Groom'),
-              _buildTextField(
-                  'Caste', 'Specify the caste of the bride and groom.'),
-              _buildTextField(
-                  'Religion', 'Specify the religion of the bride and groom.'),
-              _buildTextField('Sub-Caste (if applicable)',
-                  'Specify the sub-caste details.'),
-              _buildSectionTitle('Contact Information:'),
-              _buildTextField(
-                  'Email Address - Bride', 'Enter bride\'s email address.'),
-              _buildTextField(
-                  'Email Address - Groom', 'Enter groom\'s email address.'),
-              _buildTextField(
-                  'Phone Number - Bride', 'Enter bride\'s phone number.'),
-              _buildTextField(
-                  'Phone Number - Groom', 'Enter groom\'s phone number.'),
-              _buildSectionTitle('Educational Background:'),
-              _buildTextField('Education Level - Bride',
-                  'Enter bride\'s highest education level.'),
-              _buildTextField('Education Level - Groom',
-                  'Enter groom\'s highest education level.'),
-              _buildTextField(
-                  'Occupation - Bride', 'Enter bride\'s occupation.'),
-              _buildTextField(
-                  'Occupation - Groom', 'Enter groom\'s occupation.'),
-              _buildSectionTitle('Family Details:'),
-              _buildTextField('Family Background - Bride',
-                  'Briefly describe bride\'s family background.'),
-              _buildTextField('Family Background - Groom',
-                  'Briefly describe groom\'s family background.'),
-              _buildTextField('Siblings',
-                  'Number of siblings and their details (if applicable).'),
-              _buildSectionTitle('Preferences:'),
-              _buildTextField('Partner Preferences',
-                  'Specify the qualities and characteristics preferred in a life partner.'),
-              _buildTextField('Cultural Preferences',
-                  'Specify any cultural or religious preferences.'),
-              _buildSectionTitle('Photographs:'),
-              _buildTextField('Recent Photographs',
-                  'Attach recent photographs of the bride and groom.'),
-              _buildSectionTitle('Additional Information:'),
-              _buildTextField('Specific Considerations',
-                  'Include any additional information that may be relevant.'),
-            ],
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        // backgound photo for landing page
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/weddingPage.png"),
+            opacity: 0.5,
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+          child: SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.6,
+              decoration: const BoxDecoration(
+                color: Colors.white54,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 30, 25, 0),
+                    child: Column(
+                      children: [
+                        _buildSectionTitle('Personal Information:'),
+                        _buildFullNameField('Bride'),
+                        _buildFullNameField('Groom'),
+                        _buildGenderField('Bride'),
+                        _buildGenderField('Groom'),
+                        _buildDateOfBirthField('Bride'),
+                        _buildDateOfBirthField('Groom'),
+                        _buildPlaceOfBirthField('Bride'),
+                        _buildPlaceOfBirthField('Groom'),
+                        _buildTextField('Caste',
+                            'Specify the caste of the bride and groom.'),
+                        _buildTextField('Religion',
+                            'Specify the religion of the bride and groom.'),
+                        _buildTextField('Sub-Caste (if applicable)',
+                            'Specify the sub-caste details.'),
+                        _buildSectionTitle('Contact Information:'),
+                        _buildTextField('Email Address - Bride',
+                            'Enter bride\'s email address.'),
+                        _buildTextField('Email Address - Groom',
+                            'Enter groom\'s email address.'),
+                        _buildTextField('Phone Number - Bride',
+                            'Enter bride\'s phone number.'),
+                        _buildTextField('Phone Number - Groom',
+                            'Enter groom\'s phone number.'),
+                        _buildSectionTitle('Educational Background:'),
+                        _buildTextField('Education Level - Bride',
+                            'Enter bride\'s highest education level.'),
+                        _buildTextField('Education Level - Groom',
+                            'Enter groom\'s highest education level.'),
+                        _buildTextField(
+                            'Occupation - Bride', 'Enter bride\'s occupation.'),
+                        _buildTextField(
+                            'Occupation - Groom', 'Enter groom\'s occupation.'),
+                        _buildSectionTitle('Family Details:'),
+                        _buildTextField('Family Background - Bride',
+                            'Briefly describe bride\'s family background.'),
+                        _buildTextField('Family Background - Groom',
+                            'Briefly describe groom\'s family background.'),
+                        _buildTextField('Siblings',
+                            'Number of siblings and their details (if applicable).'),
+                        _buildSectionTitle('Preferences:'),
+                        _buildTextField('Partner Preferences',
+                            'Specify the qualities and characteristics preferred in a life partner.'),
+                        _buildTextField('Cultural Preferences',
+                            'Specify any cultural or religious preferences.'),
+                        _buildSectionTitle('Photographs:'),
+                        _buildTextField('Recent Photographs',
+                            'Attach recent photographs of the bride and groom.'),
+                        _buildSectionTitle('Additional Information:'),
+                        _buildTextField('Specific Considerations',
+                            'Include any additional information that may be relevant.'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
-      // bottomNavigationBar: BottomBar(
-      //   onSubmit: _launchWebsite,
-      // ),
+      floatingActionButton: buildNavigationButton(),
     );
   }
+
+  // Floating Action Button for navigation to the inquiry form
+  Widget buildNavigationButton() => FloatingActionButton(
+        onPressed: () {
+          _launchURL();
+        },
+        backgroundColor: Colors.yellow[900],
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.mode_edit,
+          color: Colors.white,
+        ),
+      );
 
   Widget _buildSectionTitle(String title) {
     return Padding(
@@ -158,7 +193,7 @@ class _MatchMakingState extends State<MatchMaking> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label + ':'),
+        Text('$label:'),
         TextField(
           decoration: InputDecoration(
             hintText: hint,
@@ -169,46 +204,12 @@ class _MatchMakingState extends State<MatchMaking> {
   }
 
   // Callback function to launch the website
-  void _launchWebsite() async {
-    const url = 'https://whistlingwoodz.com.au/';
-    if (await canLaunch(url)) {
-      await launch(url);
+  _launchURL() async {
+    final Uri url = Uri.parse('https://whistlingwoodz.com.au/contact-us');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
     } else {
       throw 'Could not launch $url';
     }
   }
 }
-
-// class BottomBar extends StatelessWidget {
-//   final VoidCallback onSubmit;
-
-//   const BottomBar({Key? key, required this.onSubmit}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return BottomNavigationBar(
-//       items: const [
-//         BottomNavigationBarItem(
-//           icon: Icon(Icons.home),
-//           label: 'Home',
-//         ),
-//         BottomNavigationBarItem(
-//           icon: Icon(Icons.search),
-//           label: 'Search',
-//         ),
-//         BottomNavigationBarItem(
-//           icon: Icon(Icons.send),
-//           label: 'Submit',
-//         ),
-//       ],
-//       onTap: (index) {
-//         if (index == 2) {
-//           // The index of your submit button, call the onSubmit callback
-//           onSubmit();
-//         } else {
-//           // Handle other taps if needed
-//         }
-//       },
-//     );
-//   }
-// }
