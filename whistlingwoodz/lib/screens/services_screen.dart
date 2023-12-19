@@ -6,7 +6,7 @@ import 'package:whistlingwoodz/screens/inquiry_form_screen.dart';
 
 class Services extends StatefulWidget {
   const Services({super.key});
-
+ 
   @override
   State<Services> createState() => _ServicesState();
 }
@@ -42,7 +42,6 @@ class _ServicesState extends State<Services> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(data: false),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -80,7 +79,6 @@ class _ServicesState extends State<Services> {
         },
       ),
       floatingActionButton: buildNavigationButton(),
-      bottomNavigationBar: const BottomBar(),
     );
   }
 

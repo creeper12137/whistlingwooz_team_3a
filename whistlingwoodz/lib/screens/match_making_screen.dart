@@ -14,7 +14,7 @@ class _MatchMakingState extends State<MatchMaking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(data: false),
+      
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -76,9 +76,9 @@ class _MatchMakingState extends State<MatchMaking> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomBar(
-        onSubmit: _launchWebsite,
-      ),
+      // bottomNavigationBar: BottomBar(
+      //   onSubmit: _launchWebsite,
+      // ),
     );
   }
 
@@ -179,36 +179,36 @@ class _MatchMakingState extends State<MatchMaking> {
   }
 }
 
-class BottomBar extends StatelessWidget {
-  final VoidCallback onSubmit;
+// class BottomBar extends StatelessWidget {
+//   final VoidCallback onSubmit;
 
-  const BottomBar({Key? key, required this.onSubmit}) : super(key: key);
+//   const BottomBar({Key? key, required this.onSubmit}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Search',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.send),
-          label: 'Submit',
-        ),
-      ],
-      onTap: (index) {
-        if (index == 2) {
-          // The index of your submit button, call the onSubmit callback
-          onSubmit();
-        } else {
-          // Handle other taps if needed
-        }
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BottomNavigationBar(
+//       items: const [
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.home),
+//           label: 'Home',
+//         ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.search),
+//           label: 'Search',
+//         ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.send),
+//           label: 'Submit',
+//         ),
+//       ],
+//       onTap: (index) {
+//         if (index == 2) {
+//           // The index of your submit button, call the onSubmit callback
+//           onSubmit();
+//         } else {
+//           // Handle other taps if needed
+//         }
+//       },
+//     );
+//   }
+// }

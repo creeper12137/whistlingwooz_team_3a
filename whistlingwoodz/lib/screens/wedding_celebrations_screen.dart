@@ -181,7 +181,6 @@ class _WeddingState extends State<Wedding> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
     );
   }
 

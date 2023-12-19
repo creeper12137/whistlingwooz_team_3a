@@ -25,6 +25,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
     super.dispose();
   }
+   homeFunction(){
+     runApp(MaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Whistlingwoodz',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      // ignore: prefer_const_constructors
+      home:  MyApp(selectedIndex: 7),
+     ));
+  }
+
+  Future back() async{
+     navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
 
   Future signIn() async {
     showDialog(
@@ -178,7 +194,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           // ignore: prefer_const_constructors
                           style: TextStyle(fontSize: 24),
                         ),
-                        onPressed: signIn),
+                        onPressed: signIn
+                        ),
                     // Space between Sign In button and Don't have an account
                     SizedBox(
                       height: 25.0,

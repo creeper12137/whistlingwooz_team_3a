@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:whistlingwoodz/screens/login_screen.dart';
 import 'package:whistlingwoodz/screens/landing_page_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:whistlingwoodz/main.dart';
 
 // import 'package:whistlingwoodz/screens/registration_screen.dart';
 
@@ -42,6 +43,18 @@ class _AppBarPageState extends State<AppBarPage> {
   //     ),
   //   );
   // }
+  homeFunction(){
+     runApp(MaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Whistlingwoodz',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      // ignore: prefer_const_constructors
+      home:  MyApp(selectedIndex: 7),
+     ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +64,7 @@ class _AppBarPageState extends State<AppBarPage> {
       leading: IconButton(
         icon: const Icon(Icons.home),
         // When it has clicked, it goes to the landing page.
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const LandingPage(data: false)),
-          );
-        },
+        onPressed: homeFunction,
         color: appBackGroundColor,
       ),
       actions: [

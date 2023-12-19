@@ -14,7 +14,6 @@ class _SurveyFormState extends State<SurveyForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(data: false),
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
@@ -85,7 +84,7 @@ class _SurveyFormState extends State<SurveyForm> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
+      
     );
   }
 
@@ -132,7 +131,7 @@ class _SurveyFormState extends State<SurveyForm> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const LandingPage(data: false),
+                          builder: (context) => const LandingPage(),
                         ),
                       );
                     },

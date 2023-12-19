@@ -9,7 +9,7 @@ import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({super.key, required bool data});
+  const LandingPage({super.key,});
 
   @override
   State<LandingPage> createState() => _LandingPageState();
@@ -41,7 +41,7 @@ class _LandingPageState extends State<LandingPage> {
     // final user = FirebaseAuth.instance.currentUser!;
     // String userEmail = user.email!;
     return Scaffold(
-      appBar: const AppBarPage(data: false),
+      
       // appBar: AppBar(
       //   // backgroundColor: Colors.transparent, // if this code is used, the appbar will be transparent as white.
       //   backgroundColor: Colors.amberAccent, //withOpacity(0.50), // optional
@@ -195,7 +195,7 @@ class _LandingPageState extends State<LandingPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
+      
     );
   }
 }

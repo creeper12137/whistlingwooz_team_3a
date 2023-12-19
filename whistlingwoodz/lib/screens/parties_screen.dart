@@ -44,7 +44,6 @@ class _PartyState extends State<Party> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(data: false),
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
@@ -177,7 +176,6 @@ class _PartyState extends State<Party> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
     );
   }
 
