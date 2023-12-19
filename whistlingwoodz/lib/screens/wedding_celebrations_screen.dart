@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
-import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
-import 'package:whistlingwoodz/screens/survey_form_screen.dart';
+import 'package:whistlingwoodz/main.dart';
 
 class Wedding extends StatefulWidget {
-  const Wedding({
-    super.key,
-  });
+  const Wedding({super.key, required this.data});
+  final bool data;
 
   @override
   State<Wedding> createState() => _WeddingState();
 }
 
 class _WeddingState extends State<Wedding> {
+  submitFunction() {
+    runApp(MaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Whistlingwoodz',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      // ignore: prefer_const_constructors
+      home: MyApp(selectedIndex: 6),
+    ));
+  }
+
   // list variables for drop down menus
   final List<String> _themeList = ["Classic", "Contemporary", "Customized"];
   final List<String> _functionList = [
@@ -399,12 +409,7 @@ class _WeddingState extends State<Wedding> {
             shape: const StadiumBorder(),
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SurveyForm(),
-              ),
-            );
+            submitFunction();
           },
           child: Text(
             "Submit Form".toUpperCase(),

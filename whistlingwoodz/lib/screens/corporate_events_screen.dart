@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
-import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
-import 'package:whistlingwoodz/screens/survey_form_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:whistlingwoodz/main.dart';
 
 class Corporate extends StatefulWidget {
-  const Corporate({super.key});
+  const Corporate({super.key, required this.data});
+  final bool data;
 
   @override
   State<Corporate> createState() => _CorporateState();
 }
 
 class _CorporateState extends State<Corporate> {
+  submitFunction() {
+    runApp(MaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Whistlingwoodz',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      // ignore: prefer_const_constructors
+      home: MyApp(selectedIndex: 6),
+    ));
+  }
+
   // list variables for drop down menus
   final List<String> _themeList = [
     "Business",
@@ -50,23 +61,7 @@ class _CorporateState extends State<Corporate> {
 
   @override
   Widget build(BuildContext context) {
-    //bool isLogin = false;
-
-    StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        initialData: FirebaseAuth.instance.currentUser,
-        builder: (context, snapshot) {
-          final isSignedIn = snapshot.data != null;
-          if (isSignedIn) {
-            //isLogin = isSignedIn;
-            return const AppBarPage(data: true);
-          } else {
-            return const AppBarPage(data: false);
-          }
-        });
-
     return Scaffold(
-      //appBar: AppBarPage(data:isLogin),
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
@@ -420,12 +415,7 @@ class _CorporateState extends State<Corporate> {
             shape: const StadiumBorder(),
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SurveyForm(),
-              ),
-            );
+            submitFunction();
           },
           child: Text(
             "Submit Form".toUpperCase(),
