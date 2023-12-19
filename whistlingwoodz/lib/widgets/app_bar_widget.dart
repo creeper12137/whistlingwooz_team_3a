@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whistlingwoodz/screens/login_screen.dart';
+import 'package:whistlingwoodz/screens/landing_page_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 // import 'package:whistlingwoodz/screens/registration_screen.dart';
@@ -20,9 +21,9 @@ class AppBarPage extends StatefulWidget implements PreferredSizeWidget {
 
 class _AppBarPageState extends State<AppBarPage> {
   var loginStatus = FirebaseAuth.instance.authStateChanges();
-  
+
   // Function for the icon button to connect with whistlingwoodz homepage
- 
+
   Future<void> _launchURL() async {
     final Uri url = Uri.parse('https://whistlingwoodz.com.au');
     if (await canLaunchUrl(url)) {
@@ -48,9 +49,16 @@ class _AppBarPageState extends State<AppBarPage> {
       backgroundColor: Colors.amberAccent, //withOpacity(0.50), // optional
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
-        // When it has clicked, it goes previous screen.
-        onPressed: () async => Navigator.of(context).pop(),
+        icon: const Icon(Icons.home),
+        // When it has clicked, it goes to the landing page.
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const LandingPage(data: false)),
+          );
+        },
+        color: appBackGroundColor,
       ),
       actions: [
         // Notification button
@@ -64,7 +72,7 @@ class _AppBarPageState extends State<AppBarPage> {
         // Open whistlingwoodz homepage
         IconButton(
           icon: const Icon(
-            Icons.home,
+            Icons.star,
             color: appBackGroundColor,
           ),
           // link to the whistlingwoodz homepage
@@ -81,19 +89,19 @@ class _AppBarPageState extends State<AppBarPage> {
               color: appBackGroundColor,
             ),
             onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginScreen(data:false)),
-            );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const LoginScreen(data: false)),
+              );
             },
-          ), 
-          child:IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: appBackGroundColor,
-            ),
-           onPressed: () => FirebaseAuth.instance.signOut()
-        ),
+          ),
+          child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                color: appBackGroundColor,
+              ),
+              onPressed: () => FirebaseAuth.instance.signOut()),
         ),
       ],
     );

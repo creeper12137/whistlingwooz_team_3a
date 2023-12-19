@@ -6,6 +6,7 @@ import 'package:whistlingwoodz/screens/parties_screen.dart';
 import 'package:whistlingwoodz/screens/services_screen.dart';
 import 'package:whistlingwoodz/screens/match_making_screen.dart';
 import 'package:whistlingwoodz/screens/photo_gallery_screen.dart';
+import 'package:whistlingwoodz/main.dart';
 
 // This class for the Bottom Navigation Bar widget
 class BottomBar extends StatefulWidget {
@@ -22,22 +23,24 @@ class _BottomBarState extends State<BottomBar>
 
   // The function of the bottom navigation bar to navigate to each tab
   // Future<void> navigationTapped(int index) async {
-  void navigationTapped(int index) async {
+   navigationTapped(int index) async {
     setState(() {
       _selectedIndex = index;
     });
     if (_selectedIndex == 0) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Wedding(data: false)));
+      return  MyApp(selectedIndex: _selectedIndex);
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => const Wedding(data: false)));
       // ScaffoldMessenger.of(context)
       //   ..removeCurrentSnackBar()
       //   ..showSnackBar(SnackBar(content: Text('$result')));
     } else if (_selectedIndex == 1) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Corporate()));
+      // debugPrint(_selectedIndex.toString());
+      return MyApp(selectedIndex: _selectedIndex);
     } else if (_selectedIndex == 2) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Party()));
+          context, MaterialPageRoute(builder: (context) => const Party(),));
+          
     } else if (_selectedIndex == 3) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const Services()));
