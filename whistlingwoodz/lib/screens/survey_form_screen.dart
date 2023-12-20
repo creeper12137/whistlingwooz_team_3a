@@ -10,17 +10,9 @@ class SurveyForm extends StatefulWidget {
 }
 
 class _SurveyFormState extends State<SurveyForm> {
-  homeFunction() {
-    runApp(MaterialApp(
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      title: 'Whistlingwoodz',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
-      // ignore: prefer_const_constructors
-      home: MyApp(selectedIndex: 7),
-    ));
+  // function to navigate to previous screen where they were
+  Future back() async {
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
   @override
@@ -139,8 +131,8 @@ class _SurveyFormState extends State<SurveyForm> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      homeFunction();
                       Navigator.pop(context);
+                      back();
                     },
                     child: const Text("Close"),
                   ),

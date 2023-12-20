@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/main.dart';
-import 'package:whistlingwoodz/screens/services_screen.dart';
 
 class InquiryForm extends StatefulWidget {
   const InquiryForm({super.key, required this.data});
@@ -11,17 +10,9 @@ class InquiryForm extends StatefulWidget {
 }
 
 class _InquiryFormState extends State<InquiryForm> {
-  homeFunction() {
-    runApp(MaterialApp(
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      title: 'Whistlingwoodz',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
-      // ignore: prefer_const_constructors
-      home: MyApp(selectedIndex: 7),
-    ));
+  // function to navigate to previous screen where they were
+  Future back() async {
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
   // variable for the type drop down menus
@@ -243,7 +234,7 @@ class _InquiryFormState extends State<InquiryForm> {
   // inquiry text form field
   Widget _buildInquiry() => TextFormField(
         autofocus: false,
-        maxLines: 10,
+        maxLines: 8,
         keyboardType: TextInputType.multiline,
         decoration: const InputDecoration(
           labelText: "Enter your message here*",
@@ -278,8 +269,9 @@ class _InquiryFormState extends State<InquiryForm> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      homeFunction();
                       Navigator.pop(context);
+                      back();
+                      // homeFunction();
                     },
                     child: const Text("Close"),
                   ),
