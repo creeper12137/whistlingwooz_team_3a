@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
-import 'package:whistlingwoodz/screens/wedding_celebrations_screen.dart';
-import 'package:whistlingwoodz/screens/corporate_events_screen.dart';
-import 'package:whistlingwoodz/screens/parties_screen.dart';
-import 'package:whistlingwoodz/screens/services_screen.dart';
-import 'package:whistlingwoodz/screens/match_making_screen.dart';
-import 'package:whistlingwoodz/screens/photo_gallery_screen.dart';
 import 'package:whistlingwoodz/main.dart';
 
 // This class for the Bottom Navigation Bar widget
@@ -23,7 +17,7 @@ class _BottomBarState extends State<BottomBar>
 
   // The function of the bottom navigation bar to navigate to each tab
   // Future<void> navigationTapped(int index) async {
-   navigationTapped(int index) async {
+  navigationTapped(int index) async {
     setState(() {
       _selectedIndex = index;
     });
@@ -40,7 +34,7 @@ class _BottomBarState extends State<BottomBar>
     // } else if (_selectedIndex == 2) {
     //   Navigator.push(
     //       context, MaterialPageRoute(builder: (context) => const Party(),));
-          
+
     // } else if (_selectedIndex == 3) {
     //   Navigator.push(
     //       context, MaterialPageRoute(builder: (context) => const Services()));
@@ -51,15 +45,15 @@ class _BottomBarState extends State<BottomBar>
     //   Navigator.push(
     //       context, MaterialPageRoute(builder: (context) => const Galleries()));
     // }
-     runApp(MaterialApp(
+    runApp(MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Whistlingwoodz',
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home:  MyApp(selectedIndex: _selectedIndex),
-     ));
+      home: MyApp(selectedIndex: _selectedIndex),
+    ));
   }
 
   @override
@@ -119,7 +113,7 @@ class _BottomBarState extends State<BottomBar>
           // Match Making tab
           Tab(
             icon: Icon(
-              Icons.account_circle_outlined,
+              Icons.favorite_border_outlined,
             ),
             text: "M",
           ),

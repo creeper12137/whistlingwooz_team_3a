@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whistlingwoodz/screens/login_screen.dart';
-import 'package:whistlingwoodz/screens/landing_page_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whistlingwoodz/main.dart';
-
-// import 'package:whistlingwoodz/screens/registration_screen.dart';
 
 // This class for the appbar widget
 class AppBarPage extends StatefulWidget implements PreferredSizeWidget {
@@ -24,7 +21,6 @@ class _AppBarPageState extends State<AppBarPage> {
   var loginStatus = FirebaseAuth.instance.authStateChanges();
 
   // Function for the icon button to connect with whistlingwoodz homepage
-
   Future<void> _launchURL() async {
     final Uri url = Uri.parse('https://whistlingwoodz.com.au');
     if (await canLaunchUrl(url)) {
@@ -34,15 +30,6 @@ class _AppBarPageState extends State<AppBarPage> {
     }
   }
 
-  // Function for the icon button to connect with registration page
-  // void _registration() {
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => const RegistrationScreen(),
-  //     ),
-  //   );
-  // }
   homeFunction() {
     runApp(MaterialApp(
       navigatorKey: navigatorKey,
@@ -92,7 +79,7 @@ class _AppBarPageState extends State<AppBarPage> {
           visible: widget.data,
           replacement: IconButton(
             icon: const Icon(
-              Icons.login_outlined,
+              Icons.account_circle_outlined,
               color: appBackGroundColor,
             ),
             onPressed: () {
