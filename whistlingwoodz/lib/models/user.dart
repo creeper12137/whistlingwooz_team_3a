@@ -76,7 +76,7 @@ class User {
     return phoneNo;
   }
 
-  void seetPhoneNo(String newPhoneNo) {
+  void setPhoneNo(String newPhoneNo) {
     if (newPhoneNo.length != 10) {
       debugPrint('Phone number must be 10 digits long.');
       return;
