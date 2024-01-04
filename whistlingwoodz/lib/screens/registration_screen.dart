@@ -1,26 +1,56 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:whistlingwoodz/screens/login_screen.dart';
+import 'package:whistlingwoodz/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:whistlingwoodz/widgets/input_field_widget.dart';
 import 'package:whistlingwoodz/widgets/primary_button_signup.dart';
 // import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({super.key, required this.data});
-  final bool data;
+  final VoidCallback showLoginPage;
+  const RegistrationScreen({super.key,  required this.showLoginPage});
+  // final bool data;
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController birthDateController = TextEditingController();
+  final emailController = TextEditingController();
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final birthDateController = TextEditingController();
 
   String genderSelected = "male";
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+  Future back() async {
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+  
+  Future signUp() async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim()
+        );
+
+     
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+ 
+  }
+
+  Future addUserDetails() async {
+    await FirebaseFirestore.instance.collection('users').add({
+      
+    }); 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +64,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            TextButton.icon(
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(colorWhite),
+                  ),
+                  onPressed: () {
+                    back();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    size: 20.0,
+                  ),
+                  label: const Text(
+                    'Back',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ), // <-- Text
+                ),
             const Center(
               // WhistlingWoodz block
               child: Text(
@@ -244,12 +293,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             // Primary Sign up button
             PrimaryButtonSignUp(
               text: "Sign Up",
-              onPressed: () {
-                if (isValidate()) {
-                  // print("Data validated");
-                  // Navigate to landing screen after sign up firebase code still to be implemented.
-                }
-              },
+              onPressed:signUp,
             ),
             // Space between Primary Sign up button and Already have an account?
             const SizedBox(
@@ -269,13 +313,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 // Sign in text
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const LoginScreen(data: false)));
-                  },
+                  onTap: widget.showLoginPage,
                   child: const Text(
                     "Sign In",
                     style: TextStyle(

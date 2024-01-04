@@ -46,9 +46,9 @@ class _MainScreenState extends State<MainScreen> {
         return const LandingPage();
       } else if (widget.selectedIndex == 8) {
         return const InquiryForm(data: false);
-      } else if (widget.selectedIndex == 9) {
-        return const RegistrationScreen(data: false);
-      }
+      } //else if (widget.selectedIndex == 9) {
+      //   return const RegistrationScreen(data: false);
+      // }
     }
 
     return Scaffold(

@@ -7,8 +7,9 @@ import 'package:whistlingwoodz/widgets/input_field_widget.dart';
 import 'package:whistlingwoodz/screens/registration_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key, required this.data});
-  final bool data;
+  final VoidCallback showRegistrationPage;
+  const LoginScreen({super.key, required this.showRegistrationPage});
+  // final bool data;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -220,15 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         // Sign Up text
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const RegistrationScreen(data: false),
-                              ),
-                            );
-                          },
+                          onTap: widget.showRegistrationPage,
                           child: const Text(
                             "Sign Up",
                             style: TextStyle(

@@ -19,7 +19,7 @@ class User {
     this.birth,
   );
 
-  Map<String, dynamic> get map {
+  toJson() {
     return {
       "uid": uid,
       "fullName": fullName,

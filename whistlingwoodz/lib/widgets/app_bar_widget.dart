@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:whistlingwoodz/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whistlingwoodz/main.dart';
+import 'package:whistlingwoodz/screens/auth.dart';
 
 // This class for the appbar widget
 class AppBarPage extends StatefulWidget implements PreferredSizeWidget {
@@ -86,7 +87,7 @@ class _AppBarPageState extends State<AppBarPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const LoginScreen(data: false)),
+                    builder: (context) => const AuthScreen()),
               );
             },
           ),
