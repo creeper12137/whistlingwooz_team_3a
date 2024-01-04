@@ -10,7 +10,7 @@ import 'package:whistlingwoodz/widgets/primary_button_signup.dart';
 
 class RegistrationScreen extends StatefulWidget {
   final VoidCallback showLoginPage;
-  const RegistrationScreen({super.key,  required this.showLoginPage});
+  const RegistrationScreen({super.key, required this.showLoginPage});
   // final bool data;
 
   @override
@@ -31,25 +31,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     passwordController.dispose();
     super.dispose();
   }
+
   Future back() async {
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
-  
+
   Future signUp() async {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
-        password: passwordController.text.trim()
-        );
+        password: passwordController.text.trim());
 
-     
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
- 
   }
 
   Future addUserDetails() async {
-    await FirebaseFirestore.instance.collection('users').add({
-      
-    }); 
+    await FirebaseFirestore.instance.collection('users').add({});
   }
 
   @override
@@ -62,9 +58,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       backgroundColor: colorPrimary,
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextButton.icon(
+            Row(
+              children: [
+                TextButton.icon(
                   style: ButtonStyle(
                     foregroundColor:
                         MaterialStateProperty.all<Color>(colorWhite),
@@ -83,6 +80,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ), // <-- Text
                 ),
+              ],
+            ),
             const Center(
               // WhistlingWoodz block
               child: Text(
@@ -293,7 +292,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             // Primary Sign up button
             PrimaryButtonSignUp(
               text: "Sign Up",
-              onPressed:signUp,
+              onPressed: signUp,
             ),
             // Space between Primary Sign up button and Already have an account?
             const SizedBox(
