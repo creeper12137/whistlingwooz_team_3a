@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:whistlingwoodz/widgets/input_field_widget.dart';
 import 'package:whistlingwoodz/widgets/primary_button_signup.dart';
+import 'package:whistlingwoodz/models/user.dart';
 // import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -23,7 +24,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final passwordController = TextEditingController();
   final birthDateController = TextEditingController();
 
+  late String test1 = nameController.text.trim();
+
+  
+  
   String genderSelected = "male";
+
+  
 
   @override
   void dispose() {
@@ -39,13 +46,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Future signUp() async {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
-        password: passwordController.text.trim());
+        password: passwordController.text.trim()
+    );
+    final currentUser = FirebaseAuth.instance.currentUser!;
 
+    late final user = UserModel(
+      uid:currentUser.uid,
+      fullName : nameController.text.trim(),
+      email: emailController.text.trim(),
+    );
+    
+    addUserDetails(user);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
-  Future addUserDetails() async {
-    await FirebaseFirestore.instance.collection('users').add({});
+  Future addUserDetails(UserModel user) async {
+    await FirebaseFirestore.instance.collection('users').add(user.toJson());
   }
 
   @override
