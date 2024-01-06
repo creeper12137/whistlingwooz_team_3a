@@ -28,29 +28,71 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  
-  
-  bool isLogin = false;
-  // Firestore document IDs
-  List<String> docIDs =[];
-  // get all users
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future getDocId() async{
-    await FirebaseFirestore.instance.collection('users').get().then(
-        (snapshot) => snapshot.docs.forEach(
-          (document){ 
-            print(document.reference);
-            docIDs.add(document.reference.id);
-          }
-        ),
-      );
+  List<String> docIDs = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchDocIds();
   }
 
- 
+  Future<void> _fetchDocIds() async {
+    QuerySnapshot querySnapshot = await _firestore.collection('users').get();
+    docIDs = querySnapshot.docs.map((doc) => doc.id).toList();
+    setState(() {});
+  }
+
+  Future<bool> _isAdmin() async {
+    final currentUser = _auth.currentUser;
+    if (currentUser == null) {
+      return false;
+    }
+
+    for (var index = 0; index < docIDs.length; index++) {
+      DocumentSnapshot snapshot = await _firestore.collection('users').doc(docIDs[index]).get();
+      if (snapshot.exists) {
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        String userData = data['uid'];
+        if (currentUser.uid == userData) {
+          String isAdminText = data['isAdmin'].toString();
+          if (isAdminText == 'true') {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    pageSelection(){
-                if (widget.selectedIndex == 0) {
+    return Scaffold(
+      appBar: AppBarPage(data: widget.data),
+      body: FutureBuilder<bool>(
+        future: _isAdmin(),
+        builder: (context, snapshot) {
+          // if (snapshot.connectionState == ConnectionState.waiting) {
+          //   return CircularProgressIndicator(); // Display a loading indicator while fetching data
+          // }
+
+          if (snapshot.hasError || snapshot.data == false) {
+            return pageSelection(); // Return default page if error or not an admin
+          }
+
+          // If admin, return the admin page
+          return Text('Admin Page');
+        },
+      ),
+     bottomNavigationBar: const BottomBar(),
+    );
+  }
+
+  Widget pageSelection() {
+    if (widget.selectedIndex == 0) {
                   return const Wedding(data: false);
                 } else if (widget.selectedIndex == 1) {
                   return const Corporate(data: false);
@@ -71,42 +113,5 @@ class _MainScreenState extends State<MainScreen> {
                 } else{
                   return const LandingPage();
                 }
-    }
-    
-    Widget currentPage() {
-      if(widget.data){
-        final currentUser = FirebaseAuth.instance.currentUser!;
-        var users = FirebaseFirestore.instance.collection('users');
-        
-        for(var index = 0; index<docIDs.length; index++){
-          return FutureBuilder<DocumentSnapshot>(
-            future: users.doc(docIDs[index]).get(),
-            builder: (context, snapshot) {
-                if (snapshot.data != null && snapshot.data!.exists) {
-                  Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-                  String userData = data['uid'];
-                  if(currentUser.uid == userData){
-                    String isAdminText = data['isAdmin'].toString();
-                    if(isAdminText == 'true'){
-                      return Text('$isAdminText');
-                    }
-                  }
-                }
-                return pageSelection();
-              
-            }
-          );
-        }
-      }
-      return pageSelection();
-    }
-   
-   getDocId();
-
-    return Scaffold(
-      appBar: AppBarPage(data: widget.data),
-      body: currentPage(),
-      bottomNavigationBar: const BottomBar(),
-    );
   }
 }
