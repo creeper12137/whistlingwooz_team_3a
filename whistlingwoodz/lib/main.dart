@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/screens/main_screen.dart';
-import 'package:whistlingwoodz/models/wedding.dart'; // Import the updated Wedding class
+import 'package:whistlingwoodz/models/wedding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,7 @@ void main() async {
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key, required this.selectedIndex});
+  const MyApp({Key? key, required this.selectedIndex}) : super(key: key);
   final int selectedIndex;
 
   @override
@@ -31,6 +31,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int newIndex = 0;
+
   void navigationTapped(int selectedIndex) {
     debugPrint("navigationTapped: $selectedIndex");
     setState(() {
@@ -40,8 +41,17 @@ class _MyAppState extends State<MyApp> {
 
   // Function to handle the submission of the Wedding event
   void submitWeddingEvent() async {
+    // Set sample data for the Wedding event
     Wedding newWedding = Wedding(
-      // Set your Wedding event data here
+      uid: 1,
+      type: 'Wedding',
+      theme: 'Classic',
+      function: 'Wedding',
+      venue: 'Grand Hyatt Melbourne',
+      guestNo: 150,
+      budget: r"$30,000 - $39,999",
+      email: 'john.doe@example.com',
+      phoneNo: '1234567890',
     );
 
     await newWedding.submitEvent();
