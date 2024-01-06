@@ -13,10 +13,16 @@ import 'package:whistlingwoodz/screens/inquiry_form_screen.dart';
 import 'package:whistlingwoodz/screens/registration_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen(
-      {super.key, required this.data, required this.selectedIndex});
+  const MainScreen({
+    Key? key,
+    required this.data,
+    required this.selectedIndex,
+    required this.onSubmit,
+  }) : super(key: key);
+
   final bool data;
   final int selectedIndex;
+  final void Function() onSubmit;
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -27,28 +33,18 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    currentPage() {
-      if (widget.selectedIndex == 0) {
-        return const Wedding(data: false);
-      } else if (widget.selectedIndex == 1) {
-        return const Corporate(data: false);
-      } else if (widget.selectedIndex == 2) {
-        return const Party(data: false);
-      } else if (widget.selectedIndex == 3) {
-        return const Services(data: false);
-      } else if (widget.selectedIndex == 4) {
-        return const MatchMaking();
-      } else if (widget.selectedIndex == 5) {
-        return const Galleries();
-      } else if (widget.selectedIndex == 6) {
-        return const SurveyForm(data: false);
-      } else if (widget.selectedIndex == 7) {
-        return const LandingPage();
-      } else if (widget.selectedIndex == 8) {
-        return const InquiryForm(data: false);
-      } //else if (widget.selectedIndex == 9) {
-      //   return const RegistrationScreen(data: false);
-      // }
+    Widget currentPage() {
+      // Your existing logic...
+
+      // Assuming you want to call the onSubmit function when selectedIndex is 9
+      if (widget.selectedIndex == 9) {
+        widget.onSubmit(); // Call the onSubmit function
+     return RegistrationScreen(showLoginPage: () {}, data: false);
+
+
+      // Add other conditions for different pages...
+
+      return Container(); // Default return if none of the conditions match
     }
 
     return Scaffold(
@@ -58,3 +54,5 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
+
+
