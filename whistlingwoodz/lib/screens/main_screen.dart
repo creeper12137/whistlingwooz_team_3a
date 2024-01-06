@@ -75,9 +75,9 @@ class _MainScreenState extends State<MainScreen> {
       body: FutureBuilder<bool>(
         future: _isAdmin(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator(); // Display a loading indicator while fetching data
-          }
+          // if (snapshot.connectionState == ConnectionState.waiting) {
+          //   return CircularProgressIndicator(); // Display a loading indicator while fetching data
+          // }
 
           if (snapshot.hasError || snapshot.data == false) {
             return pageSelection(); // Return default page if error or not an admin
