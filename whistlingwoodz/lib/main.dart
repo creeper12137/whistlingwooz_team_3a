@@ -1,7 +1,10 @@
+import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/screens/main_screen.dart';
+import 'package:whistlingwoodz/models/wedding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +24,7 @@ void main() async {
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key, required this.selectedIndex});
+  const MyApp({Key? key, required this.selectedIndex}) : super(key: key);
   final int selectedIndex;
 
   @override
@@ -30,6 +33,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int newIndex = 0;
+
   void navigationTapped(int selectedIndex) {
     debugPrint("navigationTapped: $selectedIndex");
     setState(() {

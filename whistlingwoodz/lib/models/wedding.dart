@@ -12,10 +12,11 @@ class Wedding extends Event {
     String budget,
     String email,
     String phoneNo,
+    bool wedding,
   ) : super(uid, type, theme, function, venue, guestNo, budget, email, phoneNo);
 
   // Function to convert Wedding object to a Map
-  Map<String, dynamic> toMap() {
+  toJson() {
     return {
       'uid': uid,
       'type': type,
@@ -33,10 +34,11 @@ class Wedding extends Event {
   Future<void> submitEvent() async {
     try {
       // Create a reference to the Firestore collection
-      CollectionReference events = FirebaseFirestore.instance.collection('events');
+      CollectionReference events =
+          FirebaseFirestore.instance.collection('events');
 
       // Convert the Wedding object to a Map
-      Map<String, dynamic> eventData = toMap();
+      Map<String, dynamic> eventData = toJson();
 
       // Add the data to Firestore
       await events.add(eventData);
@@ -47,4 +49,3 @@ class Wedding extends Event {
     }
   }
 }
-
