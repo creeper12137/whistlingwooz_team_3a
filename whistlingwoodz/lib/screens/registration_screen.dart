@@ -7,6 +7,7 @@ import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:whistlingwoodz/widgets/input_field_widget.dart';
 import 'package:whistlingwoodz/widgets/primary_button_signup.dart';
 import 'package:whistlingwoodz/models/user.dart';
+import 'package:whistlingwoodz/models/standard_user.dart';
 // import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -55,8 +56,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       fullName : nameController.text.trim(),
       email: emailController.text.trim(),
     );
-    
-    addUserDetails(user);
+
+    late final standardUser = StandardUser(
+      uid:currentUser.uid,
+      fullName : nameController.text.trim(),
+      email: emailController.text.trim(),
+      standardUser: true,
+    );
+
+   
+    addUserDetails(standardUser);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 

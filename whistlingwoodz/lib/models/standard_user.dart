@@ -1,10 +1,30 @@
 import 'package:whistlingwoodz/models/user.dart';
 
-// class StandardUser extends User {
-//   StandardUser(int uid, String fullName, String password, String email,
-//       String phoneNo, String gender, DateTime birth)
-//       : super(uid, fullName, password, email, phoneNo, gender, birth);
+class StandardUser extends UserModel {
+  final bool standardUser ;
 
-//   void submitInquiry() {}
-//   void submitFeedback() {}
-// }
+  StandardUser({
+    required String uid,
+    required String fullName,
+    required String email,
+    required this.standardUser,
+    // Add additional fields as needed
+  }) : super(
+          uid: uid,
+          fullName: fullName,
+          email: email,
+        );
+
+        @override
+        toJson() {
+        return {
+          "uid": uid,
+          "fullName": fullName,
+          // "password": password,
+          "email": email,
+          "isStandardUser": standardUser,
+          // "gender": gender,
+          // "birth": birth,
+        };
+        }
+}
