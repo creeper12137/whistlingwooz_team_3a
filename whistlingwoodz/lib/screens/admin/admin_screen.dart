@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
-import 'package:whistlingwoodz/screens/landing_page_screen.dart';
 import 'package:whistlingwoodz/screens/admin/dashboard_screen.dart';
 import 'package:whistlingwoodz/screens/admin/inquiries_screen.dart';
 import 'package:whistlingwoodz/screens/admin/setting_screen.dart';
@@ -47,37 +46,38 @@ class _AdminPanelState extends State<AdminPanel>
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(
-              Icons.home,
-              color: appBackGroundColor,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LandingPage(),
-                ),
-              );
-            },
-          ),
+          // leading: IconButton(
+          //   icon: const Icon(
+          //     Icons.home,
+          //     color: appBackGroundColor,
+          //   ),
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => const LandingPage(),
+          //       ),
+          //     );
+          //   },
+          // ),
           title: const Text(
             'Admin Panel',
             style: TextStyle(color: appBackGroundColor),
           ),
-          titleSpacing: 0,
+          centerTitle: true,
+          titleSpacing: 30,
           backgroundColor: Colors.amberAccent,
-          toolbarHeight: MediaQuery.of(context).size.width * 0.20,
+          toolbarHeight: MediaQuery.of(context).size.width * 0.10,
           elevation: 0,
-          actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.notifications,
-                color: appBackGroundColor,
-              ),
-              onPressed: () {},
-            ),
-          ],
+          // actions: [
+          //   IconButton(
+          //     icon: const Icon(
+          //       Icons.notifications,
+          //       color: appBackGroundColor,
+          //     ),
+          //     onPressed: () {},
+          //   ),
+          // ],
           bottom: TabBar(
             controller: _tabController,
             labelColor: appBackGroundColor,

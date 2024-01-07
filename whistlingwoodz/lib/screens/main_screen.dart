@@ -15,7 +15,7 @@ import 'package:whistlingwoodz/screens/survey_form_screen.dart';
 import 'package:whistlingwoodz/screens/photo_gallery_screen.dart';
 import 'package:whistlingwoodz/screens/inquiry_form_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:whistlingwoodz/screens/admin/admin_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen(
@@ -52,7 +52,8 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     for (var index = 0; index < docIDs.length; index++) {
-      DocumentSnapshot snapshot = await _firestore.collection('users').doc(docIDs[index]).get();
+      DocumentSnapshot snapshot =
+          await _firestore.collection('users').doc(docIDs[index]).get();
       if (snapshot.exists) {
         Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
         String userData = data['uid'];
@@ -84,34 +85,34 @@ class _MainScreenState extends State<MainScreen> {
           }
 
           // If admin, return the admin page
-          return Text('Admin Page');
+          return AdminPanel();
         },
       ),
-     bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: const BottomBar(),
     );
   }
 
   Widget pageSelection() {
     if (widget.selectedIndex == 0) {
-                  return const Wedding(data: false);
-                } else if (widget.selectedIndex == 1) {
-                  return const Corporate(data: false);
-                } else if (widget.selectedIndex == 2) {
-                  return const Party(data: false);
-                } else if (widget.selectedIndex == 3) {
-                  return const Services(data: false);
-                } else if (widget.selectedIndex == 4) {
-                  return const MatchMaking();
-                } else if (widget.selectedIndex == 5) {
-                  return const Galleries();
-                } else if (widget.selectedIndex == 6) {
-                  return const SurveyForm(data: false);
-                } else if (widget.selectedIndex == 7) {
-                  return const LandingPage();
-                } else if (widget.selectedIndex == 8) {
-                  return const InquiryForm(data: false);
-                } else{
-                  return const LandingPage();
-                }
+      return const Wedding(data: false);
+    } else if (widget.selectedIndex == 1) {
+      return const Corporate(data: false);
+    } else if (widget.selectedIndex == 2) {
+      return const Party(data: false);
+    } else if (widget.selectedIndex == 3) {
+      return const Services(data: false);
+    } else if (widget.selectedIndex == 4) {
+      return const MatchMaking();
+    } else if (widget.selectedIndex == 5) {
+      return const Galleries();
+    } else if (widget.selectedIndex == 6) {
+      return const SurveyForm(data: false);
+    } else if (widget.selectedIndex == 7) {
+      return const LandingPage();
+    } else if (widget.selectedIndex == 8) {
+      return const InquiryForm(data: false);
+    } else {
+      return const LandingPage();
+    }
   }
 }
