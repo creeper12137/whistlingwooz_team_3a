@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/main.dart';
+import 'package:whistlingwoodz/models/inquiry.dart';
+import 'package:uuid/uuid.dart';
 
 class InquiryForm extends StatefulWidget {
   const InquiryForm({super.key, required this.data});
@@ -10,9 +13,51 @@ class InquiryForm extends StatefulWidget {
 }
 
 class _InquiryFormState extends State<InquiryForm> {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneNoController = TextEditingController();
+  final eventTypeController = TextEditingController();
+  final messageController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    phoneNoController.dispose();
+    eventTypeController.dispose();
+    messageController.dispose();
+    super.dispose();
+  }
+
   // function to navigate to previous screen where they were
   Future back() async {
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
+  generateId() {
+    const uuid = Uuid();
+    return uuid.v4();
+  }
+
+  Future submit() async {
+    late final inquiry = Inquiry(
+      id: generateId().toString(),
+      fullName: nameController.text.trim(),
+      email: emailController.text.trim(),
+      phoneNo: phoneNoController.text.trim(),
+      eventType: _selectedType == _typeList[3]
+          ? eventTypeController.text.trim()
+          : _selectedType,
+      message: messageController.text.trim(),
+    );
+    addInquiryDetails(inquiry);
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
+  Future addInquiryDetails(Inquiry inquiry) async {
+    await FirebaseFirestore.instance
+        .collection('inquiries')
+        .add(inquiry.toJson());
   }
 
   // variable for the type drop down menus
@@ -24,7 +69,7 @@ class _InquiryFormState extends State<InquiryForm> {
   ];
 
   // initial values for drop down menus
-  String? _selectedType = "Wedding";
+  String _selectedType = "Wedding";
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +143,7 @@ class _InquiryFormState extends State<InquiryForm> {
                                     _buildType(),
                                   if (_selectedType == _typeList[3])
                                     TextFormField(
+                                      controller: eventTypeController,
                                       autofocus: false,
                                       keyboardType: TextInputType.text,
                                       decoration: const InputDecoration(
@@ -142,6 +188,7 @@ class _InquiryFormState extends State<InquiryForm> {
 
   // full name text form field
   Widget _buildName() => TextFormField(
+        controller: nameController,
         autofocus: false,
         keyboardType: TextInputType.name,
         decoration: const InputDecoration(
@@ -160,6 +207,7 @@ class _InquiryFormState extends State<InquiryForm> {
 
   // email text form field
   Widget _buildEmail() => TextFormField(
+        controller: emailController,
         autofocus: false,
         keyboardType: TextInputType.emailAddress,
         decoration: const InputDecoration(
@@ -178,6 +226,7 @@ class _InquiryFormState extends State<InquiryForm> {
 
   // phone text form field
   Widget _buildPhone() => TextFormField(
+        controller: phoneNoController,
         autofocus: false,
         keyboardType: TextInputType.phone,
         decoration: const InputDecoration(
@@ -233,6 +282,7 @@ class _InquiryFormState extends State<InquiryForm> {
 
   // inquiry text form field
   Widget _buildInquiry() => TextFormField(
+        controller: messageController,
         autofocus: false,
         maxLines: 8,
         keyboardType: TextInputType.multiline,
@@ -261,6 +311,7 @@ class _InquiryFormState extends State<InquiryForm> {
           ),
           // when the button is pressed, a dialog box will pop up.
           onPressed: () {
+            submit();
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
