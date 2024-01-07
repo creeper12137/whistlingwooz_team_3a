@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:whistlingwoodz/main.dart';
+import 'package:whistlingwoodz/models/survey.dart';
+import 'package:uuid/uuid.dart';
 
 class SurveyForm extends StatefulWidget {
   const SurveyForm({super.key, required this.data});
@@ -10,9 +13,35 @@ class SurveyForm extends StatefulWidget {
 }
 
 class _SurveyFormState extends State<SurveyForm> {
+  final messageController = TextEditingController();
+
+  @override
+  void dispose() {
+    messageController.dispose();
+    super.dispose();
+  }
+
   // function to navigate to previous screen where they were
   Future back() async {
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
+  generateId() {
+    const uuid = Uuid();
+    return uuid.v4();
+  }
+
+  Future submit() async {
+    late final survey = Survey(
+      id: generateId().toString(),
+      message: messageController.text.trim(),
+    );
+    addInquiryDetails(survey);
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
+  Future addInquiryDetails(Survey survey) async {
+    await FirebaseFirestore.instance.collection('surveys').add(survey.toJson());
   }
 
   @override
@@ -93,6 +122,7 @@ class _SurveyFormState extends State<SurveyForm> {
 
   // inquiry text form field
   Widget _buildSurvey() => TextFormField(
+        controller: messageController,
         autofocus: false,
         maxLines: 15,
         keyboardType: TextInputType.multiline,

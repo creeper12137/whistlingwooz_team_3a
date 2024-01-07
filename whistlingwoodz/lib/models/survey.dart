@@ -9,7 +9,7 @@ class Survey {
 
   toJson() {
     return {
-      "uid": id,
+      "id": id,
       "message": message,
     };
   }
