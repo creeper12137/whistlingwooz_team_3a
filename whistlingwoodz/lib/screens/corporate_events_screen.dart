@@ -1,16 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:whistlingwoodz/main.dart';
+import 'package:whistlingwoodz/models/corporate.dart';
+import 'package:uuid/uuid.dart';
 
-class Corporate extends StatefulWidget {
-  const Corporate({super.key, required this.data});
+class CorporateForm extends StatefulWidget {
+  const CorporateForm({super.key, required this.data});
   final bool data;
 
   @override
-  State<Corporate> createState() => _CorporateState();
+  State<CorporateForm> createState() => _CorporateState();
 }
 
-class _CorporateState extends State<Corporate> {
-  submitFunction() {
+class _CorporateState extends State<CorporateForm> {
+  final venueController = TextEditingController();
+  final guestNoController = TextEditingController();
+  final budgetController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneNoController = TextEditingController();
+
+  @override
+  void dispose() {
+    venueController.dispose();
+    guestNoController.dispose();
+    budgetController.dispose();
+    emailController.dispose();
+    phoneNoController.dispose();
+    super.dispose();
+  }
+
+  // Future back() async {
+  //   navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  // }
+
+  generateId() {
+    const uuid = Uuid();
+    return uuid.v4();
+  }
+
+  Future submit() async {
+    late final corporate = Corporate(
+      id: generateId().toString(),
+      type: 'Corporate',
+      theme: _selectedTheme,
+      function: _selectedFunction,
+      venue: _selectedVenue == _venueList[6]
+          ? venueController.text.trim()
+          : _selectedVenue,
+      guestNo: guestNoController.text.trim(),
+      budget: _selectedBudget == _budgetList[3]
+          ? budgetController.text.trim()
+          : _selectedBudget,
+      email: emailController.text.trim(),
+      phoneNo: phoneNoController.text.trim(),
+    );
+    addInquiryDetails(corporate);
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
+  Future addInquiryDetails(Corporate corporate) async {
+    await FirebaseFirestore.instance
+        .collection('events')
+        .add(corporate.toJson());
+  }
+
+  surveyFunction() {
     runApp(MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
@@ -54,10 +108,10 @@ class _CorporateState extends State<Corporate> {
   ];
 
   // initial values for drop down menus
-  String? _selectedTheme = "Business";
-  String? _selectedFunction = "Product Launch";
-  String? _selectedVenue = "Hyatt Place Melbounre";
-  String? _selectedBudget = r"$20,000 - $29,999";
+  String _selectedTheme = "Business";
+  String _selectedFunction = "Product Launch";
+  String _selectedVenue = "Hyatt Place Melbounre";
+  String _selectedBudget = r"$20,000 - $29,999";
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +180,7 @@ class _CorporateState extends State<Corporate> {
                                     _buildVenue(),
                                   if (_selectedVenue == _venueList[6])
                                     TextFormField(
+                                      controller: venueController,
                                       autofocus: false,
                                       decoration: const InputDecoration(
                                         labelText: "Other Venue*",
@@ -152,6 +207,7 @@ class _CorporateState extends State<Corporate> {
                                     _buildBudget(),
                                   if (_selectedBudget == _budgetList[3])
                                     TextFormField(
+                                      controller: budgetController,
                                       autofocus: false,
                                       keyboardType: TextInputType.number,
                                       decoration: const InputDecoration(
@@ -313,6 +369,7 @@ class _CorporateState extends State<Corporate> {
 
   // guest text form field
   Widget _buildGuest() => TextFormField(
+        controller: guestNoController,
         autofocus: false,
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
@@ -368,6 +425,7 @@ class _CorporateState extends State<Corporate> {
 
   // email text form field
   Widget _buildEmail() => TextFormField(
+        controller: emailController,
         autofocus: false,
         keyboardType: TextInputType.emailAddress,
         decoration: const InputDecoration(
@@ -386,6 +444,7 @@ class _CorporateState extends State<Corporate> {
 
   // phone text form field
   Widget _buildPhone() => TextFormField(
+        controller: phoneNoController,
         autofocus: false,
         keyboardType: TextInputType.phone,
         decoration: const InputDecoration(
@@ -415,7 +474,7 @@ class _CorporateState extends State<Corporate> {
             shape: const StadiumBorder(),
           ),
           onPressed: () {
-            submitFunction();
+            surveyFunction();
           },
           child: Text(
             "Submit Form".toUpperCase(),

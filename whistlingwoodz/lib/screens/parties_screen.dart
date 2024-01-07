@@ -1,16 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:whistlingwoodz/main.dart';
+import 'package:whistlingwoodz/models/party.dart';
+import 'package:uuid/uuid.dart';
 
-class Party extends StatefulWidget {
-  const Party({super.key, required this.data});
+class PartyForm extends StatefulWidget {
+  const PartyForm({super.key, required this.data});
   final bool data;
 
   @override
-  State<Party> createState() => _PartyState();
+  State<PartyForm> createState() => _PartyState();
 }
 
-class _PartyState extends State<Party> {
-  submitFunction() {
+class _PartyState extends State<PartyForm> {
+  final venueController = TextEditingController();
+  final guestNoController = TextEditingController();
+  final budgetController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneNoController = TextEditingController();
+
+  @override
+  void dispose() {
+    venueController.dispose();
+    guestNoController.dispose();
+    budgetController.dispose();
+    emailController.dispose();
+    phoneNoController.dispose();
+    super.dispose();
+  }
+
+  // Future back() async {
+  //   navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  // }
+
+  generateId() {
+    const uuid = Uuid();
+    return uuid.v4();
+  }
+
+  Future submit() async {
+    late final party = Party(
+      id: generateId().toString(),
+      type: 'Party',
+      theme: _selectedTheme,
+      function: _selectedFunction,
+      venue: _selectedVenue == _venueList[6]
+          ? venueController.text.trim()
+          : _selectedVenue,
+      guestNo: guestNoController.text.trim(),
+      budget: _selectedBudget == _budgetList[3]
+          ? budgetController.text.trim()
+          : _selectedBudget,
+      email: emailController.text.trim(),
+      phoneNo: phoneNoController.text.trim(),
+    );
+    addInquiryDetails(party);
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
+  Future addInquiryDetails(Party party) async {
+    await FirebaseFirestore.instance.collection('events').add(party.toJson());
+  }
+
+  surveyFunction() {
     runApp(MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
@@ -48,10 +100,10 @@ class _PartyState extends State<Party> {
   ];
 
   // initial values for drop down menus
-  String? _selectedTheme = "Traditional";
-  String? _selectedFunction = "Birthday Celebration";
-  String? _selectedVenue = "Hyatt Place Melbounre";
-  String? _selectedBudget = r"$20,000 - $29,999";
+  String _selectedTheme = "Traditional";
+  String _selectedFunction = "Birthday Celebration";
+  String _selectedVenue = "Hyatt Place Melbounre";
+  String _selectedBudget = r"$20,000 - $29,999";
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +170,7 @@ class _PartyState extends State<Party> {
                                     _buildVenue(),
                                   if (_selectedVenue == _venueList[6])
                                     TextFormField(
+                                      controller: venueController,
                                       autofocus: false,
                                       decoration: const InputDecoration(
                                         labelText: "Other Venue*",
@@ -144,6 +197,7 @@ class _PartyState extends State<Party> {
                                     _buildBudget(),
                                   if (_selectedBudget == _budgetList[3])
                                     TextFormField(
+                                      controller: budgetController,
                                       autofocus: false,
                                       keyboardType: TextInputType.number,
                                       decoration: const InputDecoration(
@@ -304,6 +358,7 @@ class _PartyState extends State<Party> {
 
   // guest text form field
   Widget _buildGuest() => TextFormField(
+        controller: guestNoController,
         autofocus: false,
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
@@ -359,6 +414,7 @@ class _PartyState extends State<Party> {
 
   // email text form field
   Widget _buildEmail() => TextFormField(
+        controller: emailController,
         autofocus: false,
         keyboardType: TextInputType.emailAddress,
         decoration: const InputDecoration(
@@ -377,6 +433,7 @@ class _PartyState extends State<Party> {
 
   // phone text form field
   Widget _buildPhone() => TextFormField(
+        controller: phoneNoController,
         autofocus: false,
         keyboardType: TextInputType.phone,
         decoration: const InputDecoration(
@@ -406,7 +463,7 @@ class _PartyState extends State<Party> {
             shape: const StadiumBorder(),
           ),
           onPressed: () {
-            submitFunction();
+            surveyFunction();
           },
           child: Text(
             "Submit Form".toUpperCase(),

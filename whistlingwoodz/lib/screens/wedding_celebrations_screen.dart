@@ -1,19 +1,79 @@
 import 'package:flutter/material.dart';
-import 'package:whistlingwoodz/models/wedding.dart'; // Import the updated Wedding class
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:whistlingwoodz/main.dart';
+import 'package:whistlingwoodz/models/wedding.dart';
+import 'package:uuid/uuid.dart';
 
-class Wedding extends StatefulWidget {
-  const Wedding({Key? key, required this.data}) : super(key: key);
+class WeddingForm extends StatefulWidget {
+  const WeddingForm({super.key, required this.data});
   final bool data;
 
   @override
-  _WeddingState createState() => _WeddingState();
+  State<WeddingForm> createState() => _WeddingState();
 }
 
-class _WeddingState extends State<Wedding> {
-  // Initialize a Wedding object
-  //Wedding newWedding = Wedding(0, "", "", "", "", 0, "", "", "");
+class _WeddingState extends State<WeddingForm> {
+  final venueController = TextEditingController();
+  final guestNoController = TextEditingController();
+  final budgetController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneNoController = TextEditingController();
+
+  @override
+  void dispose() {
+    venueController.dispose();
+    guestNoController.dispose();
+    budgetController.dispose();
+    emailController.dispose();
+    phoneNoController.dispose();
+    super.dispose();
+  }
+
+  // Future back() async {
+  //   navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  // }
+
+  generateId() {
+    const uuid = Uuid();
+    return uuid.v4();
+  }
+
+  Future submit() async {
+    late final wedding = Wedding(
+      id: generateId().toString(),
+      type: 'Wedding',
+      theme: _selectedTheme,
+      function: _selectedFunction,
+      venue: _selectedVenue == _venueList[6]
+          ? venueController.text.trim()
+          : _selectedVenue,
+      guestNo: guestNoController.text.trim(),
+      budget: _selectedBudget == _budgetList[3]
+          ? budgetController.text.trim()
+          : _selectedBudget,
+      email: emailController.text.trim(),
+      phoneNo: phoneNoController.text.trim(),
+    );
+    addInquiryDetails(wedding);
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
+  Future addInquiryDetails(Wedding wedding) async {
+    await FirebaseFirestore.instance.collection('events').add(wedding.toJson());
+  }
+
+  surveyFunction() {
+    runApp(MaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Whistlingwoodz',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      // ignore: prefer_const_constructors
+      home: MyApp(selectedIndex: 6),
+    ));
+  }
 
   // list variables for drop-down menus
   final List<String> _themeList = ["Classic", "Contemporary", "Customized"];
@@ -40,10 +100,10 @@ class _WeddingState extends State<Wedding> {
   ];
 
   // initial values for drop-down menus
-  String? _selectedTheme = "Classic";
-  String? _selectedFunction = "Haldi - Mehndi";
-  String? _selectedVenue = "Hyatt Place Melbourne";
-  String? _selectedBudget = r"$20,000 - $29,999";
+  String _selectedTheme = "Classic";
+  String _selectedFunction = "Haldi - Mehndi";
+  String _selectedVenue = "Hyatt Place Melbourne";
+  String _selectedBudget = r"$20,000 - $29,999";
 
   // submit button
   Widget _buildSubmit() => SizedBox(
@@ -58,21 +118,7 @@ class _WeddingState extends State<Wedding> {
             shape: const StadiumBorder(),
           ),
           onPressed: () {
-            // Set values to the newWedding object
-            // newWedding.theme = _selectedTheme ?? "";
-            // newWedding.function = _selectedFunction ?? "";
-            // newWedding.venue = _selectedVenue ?? "";
-            // newWedding.guestNo = int.parse(_guestController.text);
-            // newWedding.budget = _selectedBudget ?? "";
-            // newWedding.email = _emailController.text;
-            // newWedding.phoneNo = _phoneController.text;
-
-            // // Call the submitEvent method from Wedding class
-            // newWedding.submitEvent();
-
-            // Navigate to a different screen or perform other actions as needed
-            // For example, you can use Navigator to push a new screen
-            // Navigator.push(context, MaterialPageRoute(builder: (context) => NextScreen()));
+            surveyFunction();
           },
           child: Text(
             "Submit Form".toUpperCase(),
@@ -86,13 +132,9 @@ class _WeddingState extends State<Wedding> {
         ),
       );
 
-  final TextEditingController _guestController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-
   // guest text form field
   Widget _buildGuest() => TextFormField(
-        controller: _guestController,
+        controller: guestNoController,
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
           labelText: "Number of Guests*",
@@ -110,7 +152,7 @@ class _WeddingState extends State<Wedding> {
 
   // email text form field
   Widget _buildEmail() => TextFormField(
-        controller: _emailController,
+        controller: emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: const InputDecoration(
           labelText: "Email*",
@@ -128,7 +170,7 @@ class _WeddingState extends State<Wedding> {
 
   // phone text form field
   Widget _buildPhone() => TextFormField(
-        controller: _phoneController,
+        controller: phoneNoController,
         keyboardType: TextInputType.phone,
         decoration: const InputDecoration(
           labelText: "Phone*",
@@ -203,6 +245,7 @@ class _WeddingState extends State<Wedding> {
                                     _buildVenue(),
                                   if (_selectedVenue == _venueList[6])
                                     TextFormField(
+                                      controller: venueController,
                                       autofocus: false,
                                       decoration: const InputDecoration(
                                         labelText: "Other Venue*",
@@ -228,6 +271,7 @@ class _WeddingState extends State<Wedding> {
                                     _buildBudget(),
                                   if (_selectedBudget == _budgetList[3])
                                     TextFormField(
+                                      controller: budgetController,
                                       autofocus: false,
                                       keyboardType: TextInputType.number,
                                       decoration: const InputDecoration(
@@ -416,7 +460,3 @@ class _WeddingState extends State<Wedding> {
         ),
       );
 }
-
-
-
-           

@@ -94,11 +94,11 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget pageSelection() {
     if (widget.selectedIndex == 0) {
-      return const Wedding(data: false);
+      return const WeddingForm(data: false);
     } else if (widget.selectedIndex == 1) {
-      return const Corporate(data: false);
+      return const CorporateForm(data: false);
     } else if (widget.selectedIndex == 2) {
-      return const Party(data: false);
+      return const PartyForm(data: false);
     } else if (widget.selectedIndex == 3) {
       return const Services(data: false);
     } else if (widget.selectedIndex == 4) {
