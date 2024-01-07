@@ -25,7 +25,7 @@ class Party extends Event {
   @override
   toJson() {
     return {
-      'uid': id,
+      'id': id,
       'type': 'Party',
       'theme': theme,
       'function': function,
