@@ -59,7 +59,9 @@ class _WeddingState extends State<WeddingForm> {
   }
 
   Future addInquiryDetails(Wedding wedding) async {
-    await FirebaseFirestore.instance.collection('events').add(wedding.toJson());
+    await FirebaseFirestore.instance
+        .collection('weddings')
+        .add(wedding.toJson());
   }
 
   surveyFunction() {
@@ -118,7 +120,23 @@ class _WeddingState extends State<WeddingForm> {
             shape: const StadiumBorder(),
           ),
           onPressed: () {
-            surveyFunction();
+            submit();
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Form Submitted"),
+                content: const Text("Thank you for your submission!"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      surveyFunction();
+                    },
+                    child: const Text("Close"),
+                  ),
+                ],
+              ),
+            );
           },
           child: Text(
             "Submit Form".toUpperCase(),

@@ -59,7 +59,7 @@ class _PartyState extends State<PartyForm> {
   }
 
   Future addInquiryDetails(Party party) async {
-    await FirebaseFirestore.instance.collection('events').add(party.toJson());
+    await FirebaseFirestore.instance.collection('parties').add(party.toJson());
   }
 
   surveyFunction() {
@@ -463,7 +463,23 @@ class _PartyState extends State<PartyForm> {
             shape: const StadiumBorder(),
           ),
           onPressed: () {
-            surveyFunction();
+            submit();
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Form Submitted"),
+                content: const Text("Thank you for your submission!"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      surveyFunction();
+                    },
+                    child: const Text("Close"),
+                  ),
+                ],
+              ),
+            );
           },
           child: Text(
             "Submit Form".toUpperCase(),

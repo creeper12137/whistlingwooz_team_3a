@@ -60,7 +60,7 @@ class _CorporateState extends State<CorporateForm> {
 
   Future addInquiryDetails(Corporate corporate) async {
     await FirebaseFirestore.instance
-        .collection('events')
+        .collection('corporates')
         .add(corporate.toJson());
   }
 
@@ -474,7 +474,23 @@ class _CorporateState extends State<CorporateForm> {
             shape: const StadiumBorder(),
           ),
           onPressed: () {
-            surveyFunction();
+            submit();
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Form Submitted"),
+                content: const Text("Thank you for your submission!"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      surveyFunction();
+                    },
+                    child: const Text("Close"),
+                  ),
+                ],
+              ),
+            );
           },
           child: Text(
             "Submit Form".toUpperCase(),

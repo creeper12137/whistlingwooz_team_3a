@@ -30,8 +30,21 @@ class _InquiryFormState extends State<InquiryForm> {
   }
 
   // function to navigate to previous screen where they were
-  Future back() async {
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  // Future back() async {
+  //   navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  // }
+
+  homeFunction() {
+    runApp(MaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Whistlingwoodz',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      // ignore: prefer_const_constructors
+      home: MyApp(selectedIndex: 7),
+    ));
   }
 
   generateId() {
@@ -321,8 +334,8 @@ class _InquiryFormState extends State<InquiryForm> {
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      back();
-                      // homeFunction();
+                      // back();
+                      homeFunction();
                     },
                     child: const Text("Close"),
                   ),

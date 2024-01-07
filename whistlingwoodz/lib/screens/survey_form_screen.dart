@@ -26,6 +26,19 @@ class _SurveyFormState extends State<SurveyForm> {
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
+  homeFunction() {
+    runApp(MaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Whistlingwoodz',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      // ignore: prefer_const_constructors
+      home: MyApp(selectedIndex: 7),
+    ));
+  }
+
   generateId() {
     const uuid = Uuid();
     return uuid.v4();
@@ -151,6 +164,7 @@ class _SurveyFormState extends State<SurveyForm> {
           ),
           // when the button is pressed, a dialog box will pop up.
           onPressed: () {
+            submit();
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
@@ -162,7 +176,8 @@ class _SurveyFormState extends State<SurveyForm> {
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      back();
+                      // back();
+                      homeFunction();
                     },
                     child: const Text("Close"),
                   ),
