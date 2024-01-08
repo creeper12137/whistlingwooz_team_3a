@@ -25,7 +25,7 @@ class Corporate extends Event {
   @override
   toJson() {
     return {
-      'id': id,
+      'cid': id,
       'type': 'Corporate',
       'theme': theme,
       'function': function,

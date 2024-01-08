@@ -25,7 +25,7 @@ class Wedding extends Event {
   @override
   toJson() {
     return {
-      'id': id,
+      'wid': id,
       'type': 'Wedding',
       'theme': theme,
       'function': function,

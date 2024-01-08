@@ -17,7 +17,7 @@ class Inquiry {
 
   toJson() {
     return {
-      "uid": id,
+      "iid": id,
       "fullName": fullName,
       "email": email,
       "phoneNo": phoneNo,

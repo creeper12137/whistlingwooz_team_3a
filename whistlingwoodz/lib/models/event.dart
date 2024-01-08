@@ -23,7 +23,7 @@ class Event {
 
   toJson() {
     return {
-      "uid": id,
+      "eid": id,
       "type": type,
       "theme": theme,
       "fundtion": function,
