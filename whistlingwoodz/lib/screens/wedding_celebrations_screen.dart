@@ -18,6 +18,15 @@ class _WeddingState extends State<WeddingForm> {
   final budgetController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNoController = TextEditingController();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  late int docCount;
+  List<String> docIDs = [];
+
+  // Future<void> _fetchDocIds() async {
+  //   QuerySnapshot querySnapshot = await _firestore.collection('users').get();
+  //   docIDs = querySnapshot.docs.map((doc) => doc.id).toList();
+  //   setState(() {});
+  // }
 
   @override
   void dispose() {
@@ -39,6 +48,14 @@ class _WeddingState extends State<WeddingForm> {
   }
 
   Future submit() async {
+    // _fetchDocIds();
+    // for (var index = 0; index < docIDs.length; index++) {
+    //   DocumentSnapshot snapshot =
+    //       await _firestore.collection('users').doc(docIDs[index]).get();
+    // }
+    //     docIDs.orderBy("createdAt", descending: true).limit(1);
+    
+    
     late final wedding = Wedding(
       id: generateId().toString(),
       type: 'Wedding',
@@ -51,10 +68,20 @@ class _WeddingState extends State<WeddingForm> {
       budget: _selectedBudget == _budgetList[3]
           ? budgetController.text.trim()
           : _selectedBudget,
-      email: emailController.text.trim(),
+      email: emailController.text.toLowerCase().trim(),
       phoneNo: phoneNoController.text.trim(),
+      timeStamp: Timestamp.now(),
     );
     addInquiryDetails(wedding);
+    // List<String> docIDs = [];
+    // QuerySnapshot<Map<String, dynamic>> data =
+    //     await FirebaseFirestore.instance.collection('weddings').get();
+    // docIDs = QuerySnapshot.docs.map((doc) => doc.id).toList();
+    // final int documents =
+    //     await _firestore.collection('weddings').snapshots().length;
+    // final QuerySnapshot qSnap = await _firestore.collection('products').get();
+    // final int documents = qSnap.documents.length;
+    // debugPrint(collection);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
@@ -78,12 +105,16 @@ class _WeddingState extends State<WeddingForm> {
   }
 
   // list variables for drop-down menus
-  final List<String> _themeList = ["Classic", "Contemporary", "Customized"];
+  final List<String> _themeList = [
+    "Classic",
+    "Contemporary",
+    "Customized",
+  ];
   final List<String> _functionList = [
     "Haldi - Mehndi",
     "Shagun - Engagement",
     "Wedding",
-    "Reception"
+    "Reception",
   ];
   final List<String> _venueList = [
     "Hyatt Place Melbourne",
@@ -92,13 +123,13 @@ class _WeddingState extends State<WeddingForm> {
     "Park Hyatt Melbourne",
     "Hyatt Centric Melbourne",
     "The Langham Melbourne",
-    "Other"
+    "Other",
   ];
   final List<String> _budgetList = [
     r"$20,000 - $29,999",
     r"$30,000 - $39,999",
     r"$40,000 - $60,000",
-    "Other"
+    "Other",
   ];
 
   // initial values for drop-down menus

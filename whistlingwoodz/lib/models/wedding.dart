@@ -1,6 +1,8 @@
+import 'package:cloud_firestore_platform_interface/src/timestamp.dart';
 import 'package:whistlingwoodz/models/event.dart';
 
 class Wedding extends Event {
+  Timestamp timeStamp;
   Wedding({
     required String id,
     required String type,
@@ -11,6 +13,7 @@ class Wedding extends Event {
     required String budget,
     required String email,
     required String phoneNo,
+    required this.timeStamp,
   }) : super(
             id: id,
             type: type,
@@ -34,6 +37,7 @@ class Wedding extends Event {
       'budget': budget,
       'email': email,
       'phoneNo': phoneNo,
+      'timeStamp' : timeStamp,
     };
   }
 }
