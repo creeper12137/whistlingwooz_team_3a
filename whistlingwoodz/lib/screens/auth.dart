@@ -6,8 +6,8 @@ import 'package:whistlingwoodz/screens/registration_screen.dart';
 
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({super.key,});
-  
+  const AuthScreen({super.key, required this.error,});
+  final bool error;
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -25,7 +25,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     if(showLoginPage){
-      return LoginScreen( showRegistrationPage: toggleScreens);
+      return LoginScreen( showRegistrationPage: toggleScreens, error: widget.error);
     }else{
       return RegistrationScreen( showLoginPage: toggleScreens);
     }

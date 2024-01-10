@@ -87,7 +87,7 @@ class _AppBarPageState extends State<AppBarPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const AuthScreen()),
+                    builder: (context) => const AuthScreen(error:false)),
               );
             },
           ),

@@ -1,15 +1,16 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/main.dart';
+import 'package:whistlingwoodz/screens/auth.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:whistlingwoodz/widgets/input_field_widget.dart';
-import 'package:whistlingwoodz/screens/registration_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback showRegistrationPage;
-  const LoginScreen({super.key, required this.showRegistrationPage});
-  // final bool data;
+  const LoginScreen({super.key, required this.showRegistrationPage,  required this.error});
+  final bool error;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -18,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool error = false;
 
   @override
   void dispose() {
@@ -42,9 +44,18 @@ class _LoginScreenState extends State<LoginScreen> {
         password: passwordController.text.trim(),
       );
     } on FirebaseAuthException catch (e) {
-      print(e);
+        error = true;
     }
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    if(error){
+      Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AuthScreen(error: true)),
+              );
+    }
+    else{
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    }
   }
 
   @override
@@ -156,15 +167,28 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 25.0,
                     ),
                     // Please enter you details below text
-                    const Text(
-                      "Please enter your details below",
-                      style: TextStyle(
-                        color: colorWhite,
-                        fontSize: 14.0,
-                        fontFamily: fontFamily,
-                        fontWeight: FontWeight.bold,
+                    Visibility(
+                      visible: widget.error,
+                      replacement: const Text(
+                        "Please enter your details below",
+                        style: TextStyle(
+                          color: colorWhite,
+                          fontSize: 14.0,
+                          fontFamily: fontFamily,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      child: const Text(
+                        "Invalid email or password, please try again.",
+                        style: TextStyle(
+                          color: colorWhite,
+                          fontSize: 14.0,
+                          fontFamily: fontFamily,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
+                    
                     const SizedBox(
                       height: 70.0,
                     ),
