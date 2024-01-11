@@ -28,7 +28,7 @@ class Wedding extends Event {
   @override
   toJson() {
     return {
-      'wid': id,
+      'id': id,
       'type': 'Wedding',
       'theme': theme,
       'function': function,
@@ -37,7 +37,7 @@ class Wedding extends Event {
       'budget': budget,
       'email': email,
       'phoneNo': phoneNo,
-      'timeStamp' : timeStamp,
+      'timeStamp': timeStamp,
     };
   }
 }

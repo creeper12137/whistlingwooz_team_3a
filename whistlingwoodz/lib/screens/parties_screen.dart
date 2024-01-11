@@ -53,6 +53,7 @@ class _PartyState extends State<PartyForm> {
           : _selectedBudget,
       email: emailController.text.trim(),
       phoneNo: phoneNoController.text.trim(),
+      timeStamp: Timestamp.now(),
     );
     addInquiryDetails(party);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);

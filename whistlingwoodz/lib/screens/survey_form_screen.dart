@@ -15,9 +15,6 @@ class SurveyForm extends StatefulWidget {
 class _SurveyFormState extends State<SurveyForm> {
   final messageController = TextEditingController();
 
-  final Stream<QuerySnapshot> _weddingsStream =
-      FirebaseFirestore.instance.collection('weddings').snapshots();
-
   String firstSixDigitsPart = "";
   String secondSixDigitsPart = "";
   String thirdSixDigitsPart = "";
@@ -30,39 +27,74 @@ class _SurveyFormState extends State<SurveyForm> {
 
   Future<void> fetchData() async {
     try {
-      QuerySnapshot<Map<String, dynamic>> collection = await FirebaseFirestore
-          .instance
-          .collection("weddings")
-          .orderBy('timeStamp', descending: true)
-          .get();
+      // Get the documents from the collection after sorted by the timeStamp
+      QuerySnapshot<Map<String, dynamic>> weddingCollection =
+          await FirebaseFirestore.instance
+              .collection('weddings')
+              .orderBy('timeStamp', descending: true)
+              .get();
+
+      QuerySnapshot<Map<String, dynamic>> corporateCollection =
+          await FirebaseFirestore.instance
+              .collection('corporates')
+              .orderBy('timeStamp', descending: true)
+              .get();
+
+      QuerySnapshot<Map<String, dynamic>> partyCollection =
+          await FirebaseFirestore.instance
+              .collection('parties')
+              .orderBy('timeStamp', descending: true)
+              .get();
 
       // Now you can access the documents from the collection
-      List<QueryDocumentSnapshot<Map<String, dynamic>>> documents =
-          collection.docs;
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> weddingDocuments =
+          weddingCollection.docs;
 
-      if (documents.isNotEmpty) {
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> corporateDocuments =
+          corporateCollection.docs;
+
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> partyDocuments =
+          partyCollection.docs;
+
+      Map<String, dynamic> latestWeddingData = weddingDocuments.first.data();
+      Map<String, dynamic> latestCorporateData =
+          corporateDocuments.first.data();
+      Map<String, dynamic> latestPartyData = partyDocuments.first.data();
+
+      // New list to store the latest data from all the collections
+      List<Map<String, dynamic>> latestData = [];
+      latestData.add(latestWeddingData);
+      latestData.add(latestCorporateData);
+      latestData.add(latestPartyData);
+
+      // sort the latestData list by timestamp
+      latestData.sort((a, b) => b['timeStamp'].compareTo(a['timeStamp']));
+      // checking the latestData list
+      // print("Data from the first document: $latestData");
+      // print(latestData[0]["timeStamp"].toString());
+      // print(latestData[1]["timeStamp"].toString());
+      // print(latestData[2]["timeStamp"].toString());
+
+      if (latestData.isNotEmpty) {
         // Accessing the latest data from the document.
-        Map<String, dynamic> data = documents.first.data();
+        // Map<String, dynamic> latestData = weddingDocuments.first.data();
         firstSixDigitsPart =
-            data["type"].toString().toLowerCase().substring(0, 1);
-        secondSixDigitsPart = data["guestNo"].toString().substring(0, 2);
-        thirdSixDigitsPart = data["email"].toString().substring(0, 2);
-        fourSixDigitsPart = data["guestNo"].toString().substring(0, 1);
+            latestData[0]["type"].toString().toLowerCase().substring(0, 1);
+        secondSixDigitsPart = latestData[0]["id"].toString().substring(0, 2);
+        thirdSixDigitsPart = latestData[0]["email"].toString().substring(0, 2);
+        fourSixDigitsPart = latestData[0]["guestNo"].toString().substring(0, 1);
         sixDigit = firstSixDigitsPart +
             secondSixDigitsPart +
             thirdSixDigitsPart +
             fourSixDigitsPart;
 
-        print("Data from the first document: $data");
-        print(data["id"].toString());
-        print(data["message"].toString());
         // Print data from the first document
-        // print("Data from the first document: $data");
-        // print(firstSixDigitsPart);
-        // print(secondSixDigitsPart);
-        // print(thirdSixDigitsPart);
-        // print(fourSixDigitsPart);
-        // print(sixDigit);
+        // print("Unique 6 Digit are: $sixDigit");
+        // // print(firstSixDigitsPart);
+        // // print(secondSixDigitsPart);
+        // // print(thirdSixDigitsPart);
+        // // print(fourSixDigitsPart);
+        // // print(sixDigit);
       } else {
         print("No documents found in the collection.");
       }

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore_platform_interface/src/timestamp.dart';
 import 'package:whistlingwoodz/models/event.dart';
 
 class Party extends Event {
+  Timestamp timeStamp;
   Party({
     required String id,
     required String type,
@@ -11,6 +13,7 @@ class Party extends Event {
     required String budget,
     required String email,
     required String phoneNo,
+    required this.timeStamp,
   }) : super(
             id: id,
             type: type,
@@ -25,7 +28,7 @@ class Party extends Event {
   @override
   toJson() {
     return {
-      'pid': id,
+      'id': id,
       'type': 'Party',
       'theme': theme,
       'function': function,
@@ -34,6 +37,7 @@ class Party extends Event {
       'budget': budget,
       'email': email,
       'phoneNo': phoneNo,
+      'timeStamp': timeStamp,
     };
   }
 }
