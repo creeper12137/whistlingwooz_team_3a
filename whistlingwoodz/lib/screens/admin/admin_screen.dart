@@ -3,6 +3,7 @@ import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:whistlingwoodz/screens/admin/dashboard_screen.dart';
 import 'package:whistlingwoodz/screens/admin/inquiries_screen.dart';
 import 'package:whistlingwoodz/screens/admin/setting_screen.dart';
+import 'package:whistlingwoodz/screens/admin/firestore_test.dart';
 
 class AdminPanel extends StatefulWidget {
   const AdminPanel({super.key});
@@ -123,7 +124,8 @@ class _AdminPanelState extends State<AdminPanel>
         body: TabBarView(
           controller: _tabController,
           children: const [
-            DashboardPage(),
+            FirestoreRead(),
+            // DashboardPage(),
             InquiryList(),
             AdminSetting(),
           ],
