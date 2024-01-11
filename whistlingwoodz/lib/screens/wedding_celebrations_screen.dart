@@ -18,15 +18,6 @@ class _WeddingState extends State<WeddingForm> {
   final budgetController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNoController = TextEditingController();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  late int docCount;
-  List<String> docIDs = [];
-
-  // Future<void> _fetchDocIds() async {
-  //   QuerySnapshot querySnapshot = await _firestore.collection('users').get();
-  //   docIDs = querySnapshot.docs.map((doc) => doc.id).toList();
-  //   setState(() {});
-  // }
 
   @override
   void dispose() {
@@ -48,14 +39,6 @@ class _WeddingState extends State<WeddingForm> {
   }
 
   Future submit() async {
-    // _fetchDocIds();
-    // for (var index = 0; index < docIDs.length; index++) {
-    //   DocumentSnapshot snapshot =
-    //       await _firestore.collection('users').doc(docIDs[index]).get();
-    // }
-    //     docIDs.orderBy("createdAt", descending: true).limit(1);
-    
-    
     late final wedding = Wedding(
       id: generateId().toString(),
       type: 'Wedding',
@@ -73,15 +56,6 @@ class _WeddingState extends State<WeddingForm> {
       timeStamp: Timestamp.now(),
     );
     addInquiryDetails(wedding);
-    // List<String> docIDs = [];
-    // QuerySnapshot<Map<String, dynamic>> data =
-    //     await FirebaseFirestore.instance.collection('weddings').get();
-    // docIDs = QuerySnapshot.docs.map((doc) => doc.id).toList();
-    // final int documents =
-    //     await _firestore.collection('weddings').snapshots().length;
-    // final QuerySnapshot qSnap = await _firestore.collection('products').get();
-    // final int documents = qSnap.documents.length;
-    // debugPrint(collection);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 

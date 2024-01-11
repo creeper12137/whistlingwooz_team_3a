@@ -25,103 +25,51 @@ class _SurveyFormState extends State<SurveyForm> {
   String sixDigit = "";
 
   Future readData() async {
-    
-
     fetchData();
-   
-  // _firestore
-  //    .collection("wedding")
-  //    .orderBy('createdAt', descending: true).get();
-  //   // QuerySnapshot<Map<String, dynamic>> data 
-  //   //     await FirebaseFirestore.instance.collection('weddings').get();
-  //   collection =  _firestore
-  //    .collection("wedding")
-  //    .orderBy('timeStamp', descending: true).get() as Map<String, dynamic>;
-
-    // firstSixDigitsPart =
-    //     collection["type"].toString().toLowerCase().substring(0, 1);
-    // secondSixDigitsPart =
-    //     collection["wid"].toString().toLowerCase().substring(0, 2);
-    // thirdSixDigitsPart = collection["email"].toString().substring(0, 2);
-    // fourSixDigitsPart = collection["guestNo"].toString().substring(0, 1);
-    // sixDigit = firstSixDigitsPart +
-    //     secondSixDigitsPart +
-    //     thirdSixDigitsPart +
-    //     fourSixDigitsPart;
-
-    
-    // print(collection["wid"]);
-    // print(collection["type"]);
-    // print(collection["theme"]);
-    // print(collection["function"]);
-    // print(collection["venue"]);
-    // print(collection["guestNo"]);
-    // print(collection["budget"]);
-    // print(collection["email"]);
-    // print(collection["phoneNo"]);
-    // print(sixDigit);
- 
-    //     firstSixDigitsPart =
-    //         doc["type"].toString().toLowerCase().substring(0, 1);
-    //     secondSixDigitsPart = doc["wid"].toString().substring(0, 2);
-    //     thirdSixDigitsPart = doc["email"].toString().substring(0, 2);
-    //     fourSixDigitsPart = doc["guestNo"].toString().substring(0, 1);
-    //     sixDigit = firstSixDigitsPart +
-    //         secondSixDigitsPart +
-    //         thirdSixDigitsPart +
-    //         fourSixDigitsPart;
-    //     print(sixDigit);
-    //     print(doc["wid"]);
-    //     print(doc["type"]);
-    //     print(doc["theme"]);
-    //     print(doc["function"]);
-    //     print(doc["venue"]);
-    //     print(doc["guestNo"]);
-    //     print(doc["budget"]);
-    //     print(doc["email"]);
-    //     print(doc["phoneNo"]);
-    //     print(doc["uid"]);
-    //     print(doc["fullName"]);
-    //     print(doc["email"]);
-    //   }
-    // });
-
-    // FirebaseFirestore.instance
-    //     .collection('weddings')
-    //     .get()
-    //     .then((QuerySnapshot querySnapshot) {
-    //   querySnapshot.docs.forEach((doc) {
-    //     print(doc["wid"]);
-    //   });
-    // });
   }
 
+  Future<void> fetchData() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> collection = await FirebaseFirestore
+          .instance
+          .collection("weddings")
+          .orderBy('timeStamp', descending: true)
+          .get();
 
+      // Now you can access the documents from the collection
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> documents =
+          collection.docs;
 
-Future<void> fetchData() async {
-  try {
-    QuerySnapshot<Map<String, dynamic>> collection = await FirebaseFirestore.instance
-        .collection("weddings")
-        .orderBy('timeStamp', descending: true)
-        .get();
-    
-    // Now you can access the documents from the collection
-    List<QueryDocumentSnapshot<Map<String, dynamic>>> documents = collection.docs;
-  
-     if (documents.isNotEmpty) {
-    // Accessing the latest data from the document.
-    Map<String, dynamic> data = documents.first.data();
-    
-    // Print data from the first document
-    print("Data from the first document: $data");
-  } else {
-    print("No documents found in the collection.");
+      if (documents.isNotEmpty) {
+        // Accessing the latest data from the document.
+        Map<String, dynamic> data = documents.first.data();
+        firstSixDigitsPart =
+            data["type"].toString().toLowerCase().substring(0, 1);
+        secondSixDigitsPart = data["guestNo"].toString().substring(0, 2);
+        thirdSixDigitsPart = data["email"].toString().substring(0, 2);
+        fourSixDigitsPart = data["guestNo"].toString().substring(0, 1);
+        sixDigit = firstSixDigitsPart +
+            secondSixDigitsPart +
+            thirdSixDigitsPart +
+            fourSixDigitsPart;
+
+        print("Data from the first document: $data");
+        print(data["id"].toString());
+        print(data["message"].toString());
+        // Print data from the first document
+        // print("Data from the first document: $data");
+        // print(firstSixDigitsPart);
+        // print(secondSixDigitsPart);
+        // print(thirdSixDigitsPart);
+        // print(fourSixDigitsPart);
+        // print(sixDigit);
+      } else {
+        print("No documents found in the collection.");
+      }
+    } catch (e) {
+      print("Error fetching data: $e");
+    }
   }
-  } catch (e) {
-    print("Error fetching data: $e");
-  }
-}
-
 
   @override
   void dispose() {
@@ -156,6 +104,7 @@ Future<void> fetchData() async {
     late final survey = Survey(
       id: generateId().toString(),
       message: messageController.text.trim(),
+      timeStamp: Timestamp.now(),
     );
     addInquiryDetails(survey);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);

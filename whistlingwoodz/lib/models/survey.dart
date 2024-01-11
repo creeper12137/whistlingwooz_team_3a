@@ -1,16 +1,20 @@
+import 'package:cloud_firestore_platform_interface/src/timestamp.dart';
+
 class Survey {
   final String id;
   final String message;
-
-  const Survey({
+  Timestamp timeStamp;
+  Survey({
     required this.id,
     required this.message,
+    required this.timeStamp,
   });
 
   toJson() {
     return {
       "id": id,
       "message": message,
+      'timeStamp': timeStamp,
     };
   }
 
