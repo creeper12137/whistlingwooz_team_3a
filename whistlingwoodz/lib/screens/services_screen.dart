@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/main.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:whistlingwoodz/screens/inquiry_form_screen.dart';
 
+// This class is for the Service page.
+// This page has two functions.
+// 1. Clicking on each service section will take you to the Whistling Woods website.
+// 2. There is Floating Action Button for navigation to the inquiry form.
 class Services extends StatefulWidget {
   const Services({super.key, required this.data});
   final bool data;
@@ -12,6 +15,7 @@ class Services extends StatefulWidget {
 }
 
 class _ServicesState extends State<Services> {
+  // This method is used to navigate to the inquiry form page.
   inquiryFunction() {
     runApp(MaterialApp(
       navigatorKey: navigatorKey,
@@ -25,6 +29,7 @@ class _ServicesState extends State<Services> {
     ));
   }
 
+  // Service list
   final List<ServiceModel> services = [
     ServiceModel(
       title: "Understanding the Event Genre",
@@ -67,6 +72,7 @@ class _ServicesState extends State<Services> {
             onTap: () {
               _launchURL();
             },
+            // the card that contains the services
             child: Card(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -80,6 +86,7 @@ class _ServicesState extends State<Services> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
+                      // as services list is used, the index is used to get the respective title with image
                       services[index].title,
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: 16.0),
@@ -91,10 +98,12 @@ class _ServicesState extends State<Services> {
           );
         },
       ),
+      // Floating Action Button for navigation to the inquiry form
       floatingActionButton: buildNavigationButton(),
     );
   }
 
+  // Callback function to launch the website
   _launchURL() async {
     final Uri url = Uri.parse('https://whistlingwoodz.com.au/contact-us');
     if (await canLaunchUrl(url)) {
@@ -107,6 +116,7 @@ class _ServicesState extends State<Services> {
   // Floating Action Button for navigation to the inquiry form
   Widget buildNavigationButton() => FloatingActionButton(
         onPressed: () {
+          // call the inquiryFunction here
           inquiryFunction();
         },
         backgroundColor: Colors.yellow[900],

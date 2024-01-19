@@ -1,19 +1,19 @@
 import 'package:whistlingwoodz/models/user.dart';
-import 'package:whistlingwoodz/interface/admin_interface.dart';
 
-// class Manager extends User implements AdminInterface {
-//   Manager(int uid, String fullName, String password, String email,
-//       String phoneNo, String gender, DateTime birth)
-//       : super(uid, fullName, password, email, phoneNo, gender, birth);
+// Manager entity - But this is not used in the app. (It hasn't developed due to the time issue.)
+class Manager extends UserModel {
+  Manager({
+    required String uid,
+    required String fullName,
+    required String email,
+  }) : super(uid: uid, fullName: fullName, email: email);
 
-//   @override
-//   void checkInquiry() {}
-//   @override
-//   void replyInquiry() {}
-//   @override
-//   void deleteInquiry() {}
-//   @override
-//   void changeInquiryStatus() {}
-//   @override
-//   void changeLoginInfo() {}
-// }
+  @override
+  toJson() {
+    return {
+      "uid": uid,
+      "fullName": fullName,
+      "email": email,
+    };
+  }
+}

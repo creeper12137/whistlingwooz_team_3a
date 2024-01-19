@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// This is a landing page screen. It is the first screen that is displayed when the app is opened.
 class LandingPage extends StatelessWidget {
   const LandingPage({
     super.key,
@@ -7,8 +8,6 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final user = FirebaseAuth.instance.currentUser!;
-    // String userEmail = user.email!;
     return Scaffold(
       body: Container(
         width: double.infinity,

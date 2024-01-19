@@ -4,6 +4,7 @@ import 'package:whistlingwoodz/main.dart';
 import 'package:whistlingwoodz/models/corporate.dart';
 import 'package:uuid/uuid.dart';
 
+// This is a corporate event screen.
 class CorporateForm extends StatefulWidget {
   const CorporateForm({super.key, required this.data});
   final bool data;
@@ -13,12 +14,14 @@ class CorporateForm extends StatefulWidget {
 }
 
 class _CorporateState extends State<CorporateForm> {
+  // controllers variables for the text form fields
   final venueController = TextEditingController();
   final guestNoController = TextEditingController();
   final budgetController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNoController = TextEditingController();
 
+  // dispose the controllers
   @override
   void dispose() {
     venueController.dispose();
@@ -29,15 +32,13 @@ class _CorporateState extends State<CorporateForm> {
     super.dispose();
   }
 
-  // Future back() async {
-  //   navigatorKey.currentState!.popUntil((route) => route.isFirst);
-  // }
-
+  // generate unique id for the corporates collection
   generateId() {
     const uuid = Uuid();
     return uuid.v4();
   }
 
+  // submit button function to save the data in the firestore
   Future submit() async {
     late final corporate = Corporate(
       id: generateId().toString(),
@@ -55,16 +56,19 @@ class _CorporateState extends State<CorporateForm> {
       phoneNo: phoneNoController.text.trim(),
       timeStamp: Timestamp.now(),
     );
+    // Add the corporates collection to the firestore
     addInquiryDetails(corporate);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
+  // This method adds the corporates collection entered by the user to the firestore.
   Future addInquiryDetails(Corporate corporate) async {
     await FirebaseFirestore.instance
         .collection('corporates')
         .add(corporate.toJson());
   }
 
+  // This method is used to navigate to the survey page.
   surveyFunction() {
     runApp(MaterialApp(
       navigatorKey: navigatorKey,
@@ -152,8 +156,6 @@ class _CorporateState extends State<CorporateForm> {
                         const Text(
                           'CORPORATE',
                           style: TextStyle(
-                            // color: Colors.black,
-                            // color: Color(0xffFFD700),
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 2,
@@ -179,6 +181,7 @@ class _CorporateState extends State<CorporateForm> {
                                   // Venue drop down menu
                                   if (_selectedVenue != _venueList[6])
                                     _buildVenue(),
+                                  // if other is selected in the venue drop down menu
                                   if (_selectedVenue == _venueList[6])
                                     TextFormField(
                                       controller: venueController,
@@ -206,6 +209,7 @@ class _CorporateState extends State<CorporateForm> {
                                   // Budget drop down menu
                                   if (_selectedBudget != _budgetList[3])
                                     _buildBudget(),
+                                  // if other is selected in the venue drop down menu
                                   if (_selectedBudget == _budgetList[3])
                                     TextFormField(
                                       controller: budgetController,
@@ -253,7 +257,6 @@ class _CorporateState extends State<CorporateForm> {
           ),
         ),
       ),
-      // bottomNavigationBar: const BottomBar(),
     );
   }
 
@@ -285,7 +288,6 @@ class _CorporateState extends State<CorporateForm> {
             Icons.subject,
             color: Colors.deepOrangeAccent,
           ),
-          // Todo: check UnderlineInputBorder() option
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -322,7 +324,6 @@ class _CorporateState extends State<CorporateForm> {
             Icons.book_online,
             color: Colors.deepOrangeAccent,
           ),
-          // Todo: check UnderlineInputBorder() option
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -359,7 +360,6 @@ class _CorporateState extends State<CorporateForm> {
             Icons.place,
             color: Colors.deepOrangeAccent,
           ),
-          // Todo: check UnderlineInputBorder() option
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -415,7 +415,6 @@ class _CorporateState extends State<CorporateForm> {
             Icons.attach_money,
             color: Colors.deepOrangeAccent,
           ),
-          // Todo: check UnderlineInputBorder() option
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -475,6 +474,7 @@ class _CorporateState extends State<CorporateForm> {
             shape: const StadiumBorder(),
           ),
           onPressed: () {
+            // call the submit function here
             submit();
             showDialog(
               context: context,
@@ -485,6 +485,7 @@ class _CorporateState extends State<CorporateForm> {
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      // navigate to the survey page
                       surveyFunction();
                     },
                     child: const Text("Close"),

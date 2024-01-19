@@ -4,6 +4,7 @@ import 'package:whistlingwoodz/main.dart';
 import 'package:whistlingwoodz/models/party.dart';
 import 'package:uuid/uuid.dart';
 
+// This is a party event screen.
 class PartyForm extends StatefulWidget {
   const PartyForm({super.key, required this.data});
   final bool data;
@@ -13,12 +14,14 @@ class PartyForm extends StatefulWidget {
 }
 
 class _PartyState extends State<PartyForm> {
+  // controllers variables for the text form fields
   final venueController = TextEditingController();
   final guestNoController = TextEditingController();
   final budgetController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNoController = TextEditingController();
 
+  // dispose the controllers
   @override
   void dispose() {
     venueController.dispose();
@@ -29,15 +32,13 @@ class _PartyState extends State<PartyForm> {
     super.dispose();
   }
 
-  // Future back() async {
-  //   navigatorKey.currentState!.popUntil((route) => route.isFirst);
-  // }
-
+  // generate unique id for the corporates collection
   generateId() {
     const uuid = Uuid();
     return uuid.v4();
   }
 
+  // submit button function to save the data in the firestore
   Future submit() async {
     late final party = Party(
       id: generateId().toString(),
@@ -55,14 +56,17 @@ class _PartyState extends State<PartyForm> {
       phoneNo: phoneNoController.text.trim(),
       timeStamp: Timestamp.now(),
     );
+    // Add the parties collection to the firestore
     addInquiryDetails(party);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
+  // This method adds the parties collection entered by the user to the firestore.
   Future addInquiryDetails(Party party) async {
     await FirebaseFirestore.instance.collection('parties').add(party.toJson());
   }
 
+  // This method is used to navigate to the survey page.
   surveyFunction() {
     runApp(MaterialApp(
       navigatorKey: navigatorKey,
@@ -169,6 +173,7 @@ class _PartyState extends State<PartyForm> {
                                   // Venue drop down menu
                                   if (_selectedVenue != _venueList[6])
                                     _buildVenue(),
+                                  // if other is selected in the venue drop down menu
                                   if (_selectedVenue == _venueList[6])
                                     TextFormField(
                                       controller: venueController,
@@ -274,7 +279,6 @@ class _PartyState extends State<PartyForm> {
             Icons.subject,
             color: Colors.deepOrangeAccent,
           ),
-          // Todo: check UnderlineInputBorder() option
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -311,7 +315,6 @@ class _PartyState extends State<PartyForm> {
             Icons.book_online,
             color: Colors.deepOrangeAccent,
           ),
-          // Todo: check UnderlineInputBorder() option
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -348,7 +351,6 @@ class _PartyState extends State<PartyForm> {
             Icons.place,
             color: Colors.deepOrangeAccent,
           ),
-          // Todo: check UnderlineInputBorder() option
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -404,7 +406,6 @@ class _PartyState extends State<PartyForm> {
             Icons.attach_money,
             color: Colors.deepOrangeAccent,
           ),
-          // Todo: check UnderlineInputBorder() option
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -464,6 +465,7 @@ class _PartyState extends State<PartyForm> {
             shape: const StadiumBorder(),
           ),
           onPressed: () {
+            // call the submit function here
             submit();
             showDialog(
               context: context,
@@ -474,6 +476,7 @@ class _PartyState extends State<PartyForm> {
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      // navigate to the survey page
                       surveyFunction();
                     },
                     child: const Text("Close"),

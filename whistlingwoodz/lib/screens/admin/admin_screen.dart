@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
-import 'package:whistlingwoodz/screens/admin/dashboard_screen.dart';
 import 'package:whistlingwoodz/screens/admin/inquiries_screen.dart';
 import 'package:whistlingwoodz/screens/admin/setting_screen.dart';
-import 'package:whistlingwoodz/screens/admin/firestore_test.dart';
+import 'package:whistlingwoodz/screens/admin/firestore_dashboard.dart';
 
+// This is a admin panel screen.
+// And this screen is used to show the dashboard, inquiry and setting screens.
+// But, it has only front-end part. There is no back-end developed.  (It hasn't developed due to the time issue.)
 class AdminPanel extends StatefulWidget {
   const AdminPanel({super.key});
 
@@ -17,12 +19,14 @@ class _AdminPanelState extends State<AdminPanel>
   late TabController _tabController;
   int _selectedIndex = 0;
 
+  // the method to change the tab
   void onTabTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
+  // the method to initialize the tab controller
   @override
   void initState() {
     super.initState();
@@ -35,6 +39,7 @@ class _AdminPanelState extends State<AdminPanel>
     );
   }
 
+  // the method to dispose the tab controller
   @override
   void dispose() {
     _tabController.dispose();
@@ -47,20 +52,6 @@ class _AdminPanelState extends State<AdminPanel>
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          // leading: IconButton(
-          //   icon: const Icon(
-          //     Icons.home,
-          //     color: appBackGroundColor,
-          //   ),
-          //   onPressed: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => const LandingPage(),
-          //       ),
-          //     );
-          //   },
-          // ),
           title: const Text(
             'Admin Panel',
             style: TextStyle(color: appBackGroundColor),
@@ -70,15 +61,7 @@ class _AdminPanelState extends State<AdminPanel>
           backgroundColor: Colors.amberAccent,
           toolbarHeight: MediaQuery.of(context).size.width * 0.10,
           elevation: 0,
-          // actions: [
-          //   IconButton(
-          //     icon: const Icon(
-          //       Icons.notifications,
-          //       color: appBackGroundColor,
-          //     ),
-          //     onPressed: () {},
-          //   ),
-          // ],
+          // tab bar is used for controlling dashboard, inquiry and setting screens
           bottom: TabBar(
             controller: _tabController,
             labelColor: appBackGroundColor,
@@ -87,6 +70,7 @@ class _AdminPanelState extends State<AdminPanel>
               shape: BoxShape.rectangle,
             ),
             onTap: onTabTapped,
+            // the tabs are created here
             tabs: [
               Tab(
                 icon: Icon(
@@ -121,11 +105,11 @@ class _AdminPanelState extends State<AdminPanel>
             ],
           ),
         ),
+        // the body of the admin panel and it is a tab bar view
         body: TabBarView(
           controller: _tabController,
           children: const [
             FirestoreRead(),
-            // DashboardPage(),
             InquiryList(),
             AdminSetting(),
           ],

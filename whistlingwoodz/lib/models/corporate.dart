@@ -1,6 +1,7 @@
 import 'package:cloud_firestore_platform_interface/src/timestamp.dart';
 import 'package:whistlingwoodz/models/event.dart';
 
+// coporate entity
 class Corporate extends Event {
   Timestamp timeStamp;
   Corporate({

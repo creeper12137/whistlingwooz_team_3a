@@ -1,7 +1,8 @@
 import 'package:whistlingwoodz/models/user.dart';
 
+// Standard user entity
 class StandardUser extends UserModel {
-  final bool standardUser ;
+  final bool standardUser;
 
   StandardUser({
     required String uid,
@@ -15,16 +16,13 @@ class StandardUser extends UserModel {
           email: email,
         );
 
-        @override
-        toJson() {
-        return {
-          "uid": uid,
-          "fullName": fullName,
-          // "password": password,
-          "email": email,
-          "isStandardUser": standardUser,
-          // "gender": gender,
-          // "birth": birth,
-        };
-        }
+  @override
+  toJson() {
+    return {
+      "uid": uid,
+      "fullName": fullName,
+      "email": email,
+      "isStandardUser": standardUser,
+    };
+  }
 }

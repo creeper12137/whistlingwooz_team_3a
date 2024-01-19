@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:whistlingwoodz/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whistlingwoodz/main.dart';
 import 'package:whistlingwoodz/screens/auth.dart';
@@ -31,6 +30,7 @@ class _AppBarPageState extends State<AppBarPage> {
     }
   }
 
+  // This method is used to navigate to the landing page.
   homeFunction() {
     runApp(MaterialApp(
       navigatorKey: navigatorKey,
@@ -87,7 +87,7 @@ class _AppBarPageState extends State<AppBarPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const AuthScreen(error:false)),
+                    builder: (context) => const AuthScreen(error: false)),
               );
             },
           ),
@@ -96,6 +96,7 @@ class _AppBarPageState extends State<AppBarPage> {
                 Icons.logout_outlined,
                 color: appBackGroundColor,
               ),
+              // when it pressed the user is signed out
               onPressed: () => FirebaseAuth.instance.signOut()),
         ),
       ],

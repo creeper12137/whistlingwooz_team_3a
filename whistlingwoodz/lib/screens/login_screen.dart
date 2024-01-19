@@ -6,10 +6,10 @@ import 'package:whistlingwoodz/screens/auth.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 import 'package:whistlingwoodz/widgets/input_field_widget.dart';
 
-
 class LoginScreen extends StatefulWidget {
   final VoidCallback showRegistrationPage;
-  const LoginScreen({super.key, required this.showRegistrationPage,  required this.error});
+  const LoginScreen(
+      {super.key, required this.showRegistrationPage, required this.error});
   final bool error;
 
   @override
@@ -17,10 +17,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  // controllers variables for the text form fields
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool error = false;
 
+  // dispose the controllers
   @override
   void dispose() {
     emailController.dispose();
@@ -28,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  // back function to go back to the previous screen
   Future back() async {
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
@@ -44,16 +47,14 @@ class _LoginScreenState extends State<LoginScreen> {
         password: passwordController.text.trim(),
       );
     } on FirebaseAuthException catch (e) {
-        error = true;
+      error = true;
     }
-    if(error){
+    if (error) {
       Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const AuthScreen(error: true)),
-              );
-    }
-    else{
+        context,
+        MaterialPageRoute(builder: (context) => const AuthScreen(error: true)),
+      );
+    } else {
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
   }
@@ -188,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    
+
                     const SizedBox(
                       height: 70.0,
                     ),
@@ -268,6 +269,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  // validation for each field of the input form
   bool isValidate() {
     if (emailController.text.isEmpty) {
       showScaffold(context, "Please enter your email");

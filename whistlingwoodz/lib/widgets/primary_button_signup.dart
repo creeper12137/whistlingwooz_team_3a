@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 
+// This class for the design of sugnup button in the registration form
 class PrimaryButtonSignUp extends StatelessWidget {
   const PrimaryButtonSignUp({
     required this.text,

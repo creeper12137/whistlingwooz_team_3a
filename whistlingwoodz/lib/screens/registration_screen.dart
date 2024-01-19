@@ -8,7 +8,6 @@ import 'package:whistlingwoodz/widgets/input_field_widget.dart';
 import 'package:whistlingwoodz/widgets/primary_button_signup.dart';
 import 'package:whistlingwoodz/models/user.dart';
 import 'package:whistlingwoodz/models/standard_user.dart';
-// import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
 
 class RegistrationScreen extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -27,11 +26,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   late String test1 = nameController.text.trim();
 
-  
-  
   String genderSelected = "male";
-
-  
 
   @override
   void dispose() {
@@ -47,24 +42,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Future signUp() async {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
-        password: passwordController.text.trim()
-    );
+        password: passwordController.text.trim());
     final currentUser = FirebaseAuth.instance.currentUser!;
 
-    late final user = UserModel(
-      uid:currentUser.uid,
-      fullName : nameController.text.trim(),
-      email: emailController.text.trim(),
-    );
+    // late final user = UserModel(
+    //   uid: currentUser.uid,
+    //   fullName: nameController.text.trim(),
+    //   email: emailController.text.trim(),
+    // );
 
     late final standardUser = StandardUser(
-      uid:currentUser.uid,
-      fullName : nameController.text.trim(),
+      uid: currentUser.uid,
+      fullName: nameController.text.trim(),
       email: emailController.text.trim(),
       standardUser: true,
     );
 
-   
     addUserDetails(standardUser);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
@@ -76,10 +69,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: const AppBarPage(data: false),
       // Fix for pixel exceeding screen.
       resizeToAvoidBottomInset: false,
-      //! Main background colour
+      // Main background colour
       backgroundColor: colorPrimary,
       body: SafeArea(
         child: Column(
@@ -123,18 +115,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             const SizedBox(
               height: 8.0,
             ),
-            // Events block
-            // const Center(
-            //    child: Text(
-            //     "Events",
-            //     style: TextStyle(
-            //       color: colorWhite,
-            //       fontSize: 28.0,
-            //      fontFamily: fontFamily,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //  ),
-            //  ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
             ),
@@ -356,6 +336,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
+  // validation for each field of the input form
   bool isValidate() {
     if (nameController.text.isEmpty) {
       showScaffold(context, "Please enter your name");

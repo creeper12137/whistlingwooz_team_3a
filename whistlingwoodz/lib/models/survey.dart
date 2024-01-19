@@ -1,5 +1,6 @@
 import 'package:cloud_firestore_platform_interface/src/timestamp.dart';
 
+// Survey entity
 class Survey {
   final String id;
   final String message;
@@ -18,6 +19,7 @@ class Survey {
     };
   }
 
+// get methods for all the attributes of the survey entity
   String get eventId {
     return id;
   }

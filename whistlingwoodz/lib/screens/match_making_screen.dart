@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// This class is for the Match Making page.
+// This page has a function only for linking to the Whistlingwoodz website.
 class MatchMaking extends StatefulWidget {
   const MatchMaking({Key? key}) : super(key: key);
 
@@ -39,6 +41,7 @@ class _MatchMakingState extends State<MatchMaking> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(25, 30, 25, 0),
                     child: Column(
+                      // There is only a front-end.
                       children: [
                         _buildSectionTitle('Personal Information:'),
                         _buildFullNameField('Bride'),

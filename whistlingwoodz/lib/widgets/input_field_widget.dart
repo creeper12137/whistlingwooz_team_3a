@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/utils/app_utils.dart';
 
+// This class for the design of all input fields in the login form and registration form
 class InputField extends StatelessWidget {
   const InputField({
     super.key,

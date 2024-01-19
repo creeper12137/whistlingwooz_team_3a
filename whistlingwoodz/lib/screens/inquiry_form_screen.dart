@@ -4,6 +4,7 @@ import 'package:whistlingwoodz/main.dart';
 import 'package:whistlingwoodz/models/inquiry.dart';
 import 'package:uuid/uuid.dart';
 
+// This is the screen for the inquiry form.
 class InquiryForm extends StatefulWidget {
   const InquiryForm({super.key, required this.data});
   final bool data;
@@ -13,12 +14,14 @@ class InquiryForm extends StatefulWidget {
 }
 
 class _InquiryFormState extends State<InquiryForm> {
+  // controllers variables for the text form fields
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNoController = TextEditingController();
   final eventTypeController = TextEditingController();
   final messageController = TextEditingController();
 
+  // dispose the controllers
   @override
   void dispose() {
     nameController.dispose();
@@ -29,11 +32,7 @@ class _InquiryFormState extends State<InquiryForm> {
     super.dispose();
   }
 
-  // function to navigate to previous screen where they were
-  // Future back() async {
-  //   navigatorKey.currentState!.popUntil((route) => route.isFirst);
-  // }
-
+  // This method is used to navigate to the landing page.
   homeFunction() {
     runApp(MaterialApp(
       navigatorKey: navigatorKey,
@@ -47,11 +46,13 @@ class _InquiryFormState extends State<InquiryForm> {
     ));
   }
 
+  // generate unique id for the inquiries collection
   generateId() {
     const uuid = Uuid();
     return uuid.v4();
   }
 
+  // submit button function to save the data in the firestore
   Future submit() async {
     late final inquiry = Inquiry(
       id: generateId().toString(),
@@ -63,10 +64,12 @@ class _InquiryFormState extends State<InquiryForm> {
           : _selectedType,
       message: messageController.text.trim(),
     );
+    // Add the inquiries collection to the firestore
     addInquiryDetails(inquiry);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
+  // This method adds the inquiries collection entered by the user to the firestore.
   Future addInquiryDetails(Inquiry inquiry) async {
     await FirebaseFirestore.instance
         .collection('inquiries')
@@ -122,8 +125,6 @@ class _InquiryFormState extends State<InquiryForm> {
                         const Text(
                           'INQUIRY FORM',
                           style: TextStyle(
-                            // color: Colors.black,
-                            // color: Color(0xffFFD700),
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 2,
@@ -154,6 +155,7 @@ class _InquiryFormState extends State<InquiryForm> {
                                   // type text form field
                                   if (_selectedType != _typeList[3])
                                     _buildType(),
+                                  // if other is selected in the venue drop down menu
                                   if (_selectedType == _typeList[3])
                                     TextFormField(
                                       controller: eventTypeController,
@@ -324,6 +326,7 @@ class _InquiryFormState extends State<InquiryForm> {
           ),
           // when the button is pressed, a dialog box will pop up.
           onPressed: () {
+            // call the submit function here
             submit();
             showDialog(
               context: context,
@@ -334,7 +337,7 @@ class _InquiryFormState extends State<InquiryForm> {
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      // back();
+                      // navigate to the landing page
                       homeFunction();
                     },
                     child: const Text("Close"),

@@ -12,13 +12,16 @@ class WeddingForm extends StatefulWidget {
   State<WeddingForm> createState() => _WeddingState();
 }
 
+// This is a wedding event screen.
 class _WeddingState extends State<WeddingForm> {
+  // controllers variables for the text form fields
   final venueController = TextEditingController();
   final guestNoController = TextEditingController();
   final budgetController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNoController = TextEditingController();
 
+  // dispose the controllers
   @override
   void dispose() {
     venueController.dispose();
@@ -29,15 +32,13 @@ class _WeddingState extends State<WeddingForm> {
     super.dispose();
   }
 
-  // Future back() async {
-  //   navigatorKey.currentState!.popUntil((route) => route.isFirst);
-  // }
-
+  // generate unique id for the corporates collection
   generateId() {
     const uuid = Uuid();
     return uuid.v4();
   }
 
+  // submit button function to save the data in the firestore
   Future submit() async {
     late final wedding = Wedding(
       id: generateId().toString(),
@@ -55,16 +56,19 @@ class _WeddingState extends State<WeddingForm> {
       phoneNo: phoneNoController.text.trim(),
       timeStamp: Timestamp.now(),
     );
+    // Add the weddings collection to the firestore
     addInquiryDetails(wedding);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
+  // This method adds the weddings collection entered by the user to the firestore.
   Future addInquiryDetails(Wedding wedding) async {
     await FirebaseFirestore.instance
         .collection('weddings')
         .add(wedding.toJson());
   }
 
+  // This method is used to navigate to the survey page.
   surveyFunction() {
     runApp(MaterialApp(
       navigatorKey: navigatorKey,
@@ -111,103 +115,6 @@ class _WeddingState extends State<WeddingForm> {
   String _selectedFunction = "Haldi - Mehndi";
   String _selectedVenue = "Hyatt Place Melbourne";
   String _selectedBudget = r"$20,000 - $29,999";
-
-  // submit button
-  Widget _buildSubmit() => SizedBox(
-        width: double.infinity,
-        child: OutlinedButton(
-          style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 26),
-            foregroundColor: Colors.yellowAccent,
-            backgroundColor: Colors.yellow[900],
-            elevation: 15,
-            shadowColor: Colors.grey,
-            shape: const StadiumBorder(),
-          ),
-          onPressed: () {
-            submit();
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: const Text("Form Submitted"),
-                content: const Text("Thank you for your submission!"),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      surveyFunction();
-                    },
-                    child: const Text("Close"),
-                  ),
-                ],
-              ),
-            );
-          },
-          child: Text(
-            "Submit Form".toUpperCase(),
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 2,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      );
-
-  // guest text form field
-  Widget _buildGuest() => TextFormField(
-        controller: guestNoController,
-        keyboardType: TextInputType.number,
-        decoration: const InputDecoration(
-          labelText: "Number of Guests*",
-          prefixIcon: Icon(
-            Icons.group,
-            color: Colors.deepOrangeAccent,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-        ),
-      );
-
-  // email text form field
-  Widget _buildEmail() => TextFormField(
-        controller: emailController,
-        keyboardType: TextInputType.emailAddress,
-        decoration: const InputDecoration(
-          labelText: "Email*",
-          prefixIcon: Icon(
-            Icons.email,
-            color: Colors.deepOrangeAccent,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-        ),
-      );
-
-  // phone text form field
-  Widget _buildPhone() => TextFormField(
-        controller: phoneNoController,
-        keyboardType: TextInputType.phone,
-        decoration: const InputDecoration(
-          labelText: "Phone*",
-          prefixIcon: Icon(
-            Icons.phone,
-            color: Colors.deepOrangeAccent,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-        ),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -266,6 +173,7 @@ class _WeddingState extends State<WeddingForm> {
                                   ),
                                   if (_selectedVenue != _venueList[6])
                                     _buildVenue(),
+                                  // if other is selected in the venue drop down menu
                                   if (_selectedVenue == _venueList[6])
                                     TextFormField(
                                       controller: venueController,
@@ -292,6 +200,7 @@ class _WeddingState extends State<WeddingForm> {
                                   ),
                                   if (_selectedBudget != _budgetList[3])
                                     _buildBudget(),
+                                  // if other is selected in the venue drop down menu
                                   if (_selectedBudget == _budgetList[3])
                                     TextFormField(
                                       controller: budgetController,
@@ -338,6 +247,60 @@ class _WeddingState extends State<WeddingForm> {
       ),
     );
   }
+
+  // guest text form field
+  Widget _buildGuest() => TextFormField(
+        controller: guestNoController,
+        keyboardType: TextInputType.number,
+        decoration: const InputDecoration(
+          labelText: "Number of Guests*",
+          prefixIcon: Icon(
+            Icons.group,
+            color: Colors.deepOrangeAccent,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+        ),
+      );
+
+  // email text form field
+  Widget _buildEmail() => TextFormField(
+        controller: emailController,
+        keyboardType: TextInputType.emailAddress,
+        decoration: const InputDecoration(
+          labelText: "Email*",
+          prefixIcon: Icon(
+            Icons.email,
+            color: Colors.deepOrangeAccent,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+        ),
+      );
+
+  // phone text form field
+  Widget _buildPhone() => TextFormField(
+        controller: phoneNoController,
+        keyboardType: TextInputType.phone,
+        decoration: const InputDecoration(
+          labelText: "Phone*",
+          prefixIcon: Icon(
+            Icons.phone,
+            color: Colors.deepOrangeAccent,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+        ),
+      );
 
   // Theme drop-down menu
   Widget _buildTheme() => DropdownButtonFormField(
@@ -478,6 +441,51 @@ class _WeddingState extends State<WeddingForm> {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
+            ),
+          ),
+        ),
+      );
+
+  // submit button
+  Widget _buildSubmit() => SizedBox(
+        width: double.infinity,
+        child: OutlinedButton(
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 26),
+            foregroundColor: Colors.yellowAccent,
+            backgroundColor: Colors.yellow[900],
+            elevation: 15,
+            shadowColor: Colors.grey,
+            shape: const StadiumBorder(),
+          ),
+          onPressed: () {
+            // call the submit function here
+            submit();
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Form Submitted"),
+                content: const Text("Thank you for your submission!"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      // navigate to the survey page
+                      surveyFunction();
+                    },
+                    child: const Text("Close"),
+                  ),
+                ],
+              ),
+            );
+          },
+          child: Text(
+            "Submit Form".toUpperCase(),
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2,
+              color: Colors.white,
             ),
           ),
         ),

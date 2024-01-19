@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:whistlingwoodz/screens/admin/single_inquiry_screen.dart';
 
+// This is a inquiry list screen.
+// And this screen is used to show all inquiries from the customer.
+// But, it has only front-end part. There is no back-end developed.  (It hasn't developed due to the time issue.)
 class InquiryList extends StatefulWidget {
   const InquiryList({super.key});
 
@@ -9,10 +11,6 @@ class InquiryList extends StatefulWidget {
 }
 
 class _InquiryListState extends State<InquiryList> {
-  void onTabInquiry() {
-    debugPrint("hello.");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -31,7 +29,7 @@ class _InquiryListState extends State<InquiryList> {
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisAlignment: MainAxisAlignment.center,
+                // inquiry table design
                 children: [
                   DataTable(
                       headingTextStyle: const TextStyle(
@@ -46,17 +44,7 @@ class _InquiryListState extends State<InquiryList> {
                       ],
                       rows: [
                         DataRow(cells: [
-                          DataCell(Text("1"),
-                              // showEditIcon: true,
-                              // placeholder: false,
-                              onDoubleTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SingleInquiry(),
-                              ),
-                            );
-                          }),
+                          DataCell(Text("1")),
                           DataCell(Text("Jin")),
                           DataCell(Text("Wedding")),
                           DataCell(Text("New")),

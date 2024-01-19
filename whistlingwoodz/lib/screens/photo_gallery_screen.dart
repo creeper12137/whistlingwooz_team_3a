@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:whistlingwoodz/widgets/app_bar_widget.dart';
-import 'package:whistlingwoodz/widgets/bottom_navigation_bar_widget.dart';
 
+// This class is for the Gallery page.
+// This page has a function only for linking to the Whistlingwoodz website.
 class Galleries extends StatefulWidget {
   const Galleries({super.key});
 
@@ -11,6 +11,7 @@ class Galleries extends StatefulWidget {
 }
 
 class _GalleriesState extends State<Galleries> {
+  // photo gallery list
   final List<ServiceModel> photos = [
     ServiceModel(
       imageUrl: "assets/images/weddingPage.png",
@@ -59,12 +60,14 @@ class _GalleriesState extends State<Galleries> {
             onTap: () {
               _launchURL();
             },
+            // the card that contains the photo gallery
             child: Card(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
                     child: Image.asset(
+                      // as photos list is used, the index is used to get the respective image
                       photos[index].imageUrl,
                       fit: BoxFit.cover,
                     ),
@@ -75,10 +78,10 @@ class _GalleriesState extends State<Galleries> {
           );
         },
       ),
-     
     );
   }
 
+  // Callback function to launch the website
   _launchURL() async {
     final Uri url = Uri.parse('https://whistlingwoodz.com.au/photo-gallery');
     if (await canLaunchUrl(url)) {

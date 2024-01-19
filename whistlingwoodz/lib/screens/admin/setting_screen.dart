@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// This is an admin setting screen.
+// And this screen is used to change the manager's information.
+// But, it has only front-end part. There is no back-end developed.  (It hasn't developed due to the time issue.)
 class AdminSetting extends StatefulWidget {
   const AdminSetting({super.key});
 
@@ -20,12 +23,10 @@ class _AdminSettingState extends State<AdminSetting> {
             height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 225, 225, 225),
-              // gradient: RadialGradient(colors: colors),
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,
@@ -46,6 +47,7 @@ class _AdminSettingState extends State<AdminSetting> {
                   child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
+                    // manager's id
                     children: [
                       Text("admin1@gmail.com",
                           style: TextStyle(
@@ -77,6 +79,7 @@ class _AdminSettingState extends State<AdminSetting> {
                   child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
+                    // manager's password
                     children: [
                       Text(
                         "password123",

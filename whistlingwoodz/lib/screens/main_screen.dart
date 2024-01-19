@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_constructors
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whistlingwoodz/screens/landing_page_screen.dart';
@@ -16,6 +15,7 @@ import 'package:whistlingwoodz/screens/inquiry_form_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:whistlingwoodz/screens/admin/admin_screen.dart';
 
+// This class is for navigating the user to the respective page based on the index.
 class MainScreen extends StatefulWidget {
   const MainScreen(
       {super.key, required this.data, required this.selectedIndex});
@@ -32,24 +32,27 @@ class _MainScreenState extends State<MainScreen> {
 
   List<String> docIDs = [];
 
+  // Loading initial data with initState
   @override
   void initState() {
     super.initState();
+    // Fetch all the document IDs from the users collection
     _fetchDocIds();
   }
 
+  // Fetch all the document IDs from the users collection
   Future<void> _fetchDocIds() async {
     QuerySnapshot querySnapshot = await _firestore.collection('users').get();
     docIDs = querySnapshot.docs.map((doc) => doc.id).toList();
     setState(() {});
   }
 
+  // Check if the current user is an admin
   Future<bool> _isAdmin() async {
     final currentUser = _auth.currentUser;
     if (currentUser == null) {
       return false;
     }
-
     for (var index = 0; index < docIDs.length; index++) {
       DocumentSnapshot snapshot =
           await _firestore.collection('users').doc(docIDs[index]).get();
@@ -64,7 +67,6 @@ class _MainScreenState extends State<MainScreen> {
         }
       }
     }
-
     return false;
   }
 
@@ -75,14 +77,9 @@ class _MainScreenState extends State<MainScreen> {
       body: FutureBuilder<bool>(
         future: _isAdmin(),
         builder: (context, snapshot) {
-          // if (snapshot.connectionState == ConnectionState.waiting) {
-          //   return CircularProgressIndicator(); // Display a loading indicator while fetching data
-          // }
-
           if (snapshot.hasError || snapshot.data == false) {
             return pageSelection(); // Return default page if error or not an admin
           }
-
           // If admin, return the admin page
           return AdminPanel();
         },
@@ -91,6 +88,7 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
+  // Select the page based on the index
   Widget pageSelection() {
     if (widget.selectedIndex == 0) {
       return const WeddingForm(data: false);

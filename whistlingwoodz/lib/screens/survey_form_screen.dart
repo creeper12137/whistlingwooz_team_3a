@@ -4,6 +4,9 @@ import 'package:whistlingwoodz/main.dart';
 import 'package:whistlingwoodz/models/survey.dart';
 import 'package:uuid/uuid.dart';
 
+// This is a survey form screen.
+// This class includes not only the survey form as a front-end
+// but also the logic to generate a unique 6-digits code.
 class SurveyForm extends StatefulWidget {
   const SurveyForm({super.key, required this.data});
   final bool data;
@@ -15,17 +18,20 @@ class SurveyForm extends StatefulWidget {
 class _SurveyFormState extends State<SurveyForm> {
   final messageController = TextEditingController();
 
+  // variables to store each digit of the 6-digits
   String firstSixDigitsPart = "";
   String secondSixDigitsPart = "";
   String thirdSixDigitsPart = "";
   String fourSixDigitsPart = "";
   String sixDigit = "";
 
+  // function to read data from the database
   Future readData() async {
-    fetchData();
+    saveSixDigits();
   }
 
-  Future<void> fetchData() async {
+  // function to fetch event data from the firestore and save the 6-digits in the sixDigit variable
+  Future<void> saveSixDigits() async {
     try {
       // Get the documents from the collection after sorted by the timeStamp
       QuerySnapshot<Map<String, dynamic>> weddingCollection =
@@ -56,6 +62,7 @@ class _SurveyFormState extends State<SurveyForm> {
       List<QueryDocumentSnapshot<Map<String, dynamic>>> partyDocuments =
           partyCollection.docs;
 
+      // get the latest data from the each event collection
       Map<String, dynamic> latestWeddingData = weddingDocuments.first.data();
       Map<String, dynamic> latestCorporateData =
           corporateDocuments.first.data();
@@ -69,32 +76,20 @@ class _SurveyFormState extends State<SurveyForm> {
 
       // sort the latestData list by timestamp
       latestData.sort((a, b) => b['timeStamp'].compareTo(a['timeStamp']));
-      // checking the latestData list
-      // print("Data from the first document: $latestData");
-      // print(latestData[0]["timeStamp"].toString());
-      // print(latestData[1]["timeStamp"].toString());
-      // print(latestData[2]["timeStamp"].toString());
 
       if (latestData.isNotEmpty) {
-        // Accessing the latest data from the document.
-        // Map<String, dynamic> latestData = weddingDocuments.first.data();
+        // From the most recent data (the data you just submitted: latestData),
+        // store as many digits of each type as needed.
         firstSixDigitsPart =
             latestData[0]["type"].toString().toLowerCase().substring(0, 1);
         secondSixDigitsPart = latestData[0]["id"].toString().substring(0, 2);
         thirdSixDigitsPart = latestData[0]["email"].toString().substring(0, 2);
         fourSixDigitsPart = latestData[0]["guestNo"].toString().substring(0, 1);
+        // combine them and store it in the sixDigit variable
         sixDigit = firstSixDigitsPart +
             secondSixDigitsPart +
             thirdSixDigitsPart +
             fourSixDigitsPart;
-
-        // Print data from the first document
-        // print("Unique 6 Digit are: $sixDigit");
-        // // print(firstSixDigitsPart);
-        // // print(secondSixDigitsPart);
-        // // print(thirdSixDigitsPart);
-        // // print(fourSixDigitsPart);
-        // // print(sixDigit);
       } else {
         print("No documents found in the collection.");
       }
@@ -103,6 +98,7 @@ class _SurveyFormState extends State<SurveyForm> {
     }
   }
 
+  // dispose the controllers
   @override
   void dispose() {
     messageController.dispose();
@@ -114,6 +110,7 @@ class _SurveyFormState extends State<SurveyForm> {
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
+  // This method is used to navigate to the landing page.
   homeFunction() {
     runApp(MaterialApp(
       navigatorKey: navigatorKey,
@@ -127,27 +124,32 @@ class _SurveyFormState extends State<SurveyForm> {
     ));
   }
 
+  // generate unique id for the corporates collection
   generateId() {
     const uuid = Uuid();
     return uuid.v4();
   }
 
+  // submit button function to save the data in the firestore
   Future submit() async {
     late final survey = Survey(
       id: generateId().toString(),
       message: messageController.text.trim(),
       timeStamp: Timestamp.now(),
     );
+    // Add the surveys collection to the firestore
     addInquiryDetails(survey);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
+  // This method adds the surveys collection entered by the user to the firestore.
   Future addInquiryDetails(Survey survey) async {
     await FirebaseFirestore.instance.collection('surveys').add(survey.toJson());
   }
 
   @override
   Widget build(BuildContext context) {
+    // read the data from the firestore and save it 6 digits here
     readData();
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -255,6 +257,7 @@ class _SurveyFormState extends State<SurveyForm> {
           ),
           // when the button is pressed, a dialog box will pop up.
           onPressed: () {
+            // call the submit function here
             submit();
             showDialog(
               context: context,
@@ -268,7 +271,7 @@ class _SurveyFormState extends State<SurveyForm> {
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      // back();
+                      // navigate to the landing page
                       homeFunction();
                     },
                     child: const Text("Close"),
@@ -277,7 +280,6 @@ class _SurveyFormState extends State<SurveyForm> {
               ),
             );
           },
-
           child: Text(
             "Submit".toUpperCase(),
             style: const TextStyle(

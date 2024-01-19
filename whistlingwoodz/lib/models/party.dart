@@ -1,6 +1,7 @@
 import 'package:cloud_firestore_platform_interface/src/timestamp.dart';
 import 'package:whistlingwoodz/models/event.dart';
 
+// party entity
 class Party extends Event {
   Timestamp timeStamp;
   Party({
