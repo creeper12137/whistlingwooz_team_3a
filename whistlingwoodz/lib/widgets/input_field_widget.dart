@@ -28,6 +28,9 @@ class InputField extends StatelessWidget {
           color: Colors.white,
           fontFamily: 'Montserrat',
         ),
+        onChanged:(value){
+            
+        },
         // Input text enters at centre and cursor colour
         textAlign: TextAlign.center,
         cursorColor: colorWhite,
